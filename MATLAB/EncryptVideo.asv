@@ -1,0 +1,194 @@
+close all; clear; clc;
+
+% ================= EncryptVideo.m =================
+%   subkey_i = AES-CTR(K, IV, counter i)
+%   XOR information bits, nhét frozen bits, x = u * G_N (G_N = B_N F^{⊗n})
+% K ở paper lấy từ đặc tính kênh (CIR); ở file video dùng khóa chia sẻ tương đương.
+% Polar rate 1/2: Encrypted.avi chỉ xem nhiễu; giải mã từ Encrypted_Data.mat.
+
+%% CẤU HÌNH
+inputVideoFile  = 'Dog.mp4';
+outputVideoFile = 'Encrypted.avi';
+outputDataFile  = 'Encrypted_Data.mat';
+maxSide = [];   % [] = giữ nguyên; 160 = thu nhỏ khi test
+
+N = 1024; R = 0.5; K = N * R;
+% K_phy (paper: trích từ kênh) — ở đây là khóa chia sẻ 128-bit
+KEY_GLOBAL = int8([10, -20, 30, -40, 50, -60, 70, -80, 90, -100, 110, -120, 15, -25, 35, -45]);
+% IV từng khối/frame = SHA-256(plaintext)[:16] (thí nghiệm JCM / MaHoa.m)
+
+if ~isfile(inputVideoFile)
+    error('Không tìm thấy file video gốc: %s', inputVideoFile);
+end
+
+%[Info_Indices, Frozen_Indices] = polar_indices(N, K);
+Reliability = bitrevorder(1:N); 
+Info_Indices = Reliability(N-K+1:end);
+Frozen_Indices = Reliability(1:N-K);
+%polar_selftest(KEY_GLOBAL, N, K, Info_Indices, Frozen_Indices);
+
+fprintf('>> KEY (K_phy stand-in): %s\n', reshape(dec2hex(typecast(KEY_GLOBAL, 'uint8'))', 1, []));
+fprintf('>> Polar (N,K) = (%d,%d)\n', N, K);
+fprintf('>> IV = SHA-256(plaintext)[:16] (de NPCR/UACI nhu Table JCM)\n');
+
+%% BƯỚC 1: MÃ HÓA ÂM THANH (cùng thuật toán Polar + AES-CTR)
+fprintf('\n1. Đang bóc tách và mã hóa âm thanh...\n');
+try
+    [audio_data, Fs] = audioread(inputVideoFile);
+catch
+    warning('Video không có audio. Dùng im lặng 1 kênh 44.1 kHz.');
+    Fs = 44100;
+    audio_data = zeros(Fs, 1);
+end
+audio_size = size(audio_data);
+audio_int16 = int16(audio_data * 32767);
+audio_u8 = typecast(audio_int16(:), 'uint8');
+
+[enc_audio_bytes, iv_audio] = encrypt_polar_aes(audio_u8, KEY_GLOBAL, N, K, Info_Indices, Frozen_Indices);
+
+% Tiếng rè cho AVI: lấy đúng số byte gốc (phần đầu ciphertext)
+preview_audio_u8 = enc_audio_bytes(1:numel(audio_u8));
+enc_audio_int16 = typecast(preview_audio_u8, 'int16');
+enc_audio_double = double(enc_audio_int16) / 32768;
+enc_audio_signal = reshape(enc_audio_double, audio_size);
+
+%% BƯỚC 2: MÃ HÓA TỪNG FRAME
+fprintf('2. Đang mã hóa khung hình video...\n');
+v = VideoReader(inputVideoFile);
+frameRate = v.FrameRate;
+
+useAudio = true;
+try
+    vOut = vision.VideoFileWriter(outputVideoFile, ...
+        'FileFormat', 'AVI', 'FrameRate', frameRate, 'AudioInputPort', true);
+catch
+    warning('Không có Computer Vision Toolbox. Ghi AVI không tiếng.');
+    vOut = VideoWriter(outputVideoFile);
+    vOut.FrameRate = frameRate;
+    open(vOut);
+    useAudio = false;
+end
+
+chunkSize = max(1, round(Fs / frameRate));
+totalAudioSamples = size(enc_audio_signal, 1);
+numChannels = size(enc_audio_signal, 2);
+
+Enc_Frames = {};
+IV_List = {};
+frame_size = [];
+frameCount = 0;
+
+while hasFrame(v)
+    frameCount = frameCount + 1;
+    frame = readFrame(v);
+
+    if ~isempty(maxSide)
+        [H0, W0, ~] = size(frame);
+        sc = maxSide / max(H0, W0);
+        if sc < 1
+            frame = imresize(frame, sc);
+        end
+    end
+
+    [H, W, C] = size(frame);
+    if isempty(frame_size)
+        frame_size = [H, W, C];
+    end
+
+    plain_u8 = frame(:);
+    [cipher_u8, iv_bytes] = encrypt_polar_aes(plain_u8, KEY_GLOBAL, N, K, Info_Indices, Frozen_Indices);
+    Enc_Frames{frameCount, 1} = cipher_u8; %#ok<SAGROW>
+    IV_List{frameCount, 1} = iv_bytes;     %#ok<SAGROW>
+
+    % AVI preview: reshape phần đầu ciphertext về đúng HxWxC (chỉ để xem nhiễu)
+    encrypted_frame = reshape(cipher_u8(1:H*W*C), H, W, C);
+
+    audioChunk = zeros(chunkSize, numChannels);
+    startIdx = (frameCount - 1) * chunkSize + 1;
+    endIdx = startIdx + chunkSize - 1;
+    if startIdx <= totalAudioSamples
+        if endIdx <= totalAudioSamples
+            audioChunk(:,:) = enc_audio_signal(startIdx:endIdx, :);
+        else
+            validLen = totalAudioSamples - startIdx + 1;
+            audioChunk(1:validLen, :) = enc_audio_signal(startIdx:totalAudioSamples, :);
+        end
+    end
+
+    if useAudio
+        step(vOut, encrypted_frame, audioChunk);
+    else
+        writeVideo(vOut, encrypted_frame);
+    end
+
+    if mod(frameCount, 10) == 0
+        fprintf('  Đã mã hóa %d frames\n', frameCount);
+    end
+end
+
+if useAudio
+    release(vOut);
+else
+    close(vOut);
+end
+
+nFrames = frameCount;
+save(outputDataFile, 'enc_audio_bytes', 'iv_audio', 'Fs', 'audio_size', ...
+    'IV_List', 'Enc_Frames', 'frame_size', 'nFrames', 'frameRate', 'N', 'K');
+
+fprintf('\nHoàn tất mã hóa!\n');
+fprintf('  Preview (xem nhiễu): %s\n', outputVideoFile);
+fprintf('  Bản mã đầy đủ:       %s  (%d frames)\n', outputDataFile, nFrames);
+fprintf('Chạy DecryptVideo.m để khôi phục, AnalyzeVideoCrypto.m để đánh giá.\n');
+%% ================= CÁC HÀM HỖ TRỢ (DÁN Ở CUỐI FILE) =================
+function [cipher_u8, iv_bytes] = encrypt_polar_aes(plain_u8, key_bytes, N, K, Info_Indices, Frozen_Indices)
+    import javax.crypto.*;
+    import javax.crypto.spec.*;
+    import java.security.MessageDigest;
+
+    % 1. Sinh IV động từ hàm băm SHA-256 của bản rõ
+    md = MessageDigest.getInstance('SHA-256');
+    plain_int8 = typecast(plain_u8(:), 'int8');
+    hash_bytes = md.digest(plain_int8);
+    iv_bytes = typecast(hash_bytes(1:16), 'int8');
+
+    % 2. Chuẩn bị dữ liệu đầu vào (Chuyển byte thành bit và chia khối K)
+    bits_raw = reshape(dec2bin(plain_u8, 8).' - '0', 1, []);
+    num_blocks = ceil(length(bits_raw) / K);
+    pad_len = num_blocks * K - length(bits_raw);
+    bits_padded = [bits_raw, zeros(1, pad_len)];
+    u_mat = reshape(bits_padded, K, []).';
+
+    % 3. Cấu hình Ma trận sinh Polar Gn
+    n_log = log2(N); Gn = 1; F = [1 0; 1 1];
+    for i = 1:n_log, Gn = kron(Gn, F); end
+
+    % 4. Khởi tạo lõi AES-CTR
+    sKeySpec = javaObject('javax.crypto.spec.SecretKeySpec', key_bytes, 'AES');
+    ivSpec = javaObject('javax.crypto.spec.IvParameterSpec', iv_bytes);
+    aes_obj = javaMethod('getInstance', 'javax.crypto.Cipher', 'AES/CTR/NoPadding');
+    aes_obj.init(1, sKeySpec, ivSpec); % Mode 1 = ENCRYPT
+
+    x_encoded = zeros(num_blocks, N);
+
+    % 5. Vòng lặp mã hóa Crypto-coding cho từng khối
+    for i = 1:num_blocks
+        req_bytes = ceil((N + 64)/8);
+        zeros_in = zeros(1, req_bytes, 'int8');
+        keystream_bytes = aes_obj.update(zeros_in); 
+        
+        bits_out = reshape(dec2bin(typecast(keystream_bytes, 'uint8'), 8).' - '0', 1, []);
+        Mask = bits_out(1:K);       % Khóa AES dành cho bit thông tin
+        Froz = bits_out(K+1:N);     % Khóa AES ngẫu nhiên dành cho bit đóng băng
+        
+        u_full = zeros(1, N);
+        u_full(Info_Indices) = bitxor(u_mat(i, :), Mask); 
+        u_full(Frozen_Indices) = Froz;
+        
+        x_encoded(i, :) = mod(u_full * Gn, 2); % Nhân ma trận sinh
+    end
+
+    % 6. Chuyển đổi lại thành mảng byte uint8
+    x_stream = reshape(x_encoded.', 1, []);
+    cipher_u8 = uint8(bin2dec(reshape(char(x_stream(1:floor(end/8)*8)+'0'), 8, []).'));
+end

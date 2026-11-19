@@ -1,0 +1,332 @@
+Audio Encryption Method Based on Polar codess For Secure Wireless Communication Systems
+Dinh Van Linh1,2
+1 Hanoi University of Science and Technology 
+2 Academy of Cryptography Techniques 
+Hanoi, Vietnam
+vanlinh@actvn.edu.vn
+Tran Duc Thiep
+ Academy of Cryptography Techniques 
+Hanoi, Vietnam
+thiept598@gmail.com
+Pham Van Tiep
+ Academy of Cryptography Techniques 
+Hanoi, Vietnam
+ptiep94@gmail.com
+Bui Duc Trinh
+Academy of Cryptography Techniques 
+Hanoi, Vietnam
+buiductrinh@actvn.edu.vn
+Abstract—Transmitting multimedia files such as audio is a challenging task in secure wireless communication systems. Therefore, encryption methods are required to secure audio content. This work suggests an audio encryption method that gives an effective security level. To achieve this, the pre-distributed key is processed through Advanced Encryption Standard (AES) in Counter (CTR) mode to generate the corresponding subkeys for the audio data blocks. Each subkey is divided into two parts, where the first part is XORed with the information bits containing the audio data, while the remaining part is assigned to the frozen bits. The simulation results demonstrate that the proposed method performs well and is effective against various types of attacks. 
+Keywords—Audio encryption, Polar codess, Information bits, Frozen bits, Secret key, Wireless channel characteristics.
+Introduction 
+The security of audio signal plays an important role in 5G networks, as audio signals not only facilitate convenient information transmission and communication but also create potential opportunities for criminal misuse [1]. The encryption methods are employed to protect the audio signals. However, audio signal is more difficult to encrypt than other types of data since there is the association between adjacent samples. Various audio encryption methods have been proposed, such as mathematical-based approaches [2]–[4], chaos-based schemes [5]–[11], or chaotic maps combined with DNA [12]–[15]. Mathematical-based audio encryption methods typically exhibit weak security due to their deterministic structure, limited randomness, and vulnerability to statistical and cryptanalytic attacks. Chaos-based audio encryption schemes provide high sensitivity and randomness. However, they often suffer from parameter instability and limited cryptographic rigor. Many of these methods are vulnerable to known-plaintext and differential attacks if not carefully designed. Moreover, their computational complexity can be relatively high. Although DNA-based approaches introduce additional randomness, they often incur high complexity and lack strong theoretical security guarantees. In addition, their practical implementation is relatively challenging.
+In recent years, crypto-coding technique has emerged as one of the physical-layer security approaches that has attracted considerable research attention, as it enables joint data encryption and channel coding to be performed in a single step. Crypto-coding technique can be implemented on Turbo codes [16]–[19] and polar codess [20]–[27]. However, crypto-coding techniques based on polar codess offer more significant advantages, as polar codess are currently adopted in fifth generation (5G) networks. These crypto-coding based polar codess use a secret key generated from the characteristics of the wireless channel to manipulate the information bits and frozen bits. The security effectiveness of these methods is only validated through evaluating their resistance to passive eavesdropping attacks, while neglecting their capability to encrypt different types of data and their robustness against other active attacks. Moreover, using a single secret key generated from the characteristics of the wireless channel to encrypt all data blocks may compromise security if the system is subjected to active attacks.
+This study proposes an audio encryption method based on crypto-coding with polar codess. The proposed method is implemented by using a pre-distributed key to derive subkeys corresponding to the input audio blocks through the Advanced Encryption Standard (AES) key derivation function in Counter (CTR) mode. Each subkey is divided into two parts corresponding to the information bits and the frozen bits. The first part of the subkey is XORed with the audio data embedded in the information bits, while the second part is assigned to the frozen bits. The simulation results show that the proposed method encrypts/decrypts well and is highly effective in resisting attacks on encrypted audio files. Several contributions are summarized as follows:
+The AES key derivation function in CTR mode is incorporated to enhance the security of the secret key instead of relying on a single fixed key.
+The audio data contained in the information bits are protected using one part of the subkey, while the remaining part is stored in the frozen bits to enhance diffusion and confusion. This method not only improves audio encryption performance but also resists passive eavesdropping attacks and ensures the reliability of the audio data transmitted over wireless channels.
+The remainder of the paper is organized as follows. Section 2 describes the proposed method. Section 3 gives simulation results, and several conclusions will be provided in Section 4.
+The proposed PLS method based on interleaved and punctured solutions of Turbo codes
+We propose a Crypto-Coding system architecture based on polar codess for encrypting audio signals. The system uses a pre-shared secret key, extended into subkeys by applying the AES with CTR mode to simultaneously control the information Bits and frozen Bits of the polar codes.
+A. Key Generation Mechanism and Subkey Hierarchy
+Assume  is a pre-shared secret key of the symmetric key encryption system. To ensure dynamic security, the AES-CTR algorithm is used as the key derivation function. For the input audio data block (), the subkey is generated as follows:
+                 (1)
+where IV is the initialization vector and  is the counter value of block i.
+The subkey sequence has a length equal to the Polar codes length N , and is mapped into two index sets:
+ (2)
+        (length K): Used to XOR with audio data in information bits.
+       (length N − K): Used to insert into frozen  positions.
+B. Joint Encryption - Coding Process
+The polar codes (N, K) classifies N transmission channels into a set of reliable channels A and a set of noisy channels . The input audio data D is divided into Q small blocks  of length K.
+                                          (3)
+The proposed process for handling the audio block  (of length K) is carried out in three steps to achieve the objective of joint encryption – coding process. The diagram is shown in Fig. 1 . 
+ Securing information Bits: To ensure confidentiality, the data D is concealed by a bitwise XOR operations with the information subkey sequence extracted from the AES-CTR key stream. The resulting bit vector corresponding to the information set A is given by: 
+(4)
+ Randomization of Frozen Bits: Unlike conventional Polar coding, where frozen bits are fixed to zero, the proposed scheme fills the frozen set  using a random subkey sequence:
+ (5)
+The insertion of random subkey enhances the diffusion property and disrupts the decoding process at the eavesdropper, resulting in severe error propagation under successive cancellation (SC) decoding.
+ Polar Encoding: The composite input vector is mapped to the corresponding positions and encoded using the Polar generator matrix  GN to produce the transmitted codeword:
+         (6)
+where, is the bit-reversal permutation matrix, and represents the n-th Kronecker power of the kernel matrix F .
+Fig. 1 . Block diagram of the proposed joint encoding architecture
+C. Joint Decryption - Decoding Process
+At the receiver side, the legitimate user uses to generate the corresponding subkey sequence by AES-CTR mode. The joint decryption - decoding process employs successive cancellation (SC) or successive cancellation list (SCL) decoding. This process requires tight synchronization between the polar channel decoder and the AES-CTR decryptor to correctly recover the original audio signal. The joint decryption – decoding process is illustrated in Fig. 2
+During the joint decryption – decoding process, the decoder removes the frozen-bit subkey to recover the frozen bits of fixed zero values. After decoding the vector , the original is recovered as:
+(7)
+The combination of AES-CTR mode with Polar coding ensures that the system remains resistant to synchronization errors. The use of AES-CTR and XOR operations with frozen bits does not significantly increase computational complexity. The overall complexity of Polar codess remains, enabling real-time audio signal processing.
+If an eavesdropper does not possess secret key K, he can not obtain correctly the subkey sequence, and. Thus, the decoding errors will propagate during the SC decoding process, resulting in a completely distorted recovered signal with a Bit Error Rate close to 0.5,  even when the transmission channel quality is high (high SNR) [25].
+Fig. 2 . Diagram of audio decoding processing process
+Simulation results
+This section presents a detailed performance evaluation of the proposed audio encryption scheme through simulations conducted in MATLAB. The experimental dataset consists of uncompressed ‘.wav‘ audio files, including both mono and stereo signals, with a sampling frequency of Fs = 44.1 kHz and a 16-bit resolution
+A. Visual Analysis
+To verify the effectiveness of structure destruction in the original signal, we conduct a visual evaluation from three perspectives: the time domain (Waveform), the frequency domain (Spectrogram) và and the amplitude distribution (Histogram) for both mono and stereo audio signals..
+ Waveform Analysis:Fig. 3 illustrates the waveform of the original audio signal before and after encryption. It can be observed that the original signal exhibits clear amplitude variations depending on the information content. In contrast, the encrypted signal shows a noise-like distribution within the range [-1,1], completely concealing the amplitude characteristics of the original signal..
+ Spectrogram Analysis: Fig. 4 compares the energy spectra of mono and dual-channel audio signals before and after encoding. The original audio signals exhibit energy concentration mainly in the low- and mid-frequency bands, with distinct spectral structures that reflect their underlying information content. After encoding, the spectral energy is uniformly distributed across the entire bandwidth from 0 to 22 kHz. This spectral flattening effect transforms the encoded signals into noise-like patterns and effectively suppresses frequency-domain analysis attacks.
+ Histogram Analysis: Fig. 5  shows the probability distribution of the signal amplitude. The histogram of the original signal follows a Gaussian distribution (centered around 0). After applying the proposed algorithm, the probability distribution becomes a uniform distribution. This result demonstrates the algorithm's excellent resistance to statistical attacks. 
+(a) Mono: Original and Encrypted Signals
+(b) Dual: Original and Encrypted Signals
+Fig. 3 . Waveform analysis. The encrypted signal exhibits noise-like, structureless characteristics
+(a) Mono: Original and Encrypted Spectrograms
+(b) Dual: Original and Encrypted Spectrograms
+Fig. 4 . Spectrogram analysis. The spectral energy is evenly distributed across the entire frequency band after encoding
+(a) Mono: Original and Encrypted Histograms
+(b) Dual: Original and Encrypted Histograms
+Fig. 5 . Histogram analysis. Probability distribution changes from Gaussian to uniform distribution
+B. Quantitative Analysis
+To confirm safety, we use the following indicators: Correlation Coefficient, Entropy, NPCR/UACI, and PSNR.
+ Correlation Coefficient: the correlation coefficient measures the degree of linear dependency between adjacent samples. It is calculated as follows [7]:
+                            (8)
+where  is the variance and  is the covarience.
+ The results reported in Table I show that original audio signals exhibit extremely high correlation, confirming strong statistical dependence. Specifically, the correlation coefficients for the original samples are 0.9975, 1.0000, 0.9959, 0.9999, and 0.9963 for the Animal, Drum, Piano, Car, and Human samples, respectively, whereas the encrypted signals yield correlation values close to zero indicating that the statistical relationship between the signal samples has been effectively eliminated. As detailed in Table I, the specific correlation coefficients obtained for the encrypted signals are -0.00157 (Animal), 0.00154 (Drum), -0.00056 (Piano), 0.00171 (Car), and 0.00009 (Human), respectively. These results confirm that the encrypted samples are statistically independent, ensuring effective decorrelation. To evaluate the effectiveness of the proposed scheme, we compared our results with existing encryption methods [14], [28], and [29]. As shown in the table, our method achieves correlation values comparable to or lower than these benchmarks. For instance, the result for the 'Animal' sample (-0.0006) in our scheme shows a competitive decorrelation performance compared to the value reported in Ref. [14] (0.0014). Furthermore, our results align with the low correlation ranges reported in Ref. [28] (0.0009–0.0013) and Ref. [29] (0.0011), validating the robustness of the proposed method against statistical attacks.
+Table I: Correlation Coefficient Between the Original Signal and the Encrypted Signal
+Audio Samples
+Ours
+Ref. [14]
+Ref. [28]
+Ref. [29]
+Animal
+-0.00157
+0.0014
+-
+-
+Drum
+0.00154
+-
+-
+-
+Piano
+-0.00056
+0.0004
+-
+-
+Car
+0.001171
+-
+-
+-
+Human
+0.00009
+-0.0005
+-
+-
+Other samples
+-
+-
+0.0009 to 0.0013
+0.0011
+Information Entropy Analysis: Information entropy quantifies the unpredictability and randomness of a signal. The entropy   is defined as:
+                          (9)
+In papers [5] and [10], the ideal entropy for an 8-bit encoded signal is 8, representing a truly random source. Table II display that the entropy of the samples after encoding all reached approximately 7.9989, the proposed scheme achieved entropy values of 7.9990 (Animal), 7.9989 (Drum), 7.9989 (Piano), 7.9990 (Car), and 7.9989 (Human), respectively. These results indicate a high degree of randomness in the ciphertextsvery close to the theoretical value, confirming the high degree of randomness achieved by the proposed schemeccording to coding theory, the maximum entropy value for 8-bit audio samples is 8, which represents a perfectly random source. In our experiments, all tested audio signals, including Animal, Drum, Piano, Car, and Human, achieved entropy values in a stable range of 7.9988 to 7.9989, which is very close to the theoretical maximum. This result indicates that the amplitude distribution of the encrypted audio is almost perfectly uniform.
+By comparison, Ref. [9] reports entropy values ranging from 7.9371 to 7.9473, while Ref. [30] reports values in the range of 7.9966 to 7.9995. These results show that the proposed method achieves significantly better entropy performance. Therefore, the proposed method is extremely effective in resisting statistical analysis attacks.
+Table II: Information Entropy Analysis Results
+Audio Samples
+Ours
+Ref. [9]
+Ref. [30]
+Animal
+7.9990
+-
+Drum
+7.9989
+-
+Piano
+7.9989
+-
+Car
+7.9990
+-
+Human
+7.9989
+-
+Other samples
+7.9371 to 7.9473 
+7.9966 to 7.9995
+Theory
+8.0000
+ Differential Attack Analysis: To assess the sensitivity of the algorithm (avalanche effect), we use two metrics: Number of Samples Change Rate (NSCR) and Unified Mean Change Intensity (UACI). The calculation formula is as follows:
+ (10)
+                 (11)
+Where c1, c2 denote two ciphertexts generated from two slightly different plaintexts, L represents the data length. As reported in Table III, the experimental results (NSCR ≈ 99.61% and UACI ≈ 33.4%) are very close to their theoretical values, demonstrating the strong resistance of the proposed scheme against differential attacks.
+For 8-bit audio signals, the theoretically optimal NSCR value is 99.61%. Experimental results show that the proposed method exhibits near-perfect convergence to this ideal value across all test samples. Looking at the Table III the NSCR indices for the proposed method are 99.60% for animal sounds, 99.59% for drum sounds, 99.60% for piano sounds, 99.63% for car sounds, and 99.62% for human sounds, respectively.
+To further validate the security performance, this paper compares the proposed method with several recent studies, including References [9], [12] and [31]. In Reference [9], the NSCR value ranges from 99.5316% to 99.6201%, while Reference [12] only reaches 98.43%, and Reference [31] has an NSCR value ranging from 99.60354% to 99.61265%. This shows that the proposed method consistently maintains a more stable NSCR value, closer to the theoretical optimal level of 99.61%. This confirms that the interleaving polar code-based encoding algorithm exhibits clear and robust advantages over previously reported methods.
+Furthermore, all audio samples in this study achieved values ​​close to the ideal NSCR threshold, demonstrating not only the ability to effectively eliminate statistical correlations between the original text and the encoded text, but also the independence of encoding performance from the characteristics of the input audio data. As a result, the proposed method provides comprehensive protection against statistical analysis attacks, surpassing conventional methods presented in References [12] and [31], which do not achieve comparable durability.
+UACI (Table IV): The theoretical UACI value for random 8-bit data is approximately 33.46%. As shown in Table IV, our scheme generates ciphertexts with differential intensities extremely close to this ideal value. The UACI values obtained for different audio categories are 33.44% for animal sounds, 33.46% for drum sounds, 33.41% for piano sounds, 33.45% for car sounds, and 33.44% for human sounds,respectively. These results are significantly closer to the theoretical ideal compared to Ref. [6] (which ranges from 32.78% to 32.86%), Ref. [13] (ranging from 33.1% to 33.4%), and Ref. [14] (ranging from 33.34% to 33.37%), respectively. This confirms that the proposed encryption scheme produces a more uniform distribution of differences, thereby offering superior resistance against differential analysis.
+Table III: NSCR Evaluation Results (in %)
+Audio Samples
+Ours
+Ref. [9]
+Ref. [12]
+Ref. [31]
+Animal
+99.60
+-
+-
+-
+Drum
+99.59
+-
+-
+-
+Piano
+99.60
+-
+-
+-
+Car
+99.63
+-
+-
+-
+Human
+99.62
+-
+-
+-
+Other samples
+99.5316 to 99.6201
+98.43
+99.60354 to 99.61265
+Theory
+≈ 99.61
+Table IV: UACI evaluation results (in %)
+Audio Samples
+Ours
+Ref. [6]
+Ref. [13]
+Ref. [14]
+Animal
+33.44
+-
+-
+33.3439
+Drum
+33.46
+-
+-
+33.3547
+Piano
+33.41
+-
+-
+33.3551
+Car
+33.45
+-
+-
+33.3782
+Human
+33.44
+-
+-
+33.3630
+Other samples
+32.7895 to 32.8661
+33.1 to 33.4
+-
+Theory
+≈ 33.46
+Peak Signal-to-Noise Ratio (PSNR)  is used to evaluate the level of distortion between the plaintext and the corresponding ciphertext. A lower PSNR value indicates a higher degree of dissimilarity and, consequently, better encryption performance [10]. The PSNR is calculated as follows:
+         (12)
+"The PSNR values reported in Table V are consistently low across all tested samples. The PSNR results obtained for different audio categories are −29.2413 dB for animal sounds, −29.4593 dB for drum sounds, −26.2086 dB for piano sounds, −25.7494 dB for car sounds, and −25.8253 dB for human sounds,respectively.These negative values indicate that the encrypted signals are significantly different from the original audio signals and exhibit strong noise-like characteristicsIn comparison with previous studies, the proposed method demonstrates superior encryption performance. While the method in Ref.[14] reports PSNR values from -8.50 dB to -14.47 dB, and Ref. [6] presents positive values between 4.41 dB and 4.86 dB, our proposed algorithm achieves significantly lower PSNR values. Furthermore, the result is also considerably lower than the -10.8877 dB reported in Ref.[13]. This substantial reduction in PSNR confirms that the proposed scheme introduces a much higher degree of distortion to the plain audio, thereby ensuring better security against statistical attacks.
+Table V: PSNR Results in dB for Encrypted Audio Signals
+Audio Sample
+Ours
+Ref. [6]
+Ref. [13]
+Ref. [14]
+Animal
+-29.2413
+-
+-
+-10.1874
+Drum
+-29.4593
+-
+-
+-12.1700
+Piano
+-26.2086
+-
+-
+-14.4715
+Car
+-25.7494
+-
+-
+-8.5007
+Human
+-25.8253
+-
+-
+-12.1941
+Other samples
+-
+4.4186 to 4.8659
+-10.8877
+-
+Observe Fig.6  illustrates the spectral representations of different audio samples (animal, car, drum, human voice, and piano) before and after encryption, where the x-axis denotes time, the y-axis denotes frequency, and the signal energy is represented by color intensity. The original audio signals exhibit distinct energy concentrations at specific frequency bands, reflecting their inherent acoustic characteristics, as indicated by the non-uniform color distributions.
+In contrast, the spectra of the encrypted audio signals show a relatively uniform energy distribution over the entire frequency range from 0 to 22 kHz. This spectral flattening effect demonstrates that the proposed method effectively disperses the signal energy, obscures the original spectral features, and thereby enhances resistance against frequenxcy-domain analysis attacks.
+   
+                                            (a)
+                                            (b)
+                                                 (c)
+                                                 (d)
+                                            (e)
+Fig. 6 . Spectrogram before and after audio encryption: (a) Audio Animal, (b) Audio Car, (c) Audio Drum, (d)Audio Human, (e) Audio Piano
+Fig.7  presents the frequency histogram, which is used to analyze and evaluate changes in the amplitude probability distribution of a given audio signal with respect to statistical attack resistance. For the original audio signal, the histogram exhibits a non-uniform distribution, typically showing a strong concentration around zero or following a Gaussian (bell-shaped) distribution. Such characteristics indicate clear statistical features in the original data, which can be easily exploited by attackers.
+After applying the proposed encryption method, the frequency histogram approaches a uniform distribution. The amplitude values are evenly spread across the entire dynamic range without any noticeable concentration or regular pattern. These results demonstrate that the proposed system effectively suppresses statistical characteristics of the original signal and provides strong resistance against statistical analysis attacks, as no exploitable amplitude patterns can be identified in the encrypted signal.
+                                               (a)
+                                                     (b)
+Fig . 7 . Histrogram before and after audio encryption: (a) Audio Animal, (b) Audio Car
+Fig.8  illustrates the correlation distribution of adjacent samples for different audio signals before and after encoding. For the original audio signals, a strong linear correlation can be observed, as the data points are densely concentrated along the diagonal, indicating a high dependence between neighboring samples and revealing the inherent signal structure.
+In contrast, the encoded audio signals exhibit high dispersion and randomness, with no clear correlation pattern. The uniform distribution of points across the entire plane suggests that the proposed encoding method effectively eliminates statistical correlation between adjacent samples. This significant reduction in correlation demonstrates the ability of the proposed method to resist correlation-based and statistical attacks.
+(a)
+(b)
+(c)
+(d)
+(e)
+Fig . 8 . Correlation before and after audio encryption: (a) Audio Animal , (b) Audio Drum, (c) Audio Car , (d) Audio Human, (e) Audio Piano
+C. Chosen/Known Plaintext Analysis
+Known Plaintext Attacks (KPA) and Chosen-Plaintext Attacks (CPA) typically rely on discovering linear relationships or deterministic patterns between the plaintext and the ciphertext in order to infer the secret key. The proposed method effectively resists these types of attacks, as demonstrated through both theoretical analysis and experimental evaluation. Theoretically, the system employs AES in CTR mode to generate the keystream. Owing to the nonlinear nature of AES and the use of a varying IV, each data block is encrypted with a unique subkey. Consequently, deriving the original secret key from plaintext–ciphertext pairs is computationally impossible. Experimentally, we perform simulations of two hypothetical attack scenarios to verify the security of the proposed scheme.
+    KPA scenario: It is assumed that the attacker knows the plaintext of the “Animal” audio file and extracts the corresponding keystream (Key A). The attacker then reuses this keystream to decrypt another file, “Drum” (encrypted with Key B). The results show that the two keystreams are completely different. The decryption error map in  Fig . 9  indicates a Bit Error Rate (BER) of 49.56%, meaning the decrypted output is essentially random noise.
+The BER metric is use to evaluate the difference betweeen the extract keystream and the actual keystrem, caculated as:
+        (13)
+Where L is the keystream length.
+    CPA scenario: The attacker selects a special input, namely an all-zero sequence (“Silence”), feeds it into the system, and obtains the corresponding keystream (Key C). This keystream is then used to decrypt the “Drum” file. The results (Fig . 10)   show a BER of 50.08%. BER values close to 50% in both  scenarios confirm that the system achieves strong confusion and diffusion properties. Even a minor change in the plaintext or the key-generation parameters (IV/Counter) leads to a completely different keystream, effectively preventing any reuse of information from KPA/CPA attacks.
+In the cryptanalysis at [32] demonstrates that the secret key can be fully recovered, which is equivalent to the BER dropping to 0% (a total break) and exposing the original audio. In contrast, our proposed scheme maintains a BER of 50.08% under similar CPA conditions (Fig. 10), proving that the attacker recovers nothing but random noise. These results confirm that the suggested approach successfully addresses the structural flaws of chaotic key-chaining, offering enhanced cryptographic robustness to thwart chosen-plaintext analysis.
+Fig . 9 . Resistance to Known-Plaintext Attack (KPA) Scenario
+Fig . 10 . Resistance to Chosen-Plaintext Attack (CPA) Scenario
+Conclusion
+This paper proposes an audio encryption method based on the Polar encryption algorithm combined with the AES algorithm operating in CTR mode to ensure the reliability and security of data transmission in secure wireless communication systems. The proposed system employs the AES-CTR key generation function to generate dynamic subkeys for each data block, thereby overcoming the drawbacks of fixed-key usage and enhancing security at the physical layer. MATLAB simulation results demonstrate the superior performance of the proposed method, with information entropy close to the ideal value (7.9989), a correlation coefficient close to zero, sensitivity metrics meeting security standards (NPCR ≈ 99.61%, UACI ≈ 33.48%), and a low PSNR value. These results indicate that the proposed method is highly effective for audio encryption and provides strong protection against various attacks. The method is suitable for implementation in 5G wireless communication systems and real-time multimedia security applications. In future work, the proposed approach will be deployed on hardware architectures, and proactive attacks will be evaluated to validate its practical feasibility.
+References
+[1]J. He, P. Zhu, Z. Liu, and Y. Cao, “A Novel Digital Audio Encryption and Forensics Watermarking Scheme,” IEEE Access, vol. 12, no. August, pp. 103565–103582, 2024, doi: 10.1109/ACCESS.2024.3434576.
+[2]A. Maity and B. C. Dhara, “An Audio Encryption Scheme Based on Empirical Mode Decomposition and 2D Cosine Logistic Map,” IEEE Lat. Am. Trans., vol. 22, no. 4, pp. 267–275, 2024, doi: 10.1109/TLA.2024.10472959.
+[3]G. Alzeer and H. Alhumyani, “Efficient Audio Encryption Using a Discrete Cosine Transform and Baker Map,” 2022 Fifth Natl. Conf. Saudi Comput. Coll., pp. 201–208, 2022, doi: 10.1109/NCCC57165.2022.10067440.
+[4]J. B. Lima and E. F. Da Silva Neto, “Audio encryption based on the cosine number transform,” Multimed. Tools Appl., vol. 75, no. 14, pp. 8403–8418, 2016, doi: 10.1007/s11042-015-2755-6.
+[5]T. Haridas, S. D. Upasana, G. Vyshnavi, M. S. Krishnan, and S. S. Muni, “Chaos-based audio encryption: Efficacy of 2D and 3D hyperchaotic systems,” Franklin Open, vol. 8, no. June, p. 100158, 2024, doi: 10.1016/j.fraope.2024.100158.
+[6]W. Dai, X. Xu, X. Song, and G. Li, “Audio encryption algorithm based on chen memristor chaotic system,” Symmetry (Basel)., vol. 14, no. 1, pp. 1–19, 2022, doi: 10.3390/sym14010017.
+[7]I. A. Taqi and S. M. Hameed, “A Secure Audio Encryption Method Using Tent-Controlled Permutation and Logistic Map-Based Key Generation,” Comput. Mater. Contin., vol. 85, no. 1, pp. 1653–1674, 2025, doi: 10.32604/cmc.2025.067524.
+[8]E. A. Albahrani, T. K. Alshekly, and S. H. Lafta, “A Review on Audio Encryption Algorithms Using Chaos Maps-Based Techniques,” J. Cyber Secur. Mobil., vol. 11, no. 1, pp. 53–82, 2022, doi: 10.13052/jcsm2245-1439.1113.
+[9]H. Aziz, S. M. M. Gilani, I. Hussain, A. K. Janjua, and S. Khurram, “A Noise-Tolerant Audio Encryption Framework Designed by the Application of S8Symmetric Group and Chaotic Systems,” Math. Probl. Eng., vol. 2021, 2021, doi: 10.1155/2021/5554707.
+[10]S. Adhikari and S. Karforma, “A novel audio encryption method using Henon–Tent chaotic pseudo random number sequence,” Int. J. Inf. Technol., vol. 13, no. 4, pp. 1463–1471, 2021, doi: 10.1007/s41870-021-00714-x.
+[11]H. Djamel, A. Herbadji, I. haddad, H. Kahia, A. Belmeguenai, and N. Derouiche, “An enhanced logistic chaotic map based tweakable speech encryption algorithm,” Integration, vol. 97, no. March, p. 102192, 2024, doi: 10.1016/j.vlsi.2024.102192.
+[12]M. Mujtaba and M. Singh, “Optimizing Audio Encryption Efficiency : A Novel Framework Using Double DNA Operations and Chaotic Map-Based Techniques,” Comput. Electr. Eng., vol. 123, no. PB, p. 110088, 2025, doi: 10.1016/j.compeleceng.2025.110088.
+[13]A. Kumar and M. Dua, “Audio encryption using two chaotic map based dynamic diffusion and double DNA encoding,” Appl. Acoust., vol. 203, p. 109196, 2023, doi: 10.1016/j.apacoust.2022.109196.
+[14]X. Wang and Y. Su, “An Audio Encryption Algorithm Based on DNA Coding and Chaotic System,” IEEE Access, vol. 8, pp. 9260–9270, 2020, doi: 10.1109/ACCESS.2019.2963329.
+[15]M. Nassef, “An Intelligent Audio Encryption and Compression Algorithm Inspired by the Encoding of Various Biological Sequences,” IEEE Access, vol. 13, no. July, pp. 126334–126354, 2025, doi: 10.1109/ACCESS.2025.3588764.
+[16]V. Kovtun and Y. Ivanov, “Crypto coding system based on the turbo codes with secret keys,” ICT Express, vol. 10, no. 2, pp. 330–335, 2024, doi: 10.1016/j.icte.2023.08.007.
+[17]D. Van Linh and V. Van Yem, “A Novel Scheme for Joint Error Control and Dynamic Security Coding Using Puncturing Mechanism,” J. Commun., vol. 17, no. 11, pp. 948–955, 2022, doi: 10.12720/jcm.17.11.948-955.
+[18]D. Van Linh, Y. V. Van, and T. P. T. Hoang, “A Hybrid of Encryption and Error Correction Method for Multiple-Input Multiple-Output Wireless Communication Systems,” Int. J. Commun. Networks Distrib. Syst., vol. 30, no. 1, 2024, doi: 10.1504/ijcnds.2024.10061300.
+[19]D. Van Linh and V. Van Yem, “A turbo‐based encryption and coding scheme for multiple‐input multiple‐output orthogonal,” IET Commun., no. 17, pp. 632–640, 2023, doi: 10.1049/cmu2.12568.
+[20]Y. Yang and W. Li, “Security-Oriented Polar Coding Based on Channel-Gain-Mapped Frozen Bits,” IEEE Trans. Wirel. Commun., vol. 21, no. 8, pp. 6584–6596, 2022, doi: 10.1109/TWC.2022.3151188.
+[21]Y. Zeng, Y. Tang, and L. Xiang, “Physical Layer Security Design for Polar Code Construction,” Cryptography, vol. 6, no. 3, 2022, doi: 10.3390/cryptography6030035.
+[22]Y. Xiao, B. Wang, Z. Wang, Z. Zhou, and J. He, “One-time pad scheme based on polar code and OFDM for MMW-RoF system at W-band,” Opt. Express, vol. 30, no. 3, p. 4412, 2022, doi: 10.1364/oe.450878.
+[23]T. M. S. Pinto, J. P. Vilela, M. A. C. Gomes, and W. K. Harrison, “Keyed Polar Coding for Physical-Layer Security without Channel State Information,” IEEE Int. Conf. Commun., 2021, doi: 10.1109/ICC42927.2021.9500357.
+[24]X. Lu, J. Lei, W. Li, K. Lai, and Z. Pan, “Physical layer encryption algorithm based on polar codes and chaotic sequences,” IEEE Access, vol. 7, pp. 4380–4390, 2019, doi: 10.1109/ACCESS.2018.2888883.
+[25]D. Van Linh, V. Van Yem, and H. T. P. Thao, “Crypto-coding technique based on polar code and secret key generated from wireless channel characteristics for wireless communication systems,” PLoS One, vol. 20, no. 2 February, pp. 1–20, 2025, doi: 10.1371/journal.pone.0318110.
+[26]K. H. Moussa, S. Shaaban, and A. H. El-Sakka, “Secured polar code derived from random hopped frozen-bits,” Wirel. Networks, vol. 29, no. 1, pp. 423–435, 2023, doi: 10.1007/s11276-022-03127-1.
+[27]C. An, M. Huang, X. Lu, L. Bi, and W. Li, “Polar code-based secure transmission with higher message rate combining channel entropy and computational entropy,” Cybersecurity, vol. 7, no. 1, 2024, doi: 10.1186/s42400-024-00229-5.
+[28]F. J. Farsana, V. R. Devi, and K. Gopakumar, “An audio encryption scheme based on Fast Walsh Hadamard Transform and mixed chaotic keystreams,” Appl. Comput. Informatics, vol. 19, no. 3–4, pp. 239–264, 2023, doi: 10.1016/j.aci.2019.10.001.
+[29]A. Belmeguenai, Z. Ahmida, S. Ouchtati, and R. Djemii, “A novel approach based on stream cipher for selective speech encryption,” Int. J. Speech Technol., vol. 20, no. 3, pp. 685–698, 2017, doi: 10.1007/s10772-017-9439-8.
+[30]D. Shah, T. Shah, and S. S. Jamal, “Digital audio signals encryption by Mobius transformation and Hénon map,” Multimed. Syst., vol. 26, no. 2, pp. 235–245, 2020, doi: 10.1007/s00530-019-00640-w.
+[31]M. Y. Mohamed Parvees, J. Abdul Samath, and B. Parameswaran Bose, “Audio encryption - a chaos-based data byte scrambling technique,” Int. J. Appl. Syst. Stud., vol. 8, no. 1, pp. 51–75, 2018, doi: 10.1504/IJASS.2018.091847.
+[32]         M. El Hanouti, A. El Emami, and E. H. El Kinani, "Security analysis of an audio data encryption scheme based on key chaining and DNA encoding," Signal Processing, vol. 164, pp. 235-241, 2019.

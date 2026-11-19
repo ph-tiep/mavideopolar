@@ -1,0 +1,26 @@
+Recent docx:
+  1787504798 |  3412764 | Seminar học viện_2026.docx
+  1780338660 |   166493 | 1.docx
+  1776189028 | 12003605 | BaocaoNCKH Final 104.docx
+  1775755510 | 14219623 | BaocaoNCKH Final 74.docx
+  1774760853 |  5058862 | Báo cáo_NCK44444.docx
+  1774753663 |   660298 | baocaoVCRIS.docx
+  1774111489 |  4814259 | Báo cáo_NCKH22222.docx
+  1774023168 |  1786476 | Chuyên đề 2.2-Done.docx
+  1773823381 |  1824160 | Báo cáo_NCKH11111111.docx
+  1770198460 |    26778 | doc1.docx
+  1770198436 |    27840 | Doc2.docx
+  1769838795 |    13573 | Tran Duc Thiep.docx
+  1769838778 |    13548 | Pham Van Tiep.docx
+
+READING:
+- Audio_Encryption doneeeeeeeeeeeeeeeeee 27-1.docx
+- Audio_Encryption_24-1 done1111.docx
+- BaocaoNCKH Final 104.docx
+- Tóm tắt.docx
+- Seminar học viện_2026.docx
+OK Audio_Encryption doneeeeeeeeeeeeeeeeee 27-1.docx -> Audio_Encryption_doneeeeeeeeeeeeeeeeee_27-1.txt (34830 chars)
+OK Audio_Encryption_24-1 done1111.docx -> Audio_Encryption_24-1_done1111.txt (24849 chars)
+OK BaocaoNCKH Final 104.docx -> BaocaoNCKH_Final_104.txt (60000 chars)
+OK Tóm tắt.docx -> Tóm_tắt.txt (60000 chars)
+OK Seminar học viện_2026.docx -> Seminar_học_viện_2026.txt (60000 chars)

@@ -1,0 +1,621 @@
+BAN CƠ YẾU CHÍNH PHỦ
+HỌC VIỆN KỸ THUẬT MẬT MÃ
+BÁO CÁO CHUYÊN ĐỀ 
+ĐỀ TÀI: Nghiên cứu kỹ thuật mã hóa dữ liệu dựa vào mã phân cực kết hợp khóa bí mật sinh ra từ đặc tính kênh truyền vô tuyến cho hệ thống thông tin vô tuyến
+(Crypto-coding technique based on polar code and secret key generated from wireless channel characteristics for wireless communication systems)
+Báo cáo viên thực hiện:  TS. Đinh Văn Linh 
+                                           ThS. Phạm Thúy An  
+Hà Nội, Tháng 04/2026
+MỤC LỤC
+MỤC LỤC2
+DANH MỤC CÁC KÝ HIỆU, CÁC CHỮ VIẾT TẮT5
+DANH MỤC HÌNH VẼ7
+DANH MỤC BẢNG BIỂU9
+LỜI MỞ ĐẦU10
+CHƯƠNG 1: CƠ SỞ LÝ THUYẾT VỀ MÃ PHÂN CỰC VÀ KỸ THUẬT CHỐNG TẤN CÔNG NGHE LÉN12
+1.1 Tấn công nghe lén trên kênh vô tuyến12
+1.1.1 Đặc tính vật lý của kênh vô tuyến trong môi trường 5G12
+1.1.2 Mô hình kênh nghe nén12
+1.1.3 Phân loại tấn công nghe lén13
+1.2 Các kỹ thuật chống tấn công nghe lén13
+1.2.1 Bảo mật bằng mật mã truyền thống13
+1.2.2 Bảo mật lớp vật lý13
+1.3 Lý thuyết mã kênh và mã hóa bảo mật14
+1.3.1 Khái niệm mã kênh và ứng dụng trong truyền thông14
+1.3.2 Mối liên hệ giữa mã hóa bảo mật và mã kênh15
+1.3.3 Xu hướng tích hợp mã hóa và mã sửa lỗi (Crypto-coding)16
+1.4 Giới thiệu chung về mã phân cực17
+1.5 Nguyên lí phân cực kênh18
+1.5.1 Kênh B-DMC được mô tả bởi:18
+1.5.2 Qúa trình kết hợp và tách kênh18
+1.5.3 Hiện tương phân cực19
+1.6 Cấu trúc mã phân cực19
+1.7 Giải mã phân cực22
+1.8 Đánh giá ưu, nhược điểm của mã phân cực23
+1.9 Cấu trục mã phân cực trong thực tế24
+1.9.1 Vai trò của mã phân cực trong 5G NR24
+1.9.2 Quy trình mã hóa phân cực trong 5G NR24
+1.9.3 Lựa chọn tập bit đóng băng25
+1.9.4 Độ dài mã và tốc độ mã trong 5G NR25
+1.9.5 Ưu điểm triển khai trong 5G NR26
+1.10 Ứng dụng của mã phân cực26
+1.10.1 Hệ thống thông tin di động 5G27
+1.10.2 Hệ thống truyền thông vệ tinh và không gian27
+1.10.3 Mạng cảm biến không dây (wireless sensor networks - WSN)28
+1.10.4 Hệ thống truyền thông tốc độ cao29
+1.10.5 Truyền thông trong môi trường IoT30
+1.10.6 Liên lạc âm học dưới nước30
+1.11 Kết luận32
+CHƯƠNG 2: ĐỀ XUẤT THUẬT TOÁN MÃ HÓA CHỐNG NGHE LÉN DỰA TRÊN MÃ PHÂN CỰC33
+2.1 Mô hình hệ thống thông tin vô tuyến truyền thống33
+2.2 Kỹ thuật mã hóa dữ liệu và mã hóa kênh trên cùng một bước(Crypto- coding)33
+2.3 Kiến trúc mã hóa đề xuất35
+2.3.1 Cơ chế dẫn xuất khóa con và cấu trúc phân cấp (AES-CTR)36
+2.3.2 Cơ chế tạo khóa và hệ thống phân cấp khóa37
+2.3.3 Quy trình mã hóa và xử lý dữ liệu38
+2.3.4 Quy trình giải mã tại phía thu41
+2.4 Hiệu quả vận hành và tính thực tế43
+2.4.1 Ưu điểm về hiệu năng phần cứng44
+2.5 Kết luận45
+CHƯƠNG 3: KẾT QỦA THỰC NGHIỆM VÀ ĐÁNH GIÁ46
+3.1 Giới thiệu phần mềm MATLAB46
+3.2 Thiết lập môi trường mô phỏng và đánh giá tính ngẫu nhiên của khóa47
+3.3 Đánh giá khả năng sửa lỗi của phương pháp đề xuất50
+3.4 Hiệu suất bảo mật52
+3.5 Độ phức tạp tính toán54
+3.6 Kết luận và hướng phát triển56
+TÀI LIỆU THAM KHẢO58
+DANH MỤC CÁC KÝ HIỆU, CÁC CHỮ VIẾT TẮT
+Viết tắt
+Tiếng Anh
+Tiếng Việt
+5G NR
+5G New Radio
+Tiêu chuẩn vô tuyến mới cho mạng 5G
+AES
+Advanced Encryption Standard
+Chuẩn mã hóa tiên tiến
+AWGN
+Additive White Gaussian Noise
+Nhiễu trắng cộng tính Gaussian
+B-DMC
+Binary-Input Discrete Memoryless Channel
+Kênh nhị phân đầu vào rời rạc không nhớ
+BER
+Bit Error Rate
+Tỷ lệ lỗi bit
+CIR
+Channel Impulse Response
+Đáp ứng xung kênh
+CRC
+Cyclic Redundancy Check
+Kiểm tra dư thừa vòng
+CTR
+Counter Mode
+Chế độ bộ đếm
+CSI 
+Channel State Information
+Thông tin trạng thái kênh
+GM
+Generator Matrix
+Ma trận sinh
+IV
+Initialization Vector
+Vector khởi tạo
+KDF
+Key Derivation Function
+Hàm dẫn xuất khóa
+KPA
+Known-Plaintext Attack
+Tấn công bản rõ đã biết
+LDPC
+Low-Density Parity-Check
+Mã kiểm tra chẵn lẻ mật độ thấp
+NIST
+National Institute of Standards and Technology
+Viện Tiêu chuẩn và Công nghệ Quốc gia Hoa Kỳ
+NSCR
+Number of Samples Change Rate
+Tỷ lệ thay đổi mẫu
+PLS
+Physical Layer Security
+Bảo mật lớp vật lý
+PBCH
+Physical Broadcast Channel
+Kênh quảng bá vật lý
+PDCCH
+Physical Downlink Control Channel
+Kênh điều khiển đường xuống vật lý
+PSNR
+Peak Signal-to-Noise Ratio
+Tỷ lệ tín hiệu cực đại trên nhiễu
+PUCCH
+Physical Uplink Control Channel
+Kênh điều khiển đường lên vật lý
+SC
+Successive Cancellation
+Giải mã hủy liên tiếp
+SCL
+Successive Cancellation List
+Giải mã danh sách hủy liên tiếp
+SNR
+Signal-to-Noise Ratio
+Tỷ lệ tín hiệu trên nhiễu
+TDD
+Time Division Duplexing
+Song công phân chia theo thời gian
+UACI
+Unified Average Changed Intensity
+Cường độ thay đổi trung bình thống nhất
+URLLC
+Ultra-Reliable and Low Latency Communications
+Truyền thông siêu tin cậy và độ trễ thấp
+WSN
+Wireless Sensor Networks
+Mạng cảm biến không dây
+DANH MỤC HÌNH VẼ
+Hình 1.1. Mô hình hệ thống13
+Hình 1.2. Cấu hình kênh  21
+Hình 1.3. Cấu hình chung của kênh 22
+Hình 1.4. Ứng dụng của mã cực trong mạng 5G27
+Hình 1.5. Truyền thông vệ tinh và không gian28
+Hình 1.6. Mạng cảm biến không dây29
+Hình 1.7. Mạng liên lạc IoT30
+Hình 1.8. Minh họa liên lạc dưới nước của AUV31
+Hình 2.1. Các hệ thống thông tin liên lạc đa anten truyền thống33
+Hình 2.2. Các hệ thống truyền thông áp dụng kỹ thuật mã hóa mật mã34
+Hình 2.3. Đảm bảo liên lạc an toàn giữa Alice và Bob35
+Hình 2.4. Mô hình tổng quát của phương pháp đề xuất36
+Hình 2.5. Sơ đồ khối của kiến trúc mã hóa chung được đề xuất.41
+Hình 2.6. Sơ đồ quán trình xử lý giải mã44
+Hình 3.1. Các tính năng của MATLAB47
+Hình 3.2. Tỷ lệ lỗi bit (BER) của các hệ thống sử dụng mã cực thông thường và mã cực bảo mật được đề xuất trong trường hợp N = 1024 và R đã được sửa đổi.53
+Hình 3.3. Tỷ lệ lỗi bit (BER) của các hệ thống sử dụng mã cực thông thường và mã cực bảo mật được đề xuất trong trường hợp và R đã được sửa đổi53
+Hình 3.4. Tỷ lệ lỗi bit (BER) của các hệ thống sử dụng mã cực thông thường và mã cực bảo mật được đề xuất trong trường hợp R = 1/4 và N đã được sửa đổi.54
+Hình 3.5. Tỷ lệ lỗi bit (BER) của các hệ thống sử dụng mã cực thông thường và mã cực bảo mật được đề xuất trong trường hợp R = 1/8 và N đã được sửa đổi.54
+Hình 3.6. Hiệu suất bảo mật cho , .55
+Hình 3.7. Hiệu suất bảo mật cho  55
+DANH MỤC BẢNG BIỂU
+Bảng 1. Các thông số cho một số bài kiểm tra của NIST47
+Bảng 2. Các giá trị đã kiểm tra của các bài kiểm tra NIST bắt buộc48
+Bảng 3. Các thông số mô phỏng49
+Bảng 4. So sánh phương pháp của chúng tôi với các phương pháp trước đây cho N = 1024 và R = 1/251
+Bảng 5. So sánh hiệu suất bảo mật của phương pháp đề xuất và các phương pháp trước đây.54
+Bảng 6. Độ phức tạp thời gian tổng thể của mã cực thông thường và mã cực an toàn được đề xuất với R = 1/255
+Bảng 7. So sánh độ phức tạp của thuật toán đề xuất và các thuật toán trước đó.55
+LỜI MỞ ĐẦU
+Trong bối cảnh cuộc Cách mạng Công nghiệp 4.0 đang diễn ra mạnh mẽ, sự bùng nổ của mạng di động thế hệ thứ năm (5G) không chỉ đơn thuần là một bước tiến về tốc độ truyền tải, mà còn mở ra kỷ nguyên kết nối vạn vật (IoT) với mật độ thiết bị khổng lồ và độ trễ cực thấp. Tuy nhiên, song hành cùng những tiện ích vượt trội đó là những thách thức an ninh mạng ngày càng tinh vi. Do đặc tính lan truyền đa hướng và phát quảng bá công khai của sóng vô tuyến, môi trường truyền dẫn 5G trở nên cực kỳ mong manh trước các nguy cơ bảo mật, đặc biệt là tấn công nghe lén . Kẻ tấn công có thể dễ dàng sử dụng các thiết bị thu sóng để âm thầm đánh chặn, thu thập trái phép thông tin nhạy cảm mà không để lại bất kỳ dấu vết can thiệp nào lên hệ thống.
+Việc phòng chống tấn công nghe lén trên mạng 5G hiện nay đang đối mặt với những rào cản kỹ thuật mang tính đặc thù. Các phương pháp mật mã truyền thống ở các lớp mạng phía trên  thường đòi hỏi chi phí tính toán lớn, làm tăng độ trễ và tiêu thụ nhiều năng lượng. Điều này khó có thể đáp ứng được các yêu cầu thời gian thực khắt khe cũng như giới hạn về tài nguyên phần cứng của các thiết bị đầu cuối trong mạng 5G. Do đó, việc tìm kiếm các giải pháp bảo vệ dữ liệu ở cấp độ tín hiệu vật lý, điển hình là Bảo mật lớp vật lý (Physical Layer Security - PLS) đang trở thành xu hướng tất yếu nhằm chặn đứng kẻ nghe lén ngay từ nguồn phát.
+Thực tế cho thấy, nhiều phương pháp bảo mật hiện đại dù phức tạp nhưng vẫn bộc lộ điểm yếu về tính ổn định, độ nhạy đối với nhiễu kênh truyền và đặc biệt là thiếu vắng một cơ chế tích hợp đồng thời giữa mã hóa an toàn và sửa lỗi tín hiệu. Xuất phát từ nhu cầu thực tiễn đó, nghiên cứu này tập trung đề xuất một kỹ thuật chống tấn công nghe lén tiên tiến dựa trên phương pháp Crypto-coding, sử dụng mã phân cực (Polar codes) loại mã kênh đầu tiên trong lịch sử chứng minh được khả năng tiệm cận dung năng Shannon và đã được chuẩn hóa chính thức trong tiêu chuẩn 5G NR.
+Trọng tâm của đề tài là xây dựng một kiến trúc bảo mật đa lớp nhằm vô hiệu hóa hoàn toàn khả năng giải mã của kẻ nghe lén. Quá trình bắt đầu từ việc thiết lập cơ chế tạo khóa động khai thác tính ngẫu nhiên của kênh truyền vô tuyến, kết hợp cùng chuẩn mã hóa tiên tiến AES vận hành ở chế độ bộ đếm (CTR). Điểm đột phá của nghiên cứu nằm ở chiến lược tối ưu hóa cấu trúc mã phân cực thông qua việc ngẫu nhiên hóa các bit đóng băng (frozen bits). Thay vì cố định các vị trí kênh nhiễu bằng giá trị 0 như truyền thống, kỹ thuật này lấp đầy chúng bằng chuỗi khóa ngẫu nhiên. Cơ chế này không chỉ che giấu dữ liệu mà còn chủ động gây ra hiệu ứng lan truyền lỗi  cực lớn đối với bất kỳ thiết bị nghe lén nào không sở hữu khóa hợp lệ, đẩy tỷ lệ lỗi bit (BER) của chúng lên mức tối đa. Trong khi đó, tính toàn vẹn và khả năng phục hồi tín hiệu hoàn hảo vẫn được đảm bảo cho người dùng hợp pháp.
+Toàn bộ nội dung báo cáo được cấu trúc  trong 3 chương, từ việc xây dựng nền tảng lý thuyết vững chắc về kỹ thuật chống nghe lén và mã phân cực, đến việc  thuật toán đề xuất, và  hiệu quả thông qua các kết quả mô phỏng trên phần mềm chuyên dụng. Đây sẽ là một đóng góp thiết thực vào lộ trình hoàn thiện các giải pháp bảo mật lớp vật lý cho hạ tầng viễn thông tương lai.
+- Chương 1: Cơ sở lý thuyết về mã phân cực và kỹ thuật chống tấn công nghe lén
+- Chương 2: Đề xuất thuật toán mã hóa chống nghe lén dựa trên mã phân cực
+- Chương 3: Kết quả mô phỏng và đánh giá
+CHƯƠNG 1: CƠ SỞ LÝ THUYẾT VỀ MÃ PHÂN CỰC VÀ KỸ THUẬT CHỐNG TẤN CÔNG NGHE LÉN
+1.1 Tấn công nghe lén trên kênh vô tuyến
+1.1.1 Đặc tính vật lý của kênh vô tuyến 
+Khác với các hệ thống mạng có dây sử dụng cáp quang hay cáp đồng, kênh truyền vô tuyến mang bản chất là môi trường truyền dẫn mở và phát quảng bá. Khi một thiết bị phát bức xạ tín hiệu điện từ vào không gian, tín hiệu này sẽ lan truyền theo mọi hướng. Bất kỳ một ăng-ten thu nào nằm trong vùng phủ sóng và được tinh chỉnh đúng dải tần đều có khả năng thu nhận trọn vẹn luồng năng lượng này. Trong bối cảnh mạng 5G với sự bùng nổ của các thiết bị IoT (Internet of Things) và truyền thông máy-giao-máy (M2M), bề mặt tấn công của hệ thống mạng được mở rộng chưa từng có, biến kênh vô tuyến thành điểm yếu bảo mật nghiêm trọng nhất.
+1.1.2 Mô hình kênh nghe nén 
+Trong lý thuyết bảo mật thông tin, kịch bản tấn công nghe lén thường được mô tả thông qua mô hình kênh nghe lén do Wyner đề xuất. Mô hình này bao gồm ba thực thể chính:
+- Alice (Máy phát hợp pháp): Nguồn truyền thông tin mật.
+- Bob (Máy thu hợp pháp): Đích đến của thông tin thông qua kênh truyền chính (Main channel).
+- Eve (Kẻ nghe lén): Đối tượng cố gắng thu thập và giải mã thông tin thông qua kênh nghe lén (Wire-tap channel).
+Hình 1.1. Mô hình hệ thống
+1.1.3 Phân loại tấn công nghe lén
+Tấn công nghe lén trong mạng vô tuyến được chia thành hai loại chính:
+- Tấn công chủ động: Kẻ tấn công không chỉ lắng nghe mà còn phát chèn tín hiệu, giả mạo thiết bị, hoặc can thiệp vào quá trình truyền tin.
+- Tấn công thụ động: Kẻ tấn công  chỉ thu nhận các luồng dữ liệu trôi nổi trên kênh truyền vô tuyến mà không hề phát ra bất kỳ tín hiệu nào hay can thiệp vào hoạt động của hệ thống. Loại tấn công này cực kỳ nguy hiểm vì hệ thống của người dùng hợp pháp (Alice và Bob) hầu như không thể phát hiện ra sự tồn tại của Eve.
+1.2 Các kỹ thuật chống tấn công nghe lén
+Để đối phó với tấn công nghe lén, các hệ thống truyền thông hiện đại sử dụng hai phương pháp tiếp cận chính: bảo mật ở các lớp trên (Upper-layer Security) và bảo mật lớp vật lý (Physical Layer Security).
+1.2.1 Bảo mật bằng mật mã truyền thống
+Đây là phương pháp phổ biến nhất hiện nay, thực hiện ở tầng ứng dụng hoặc tầng mạng (ví dụ: SSL/TLS, IPsec) bằng các thuật toán mã hóa đối xứng (AES) hoặc phi đối xứng (RSA).Hạn chế trong mạng 5G/IoT dù bảo mật tốt, các thuật toán này đòi hỏi chi phí tính toán lớn, làm tăng độ trễ và tiêu thụ năng lượng. Hơn nữa, việc quản lý và phân phối khóa ( qua các giao thức bắt tay  phức tạp tạo ra gánh nặng tài nguyên rất lớn đối với hàng tỷ thiết bị IoT trong mạng 5G.
+1.2.2 Bảo mật lớp vật lý
+Bảo mật lớp vật lý là một mô hình an ninh mới, không dựa trên độ phức tạp tính toán của thuật toán (như mật mã truyền thống) mà dựa vào khả năng khai thác các đặc tính vật lý ngẫu nhiên và suy hao của kênh truyền vô tuyến (như fading, nhiễu đa đường - multipath, độ trễ) để bảo vệ dữ liệu. PLS hướng tới việc thiết lập một "Dung năng bảo mật"  dương – tức là kênh truyền của người dùng hợp pháp (Alice-Bob) tốt hơn kênh của kẻ nghe lén (Alice-Eve).
+Các kỹ thuật tiêu biểu trong PLS để chống nghe lén  gồm:
+ Tạo nhiễu nhân tạo (Artificial Noise / Cooperative Jamming): Máy phát hoặc các trạm chuyển tiếp hợp pháp sẽ phát ra tín hiệu nhiễu định hướng. Tín hiệu này được thiết kế để triệt tiêu tại vị trí của Bob nhưng lại gây nhiễu nặng nề tại vị trí của Eve, làm giảm tỷ số tín hiệu trên nhiễu (SNR) của kẻ nghe lén.
+Định dạng búp sóng (Beamforming): Sử dụng các mảng anten lớn (Massive MIMO trong 5G) để tập trung năng lượng tín hiệu hướng thẳng đến Bob, giảm thiểu tối đa rò rỉ tín hiệu ra các hướng khác mà Eve có thể đang đứng.
+Tạo khóa từ đặc trưng kênh truyền vô tuyến (Wireless Channel Key Generation): Đây là phương pháp tối ưu và nhẹ (lightweight) nhất. Dựa trên tính thuận nghịch của kênh truyềntrong chế độ TDD, Alice và Bob sẽ đo lường cùng một đặc tính đáp ứng xung kênh CIR tại cùng một thời điểm. Vì Eve nằm ở vị trí địa lý khác, kênh truyền của Eve sẽ hoàn toàn độc lập và khác biệt. Alice và Bob sẽ sử dụng các phép lượng tử hóa đặc trưng kênh này để tạo ra một khóa bí mật chung một cách tự nhiên mà không cần phải truyền khóa này qua mạng. 
+1.3 Lý thuyết mã kênh và mã hóa bảo mật
+1.3.1 Khái niệm mã kênh và ứng dụng trong truyền thông
+Trong hệ thống truyền thông số, dữ liệu gốc (nguồn) khi được truyền qua kênh luôn chịu tác động của nhiễu, suy hao, trễ, méo dạng hoặc lỗi bit. Để giảm xác suất lỗi và nâng cao độ tin cậy của hệ thống, mã kênh (channel coding) được sử dụng nhằm bổ sung tính dư thừa có kiểm soát vào luồng dữ liệu, cho phép bên nhận phát hiện và sửa lỗi.
+- Định nghĩa: Mã kênh là một kỹ thuật ánh xạ chuỗi bit thông tin thành chuỗi bit mã có độ dài lớn hơn, nhờ đó tăng khả năng phát hiện và sửa lỗi trong quá trình truyền.
+- Các loại mã kênh cơ bản:
+Mã khối (Block Codes): Dữ liệu được chia thành các khối có độ dài cố định và mỗi khối được mã hóa thành một chuỗi mã. Ví dụ: mã Hamming, mã Reed-Solomon, mã BCH.
+Mã chập (Convolutional Codes): Dữ liệu được mã hóa dựa trên cả bit hiện tại và một số bit trước đó. Mã Viterbi là một trong những bộ giải mã phổ biến cho loại mã này.
+Mã hiện đại (Modern Codes): Bao gồm Turbo Codes, mã chẵn lẻ mật độ thấp (LDPC-Low Density Parity Check Codes), và mã phân cực. Các loại mã này có hiệu năng gần với giới hạn Shannon.
+       - Ứng dụng:
+Trong các hệ thống viễn thông (GSM, 3G, 4G, 5G).
+Trong truyền hình số, phát sóng vệ tinh, mạng cảm biến.
+Trong lưu trữ dữ liệu (CD, DVD, SSD).
+Nhờ mã kênh, xác suất lỗi bit (BER – Bit Error Rate) có thể được giảm đi nhiều bậc so với truyền không mã hóa, từ đó đảm bảo chất lượng dịch vụ (QoS) cho các ứng dụng quan trọng.
+1.3.2 Mối liên hệ giữa mã hóa bảo mật và mã kênh
+Mã hóa bảo mật (encryption) và mã kênh (channel coding) vốn có mục đích khác nhau:
+- Mã hóa bảo mật: đảm bảo tính bí mật và toàn vẹn của dữ liệu, ngăn kẻ tấn công hiểu được nội dung thông tin.
+- Mã kênh: đảm bảo tính tin cậy trong truyền dẫn, giúp dữ liệu ít bị sai sót khi qua kênh nhiễu.
+Trong các hệ thống truyền thông truyền thống, hai quá trình này thường được thiết kế tách biệt:
+1. Dữ liệu nguồn → mã hóa bảo mật
+2. Chuỗi bit mật mã → mã kênh → truyền đi.
+Điều này mang lại một số hạn chế:
+- Độ phức tạp tính toán cao: phải thực hiện hai giai đoạn độc lập.
+- Tăng độ trễ hệ thống: đặc biệt trong các ứng dụng thời gian thực như truyền video, ảnh trực tuyến.
+- Khó triển khai trên thiết bị IoT: vốn hạn chế về năng lượng và khả năng xử lý.
+Sự phát triển của lý thuyết thông tin bảo mật (Information-Theoretic Security, Shannon, 1949) và các nghiên cứu sau này (Wyner, 1975 về “wiretap channel”) đã chỉ ra rằng có thể kết hợp mã kênh với bảo mật, nhằm đạt được hệ thống vừa an toàn, vừa chống lỗi. Ý tưởng này dẫn đến các phương pháp mã hóa bảo mật dựa trên mã kênh (physical layer security, crypto-coding).
+1.3.3 Xu hướng tích hợp mã hóa và mã sửa lỗi (Crypto-coding)
+a) Khái niệm
+Crypto-Coding là hướng nghiên cứu tích hợp mã hóa bảo mật và mã kênh thành một quá trình duy nhất. Thay vì thực hiện hai khối riêng rẽ, quá trình này dùng một loại mã đặc biệt vừa đảm bảo an toàn thông tin, vừa tăng khả năng chống nhiễu.
+b) Cơ sở lý thuyết
+- Dựa trên khái niệm kênh nghe lén (wiretap channel) do Wyner đề xuất: bên gửi (Alice) muốn truyền dữ liệu tới bên nhận hợp pháp (Bob) qua một kênh chính, trong khi kẻ nghe lén (Eve) chỉ có thể thu được tín hiệu qua một kênh thứ cấp chất lượng kém hơn.
+-  Nếu thiết kế mã kênh hợp lý, có thể đảm bảo rằng Bob giải mã thành công, còn Eve không thể khôi phục dữ liệu gốc, nhờ đó đạt được bảo mật tầng vật lý (Physical Layer Security – PLS).
+c) Các kỹ thuật tiêu biểu
+- Kỹ thuật dựa vào mã Turbo: sử dụng cấu trúc mã Turbo, điều khiển vị trí xen kẽ (interleaver) bằng khóa bí mật.
+- Kỹ thuật dựa vào mã LDPC: khai thác tính ngẫu nhiên của ma trận kiểm tra để sinh khóa và mã hóa dữ liệu.
+- Kỹ thuật dựa vào mã phân cực: ứng dụng tính phân cực kênh để chọn vị trí bit thông tin và bit đóng băng theo khóa bí mật.
+d) Ưu điểm
+- Giảm độ phức tạp hệ thống so với thiết kế tách rời.
+- Tăng hiệu suất băng thông nhờ gộp hai chức năng vào một bước.
+- Cung cấp mức bảo mật thông tin lý thuyết (information-theoretic security), độc lập với sức mạnh tính toán của kẻ tấn công.
+- Phù hợp cho ứng dụng trong truyền thông vô tuyến 5G/6G, IoT, cảm biến thông minh.
+e) Thách thức
+- Thiết kế thuật toán phải cân bằng giữa hiệu quả bảo mật và hiệu năng sửa lỗi.
+- Khó khăn trong việc chứng minh mức độ bảo mật tuyệt đối trong thực tế, do sự đa dạng và phức tạp của kênh truyền.
+- Cần tối ưu hóa để triển khai trên phần cứng có tài nguyên giới hạn.
+1.4 Giới thiệu chung về mã phân cực
+Mã hóa kênh là kỹ thuật bổ sung dữ liệu dư thừa (redundant bits) vào luồng thông tin để tăng khả năng phát hiện và sửa lỗi khi truyền qua kênh có nhiễu. Trong suốt thời gian dài, các mã như mã khối tuyến tính (linear block codes), mã BCH, mã vòng (cyclic codes), mã chập (convolutional codes) và mã Turbo đã được sử dụng rộng rãi. Tuy nhiên, khi yêu cầu của các hệ thống thông tin di động thế hệ mới (4G LTE, 5G NR, và tương lai là 6G) ngày càng khắt khe về thông lượng, độ trễ và hiệu suất năng lượng, các loại mã truyền thống dần bộc lộ hạn chế.
+Năm 2009, Erdal Arıkan đã đề xuất mã phân cực (Polar Codes), loại mã khối tuyến tính đầu tiên được chứng minh đạt dung lượng kênh (channel capacity) của kênh nhị phân đối xứng không nhớ (Binary Input Discrete Memoryless Channel – B-DMC) khi độ dài khối NNN tiến tới vô hạn. Đây là một bước đột phá quan trọng, mở ra hướng nghiên cứu mới trong mã hóa kênh.
+Điểm đặc biệt của mã Polar là dựa trên hiện tượng phân cực kênh (channel polarization), một quá trình biến đổi kênh ban đầu thành tập hợp các kênh con có chất lượng cực đoan: một số trở nên gần như “hoàn hảo” (khả năng truyền dữ liệu không lỗi), số còn lại trở nên “vô dụng” (lỗi cao). Các bit thông tin chỉ truyền qua kênh tốt, còn kênh xấu sẽ truyền bit đóng băng (frozen bits) có giá trị biết trước.
+1.5 Nguyên lí phân cực kênh
+Nguyên lý phân cực kênh là quá trình biến đổi một tập hợp các kênh truyền thông tin ban đầu thành các kênh con có đặc tính khác biệt rõ rệt. Quá trình này được thực hiện thông qua hai giai đoạn chính:
+1.5.1 Kênh B-DMC được mô tả bởi:
+-  Đầu vào: ký hiệu nhị phân 
+- Đầu ra: ký hiệu (có thể rời rạc hoặc liên tục)
+- Xác suất chuyển tiếp: - xác suất nhận y khi gửi x.
+Dung lượng kênh C(W) được tính:
+                                         (1.1)
+Trong đó I(X;Y) là thông tin tương hỗ giữa đầu vào và đầu ra.
+1.5.2 Qúa trình kết hợp và tách kênh
+Ý tưởng phân cực kênh của Arıkan:
+1. Kết hợp kênh (Channel combining):Bắt đầu từ N = 2n bản sao của kênh W, kết hợp chúng thông qua các phép biến đổi tuyến tính (dùng XOR) để tạo kênh ghép WN​.
+2. Tách kênh (Channel splitting):
+Phân tách kênh ghép thành N kênh con (với i=1,2,…,N) sao cho khi N tăng, các kênh con phân hóa thành:
+- Kênh tốt: 
+- Kênh xấu: 
+1.5.3 Hiện tương phân cực
+Khi tỷ lệ kênh tốt tiến tới dung lượng kênh C(W) và kênh xấu chiếm phần còn lại.
+Công thức thể hiện tính phân cực:
+                    (1.2)
+Với 
+Tỷ lệ các kênh tốt sẽ tiến tới đúng giá trị dung lượng kênh gốc C(W). Nhờ hiện tượng này, ta có thể chọn các kênh "tốt" để truyền bit thông tin và đặt các bit cố định (frozen bits) vào các kênh "xấu" để đảm bảo độ tin cậy tối đa cho hệ thống.
+1.6 Cấu trúc mã phân cực
+Mã Polar được định nghĩa bởi ma trận tạo:
+                                                (1.3)
+Trong đó:
+là tích Kronecker bậc n của F.
+là ma trận hoán vị bit (bit-reversal permutation), đóng vai trò sắp xếp lại thứ tự các hàng của ma trận để đảm bảo tính nhất quán trong quá trình giải mã Successive Cancellation (SC).
+Việc sử dụng cấu trúc ma trận đệ quy này cho phép quá trình mã hóa đạt được độ phức tạp tính toán rất thấp, chỉ ở mức O(N log N). Điều này cực kỳ quan trọng đối với việc xử lý tín hiệu thời gian thực, nơi mà độ trễ thấp là yếu tố tiên quyết.
+Giả sử rằng  là một dạng kênh nhị phân rời rạc không nhớ (B-DMC) với một tập hợp N kênh độc lập, một vectơ kênh  có thể được biểu diễn trong đó với  Hình 1 minh họa cấu trúc của hai kênh độc lập, có thể được chia thành các giai đoạn đệ quy bằng cách sử dụng cấu trúc giống như con bướm (structure-like butter fly). Trong cấu trúc của kênh  bit đầu vào là  biểu diễn u1 tới u2. Ở giai đoạn này, bit đầu vào được chuyển đổi thành  ký hiệu x1 tới x2.
+                                                            (1.4)
+Quá trình chuyển đổi từ  tới  có thể được viết lại như sau:
+                                                    (1.5)
+Trong đó G2 là ma trận sinh.
+Dạng tổng quát của kênh có thể được suy ra trong Hình 2. Ma trận sinh GN có thể được phân tích thành:
+                                                         (1.6)
+Hình 1.2. Cấu hình kênh  
+Trong đó BN là ma trận hoán vị đảo ngược và  là tích.
+Phương trình (1.5) có thể được viết tổng quát cho N kênh như sau:
+                                                  (1.7)
+Chuỗi đầu vào  được chia thành các bit thông tin và các bit đóng bằng (frozen bít)  Tập con A  được mã hóa để đạt được trong khi  đạt được sau khi mã hóa các bit đóng băng Từ mã  trong (4) có thể viết lại như sau:
+                                       (1.8)
+Mã phân cực có thể được xác định bằng một bộ tham số trong đó N độ dài mã đầu vào, U biểu diễn kích thước của các bit thông tin và U/N biểu diễn tỷ lệ mã. A là một mảng các bit thông tin, trong khi Ac tập hợp tất cả các phần tử không phải bit thông tin và tất cả các giá trị của chúng đều bằng 0 (hay còn gọi là bit đóng băng). Vị trí các bit thông tin và bit đóng băng được quy định trước và đồng nhất nhau tại bên phát và bên thu. Khi  kênh sẽ tốt và truyền tải thông tin hữu ích; nhưng khi  kênh sẽ kém và không truyền tải thông tin hữu ích. Các bit đóng băng được giữ trong máy phát và cũng được biết đến trong bộ giải mã của máy thu, do đó các bit đóng băng vô dụng trong các mã phân cực truyền thống.
+Hình 1.3. Cấu hình chung của kênh 
+1.7 Giải mã phân cực
+Từ mã  được truyền qua kênh  và sau đó nhận đượctại đầu ra kênh. Vì các bit đóng băng của bộ giải mã được gán giống như  chức năng giải mã sẽ sinh ra một giá trị ước lượng  của 
+Trong mã phân cực sử dụng thuật toán giải mã hủy liên tiếp (Successive Cancellation-SC), SC là một thuật toán quyết định khó (hard decision) được áp dụng bằng cách tính toán thông tin tỷ lệ khả năng (Likelihood rate-LR) của kênh bit theo cách lặp đi lặp lại.
+Bộ giải mã SC sinh ra ước lượng  theo quy tắc quyết định như sau:
+                                          (1.9)
+Trong đó  và  là bit đóng băng. Hàm quyết định được xác định như sau:
+                                  (1.10)
+Nhiệm vụ chính của bộ giải mã là tính toán LR của kênh bit và xác suất chuyển tiếp.
+Vì cấu trúc đối xứng và đồng nhất của mã phân cực tại bộ mã hóa và giải mã, các nhà nghiên cứu đã đề xuất can thiệp vào các bit thông tin hoặc bit đóng băng của mã phân cực để biến bộ mã phân cực này thành bộ mã dữ liệu bằng cách sử dụng bit khóa nhị phân, nhiễu nhân tạo hoặc chuỗi hỗn loạn. Vì bộ mã phân cực này là bộ mã sửa lỗi vì vậy khi can thiệp vào bộ mã phân cực thì thiết bị 5G vẫn hoàn toàn có thể thực hiện cùng lúc hai chức năng là mã dữ liệu và sửa lỗi dữ liệu. Vì vậy, phương pháp này hoàn toàn có thể tăng cường độ mật và độ tin cậy cho dữ liệu truyền trên hệ thống thông tin di động 5G.
+1.8 Đánh giá ưu, nhược điểm của mã phân cực
+Trong số các loại mã kênh hiện đại, mã phân cực nổi lên như một ứng viên lý tưởng cho kỹ thuật Crypto-coding nhờ vào những đặc tính kỹ thuật độc đáo.
+Ưu điểm của mã phân cực :
+- Đạt dung lượng kênh ở 
+- Cấu trúc mã hóa/giải mã đơn giản, phù hợp phần cứng.
+- Hiệu năng cao khi kết hợp CRC-SCL.
+- Đã được chuẩn hóa trong 5G NR cho kênh điều khiển.
+        Nhược điểm của mã phân cực:
+          - Hiệu năng kém ở độ dài ngắn nếu dùng SC thuần túy.
+- Phải thiết kế tập bit đóng băng phù hợp với từng điều kiện kênh.
+- Độ phức tạp tăng với SCL lớn.
+1.9 Cấu trục mã phân cực trong thực tế
+1.9.1 Vai trò của mã phân cực trong 5G NR
+Trong tiêu chuẩn 3GPP 5G New Radio (NR), mã Polar được lựa chọn cho mã hóa kênh điều khiển (Control Channel Coding) thay thế cho mã Turbo vốn được sử dụng trong LTE. Cụ thể, Polar codes được áp dụng cho các kênh:
+-  PDCCH (Physical Downlink Control Channel): kênh điều khiển đường xuống
+-  PUCCH (Physical Uplink Control Channel): kênh điều khiển đường lên
+-  PBCH (Physical Broadcast Channel): kênh quảng bá thông tin hệ thống
+Việc lựa chọn mã Polar cho các kênh điều khiển xuất phát từ các yếu tố:
+- Độ dài khối (block length) của dữ liệu điều khiển thường ngắn hoặc vừa (khoảng 20–1024 bit).
+- Yêu cầu độ trễ thấp và khả năng giải mã hiệu quả ở kích thước khối ngắn.
+- Mã Polar với giải mã CRC-Aided SCL (CA-SCL) cho hiệu năng gần tiệm cận dung lượng kênh trong điều kiện này.
+1.9.2 Quy trình mã hóa phân cực trong 5G NR
+Quy trình mã hóa Polar trong 5G NR gồm các bước chính như sau:
+1. Chèn CRC (CRC Attachment)
+- Một chuỗi kiểm tra CRC được nối vào cuối chuỗi bit thông tin để hỗ trợ phát hiện lỗi và tăng hiệu quả của giải mã SCL.
+- 5G NR sử dụng CRC 11-bit hoặc 24-bit tùy kênh và độ dài thông tin.
+2. Rate Matching Preparation
+- Chuỗi sau khi gắn CRC được ánh xạ vào tập bit thông tin của mã Polar, phần còn lại là bit đóng băng (frozen bits).
+- Các bit đóng băng được gán giá trị ‘0’ cố định
+3. Mã hóa phân cực
+- Sử dụng ma trận tạo với N là lũy thừa của 2.
+- Giá trị N được chọn từ tập {32, 64, 128, 256, 512, 1024} trong 5G NR.
+4. Rate matching
+-  Thực hiện puncturing (loại bỏ bit) hoặc shortening (rút ngắn) để điều chỉnh độ dài khối mã đầu ra cho phù hợp với kích thước yêu cầu.
+Trong 5G NR, ba kỹ thuật được dùng:
+- Sub-block interleaving: tráo thứ tự bit để tăng khả năng chống lỗi theo burst.
+- Bit selection: chọn ra tập bit cần truyền.
+- Circular buffer: quản lý và trích xuất bit từ bộ đệm vòng.
+1.9.3 Lựa chọn tập bit đóng băng
+Việc phân định chính xác vị trí của các bit thông tin và bit đóng băng là yếu tố sống còn quyết định đến hiệu năng của mã Polar. Trong tiêu chuẩn 5G NR, quy trình này được tối ưu hóa thông qua các cơ chế sau:
+-  Sử dụng chuỗi độ tin cậy chuẩn hóa: Thay vì tính toán động trong quá trình truyền tin, các tập bit tốt được xác định dựa trên một thứ tự độ tin cậy (reliability sequence) đã được chuẩn hóa sẵn trong các tài liệu kỹ thuật của 3GPP.
+-  Khả năng thích ứng linh hoạt: Điểm ưu việt của phương pháp này nằm ở tính tùy biến cao; khi có sự thay đổi về tốc độ mã (code rate) hoặc độ dài khối (block length), bộ chọn bit chỉ cần căn cứ vào chuỗi độ tin cậy sẵn có để trích xuất ra các vị trí tối ưu nhất cho việc truyền tải thông tin hữu ích.
+-  Chuỗi này được tính toán từ trước thông qua mô phỏng trên kênh AWGN ở nhiều mức SNR và lưu cố định trong tiêu chuẩn.
+1.9.4 Độ dài mã và tốc độ mã trong 5G NR
+Trong 5G NR, độ dài mã Polar N và tốc độ mã R được thiết kế linh hoạt:
+-  Độ dài mã N: được chọn là lũy thừa của 2, từ 32 đến 1024.
+- Tốc độ mã R:
+với  K  là số bit thông tin ( bao gồm cả CRC) tốc độ mã có thể điều chỉnh thông qua puncturing hoặc shortening.
+1.9.5 Ưu điểm triển khai trong 5G NR
+Việc lựa chọn mã phân cực (Polar Codes) làm tiêu chuẩn cho các kênh điều khiển trong 5G New Radio không phải là ngẫu nhiên, mà xuất phát từ những lợi thế công nghệ vượt trội so với các kỹ thuật truyền thống.
+Trước hết, mã Polar thể hiện khả năng tối ưu hóa đặc biệt cho độ dài khối ngắn, nơi mà hiệu suất của nó được chứng minh là cao hơn đáng kể so với mã Turbo và LDPC. Điều này rất quan trọng vì các thông tin điều khiển thường có kích thước nhỏ nhưng yêu cầu độ chính xác tuyệt đối. Bên cạnh đó, mã Polar đáp ứng hoàn hảo các tiêu chuẩn về độ trễ thấp, một yếu tố sống còn để hiện thực hóa các dịch vụ truyền thông siêu tin cậy và độ trễ thấp (URLLC) trong hệ sinh thái 5G.
+Một ưu điểm quan trọng khác là tính linh hoạt và khả năng thích ứng cao, cho phép hệ thống dễ dàng thay đổi tốc độ mã và độ dài khối mã thông qua các kỹ thuật như shortening hoặc puncturing để phù hợp với các điều kiện kênh truyền biến động. Cuối cùng, về mặt thực thi kỹ thuật, mã Polar rất phù hợp với các kiến trúc phần cứng hiện đại. Với cấu trúc mã hóa và giải mã dựa trên sơ đồ dạng cây, loại mã này cho phép triển khai các thuật toán xử lý song song, từ đó tối ưu hóa tốc độ xử lý và tiết kiệm năng lượng cho thiết bị.
+1.10 Ứng dụng của mã phân cực
+Mã phân cực (polar codes) đã được chứng minh là một trong những phương pháp mã hóa kênh   tiên tiến và hiệu quả nhất hiện nay, với khả năng đạt hiệu suất gần giới hạn Shannon trong nhiều kịch bản truyền thông khác nhau. Từ khi được Arıkan giới thiệu vào năm 2009, mã phân cực đã được triển khai trong nhiều hệ thống thông tin di động và truyền thông số, đặc biệt là trong các chuẩn thế hệ mới. Một số ứng dụng tiêu biểu bao gồm:
+1.10.1 Hệ thống thông tin di động 5G
+Trong tiêu chuẩn 5G New Radio (5G NR) của 3GPP, mã phân cực được lựa chọn cho việc mã hóa các kênh điều khiển (Control Channels) thay cho các phương pháp mã hóa truyền thống như Turbo Codes hay BCH. Cụ thể:
+-  Downlink Control Information (DCI) và Uplink Control Information (UCI) được mã hóa bằng polar codes để đảm bảo độ tin cậy cao và độ trễ thấp.
+-   Mã phân cực trong 5G NR được sử dụng kết hợp với cơ chế rate matching và CRC-aided successive cancellation list (CA-SCL) decoding để cải thiện khả năng giải mã và chống lỗi.
+-   So với các phương pháp trước đây, mã phân cực trong 5G mang lại hiệu suất tốt hơn ở dải tốc độ dữ liệu thấp đến trung bình, đồng thời giảm độ phức tạp giải mã.
+Hình 1.4. Ứng dụng của mã cực trong mạng 5G
+1.10.2 Hệ thống truyền thông vệ tinh và không gian
+Trong các hệ thống truyền thông vệ tinh và truyền thông không gian sâu, yêu cầu về độ tin cậy cực cao trong điều kiện kênh truyền nhiễu mạnh và độ trễ lớn là thách thức quan trọng. Mã phân cực được sử dụng để:
+-  Giảm tỷ lệ lỗi bit (BER) xuống mức cực thấp, phù hợp cho các nhiệm vụ điều khiển tàu vũ trụ hoặc truyền dữ liệu khoa học.
+-  Tận dụng cấu trúc mã hóa có khả năng song song hóa cao, giảm thời gian xử lý ở các bộ thu trong môi trường tài nguyên hạn chế.
+Hình 1.5. Truyền thông vệ tinh và không gian
+1.10.3 Mạng cảm biến không dây (wireless sensor networks - WSN)
+Việc ứng dụng mã phân cực trong mạng WSN không chỉ dừng lại ở việc tối ưu hóa năng lượng mà còn đóng vai trò quan trọng trong việc thiết lập hàng rào bảo mật tầng vật lý cho các hệ thống cảm biến phân tán. Do đặc thù các nút mạng thường được triển khai ở những môi trường khắc nghiệt và dễ bị tấn công can thiệp, khả năng thích ứng linh hoạt của mã phân cực giúp duy trì sự ổn định của luồng dữ liệu ngay cả khi điều kiện kênh truyền thay đổi mạnh. Đặc biệt, cấu trúc mã hóa có độ phức tạp thấp giúp giảm thiểu gánh nặng tính toán cho vi xử lý tại nút, từ đó cho phép triển khai các giao thức bảo mật đa tầng mà không làm ảnh hưởng đến thời gian thực của quá trình giám sát và thu thập dữ liệu. Điều này tạo tiền đề vững chắc cho việc xây dựng các mạng cảm biến thông minh, an toàn trong hạ tầng IoT và đô thị hiện đại.
+Trong các mạng cảm biến không dây, nơi mà các nút mạng thường có công suất xử lý và năng lượng hạn chế, mã phân cực cung cấp:
+- Giải pháp mã hóa nhẹ (low-complexity encoding/decoding) giúp kéo dài tuổi thọ pin.
+- Khả năng tùy chỉnh linh hoạt độ dài khối và tốc độ mã để phù hợp với dung lượng gói dữ liệu nhỏ.
+Hình 1.6. Mạng cảm biến không dây
+1.10.4 Hệ thống truyền thông tốc độ cao
+Với đặc tính thích ứng tốt với các kênh truyền có SNR thay đổi và khả năng mã hóa ở nhiều tốc độ, mã phân cực phù hợp cho:
+- Các hệ thống truyền dữ liệu tốc độ cao qua quang học (Optical Fiber Communication).
+-  Liên kết không dây tần số mmWave, vốn đòi hỏi hiệu suất mã hóa cao và độ trễ thấp.
+1.10.5 Truyền thông trong môi trường IoT
+Đối với Internet of Things (IoT), mã phân cực đóng vai trò quan trọng trong:
+-  Tối ưu hóa độ tin cậy và tiết kiệm năng lượng.
+-  Cung cấp giải pháp mã hóa mạnh mẽ cho các thiết bị cảm biến và bộ điều khiển có cấu hình phần cứng đơn giản.
+Hình 1.7. Mạng liên lạc IoT
+1.10.6 Liên lạc âm học dưới nước
+Truyền tin trong môi trường đại dương được coi là một trong những thách thức lớn nhất của kỹ thuật viễn thông do đặc tính kênh truyền biến đổi phức tạp theo thời gian và không gian. Mã phân cực đang nổi lên như một giải pháp đột phá cho các hệ thống liên lạc âm học dưới nước nhờ những ưu điểm sau:
+- Khả năng thích ứng với băng thông hẹp và độ trễ lớn: Tốc độ truyền âm thanh trong nước rất chậm (khoảng 1500 m/s), dẫn đến độ trễ lan truyền và hiệu ứng Doppler cực lớn. Mã phân cực với khả năng tùy chỉnh linh hoạt tốc độ mã giúp duy trì liên lạc ổn định ngay cả khi băng thông khả dụng bị thắt chặt.
+- Chống nhiễu đa đường và nhiễu nền: Tín hiệu âm thanh dưới nước thường bị phản xạ liên tục giữa mặt biển và đáy biển, gây ra hiện tượng chồng lấn ký tự (ISI) nghiêm trọng. Cấu trúc phân cực kênh giúp bộ thu tách biệt được các "kênh sạch" để truyền tải thông tin quan trọng, giúp giảm tỷ lệ lỗi bit (BER) đáng kể so với các phương pháp mã hóa khối truyền thống.
+- Tối ưu năng lượng cho thiết bị tự hành (AUV/UUV): Các robot dưới nước và hệ thống cảm biến đáy biển vận hành bằng pin và rất khó để thay thế thường xuyên. Thuật toán mã hóa của Polar Codes có độ phức tạp thấp, giúp giảm tải cho bộ vi xử lý của thiết bị, từ đó tiết kiệm năng lượng và kéo dài thời gian thực hiện nhiệm vụ dưới lòng đại dương.
+- Ứng dụng thực tiễn: Hiện nay, mã phân cực được nghiên cứu để tích hợp vào các mạng lưới quan trắc môi trường biển, hệ thống cảnh báo sóng thần và liên lạc giữa các tàu ngầm không người lái trong các nhiệm vụ cứu hộ hoặc khảo sát tài nguyên.
+Hình 1.8. Minh họa liên lạc dưới nước của AUV
+1.11 Kết luận 
+Chương 1 đã tập trung xây dựng nền tảng lý thuyết vững chắc về dữ liệu và các kỹ thuật mã hóa kênh hiện đại. Các nội dung trọng tâm đã được làm rõ bao gồm:
+- Làm rõ các đặc trưng cơ bản của dữ liệu như sự biến thiên liên tục theo thời gian, tính tương quan cao giữa các mẫu lân cận và đặc điểm tâm thính học. Việc mã hóa không chỉ đòi hỏi tính bảo mật mà còn phải đảm bảo tính toàn vẹn của phổ tín hiệu và duy trì độ trễ thấp để đáp ứng yêu cầu truyền dẫn thời gian thực. 
+- Mã phân cực (Polar Codes): Làm rõ nguyên lý phân cực kênh của Arıkan, cấu trúc ma trận tạo  và khả năng tiệm cận dung năng Shannon – những yếu tố then chốt biến mã Polar thành tiêu chuẩn cho kênh điều khiển trong mạng 5G NR.
+- Xu hướng Crypto-coding: Khẳng định tiềm năng của việc tích hợp mã hóa bảo mật trực tiếp vào quá trình mã hóa kênh để giảm độ phức tạp hệ thống và tăng cường bảo mật tầng vật lý (Physical Layer Security).
+Đây là cơ sở quan trọng để nhóm nghiên cứu đề xuất kiến trúc mã hóa dữ liệu chuyên biệt, tận dụng ưu điểm của mã Polar và thuật toán AES-CTR trong chương tiếp theo.
+CHƯƠNG 2: ĐỀ XUẤT THUẬT TOÁN MÃ HÓA CHỐNG NGHE LÉN DỰA TRÊN MÃ PHÂN CỰC
+2.1 Mô hình hệ thống thông tin vô tuyến truyền thống
+Trong các hệ thống truyền thông kỹ thuật số, mã hóa kênh ở lớp vật lý là một phần quan trọng trong việc sửa chữa các lỗi của dữ liệu nhận được. Bên cạnh đó, các phương pháp mật mã ở các lớp cao hơn được sử dụng để đảm bảo tính bảo mật của dữ liệu. Các hệ thống truyền thông đa anten truyền thống được thể hiện trong Hình 2.1, bao gồm:
+Hình 2.1. Các hệ thống thông tin liên lạc đa anten truyền thống
+2.2 Kỹ thuật mã hóa dữ liệu và mã hóa kênh trên cùng một bước (Crypto- coding)
+Phần lớn các phương pháp mã hóa cho đến nay đã được phát triển độc lập bằng cách sử dụng mã hóa kênh trong mạng không dây an toàn. Các thuật toán mã hóa khóa đối xứng ở các lớp cao được sử dụng để bảo vệ dữ liệu nhạy cảm, trong khi mã hóa kênh được sử dụng ở lớp vật lý để tăng độ tin cậy. Một cách thực tế để giảm độ phức tạp và độ trễ của hệ thống truyền dẫn là tích hợp mã hóa và sửa lỗi trong một giai đoạn duy nhất trên lớp vật lý [34]. Phương pháp này được gọi là mã hóa mật mã. Ở lớp vật lý, chức năng mã hóa cho phép hệ thống chống lại việc nghe trộm trái phép, trong khi chức năng sửa lỗi đảm bảo truyền dữ liệu đáng tin cậy trên các kênh nhiễu. Phương pháp này đặc biệt hữu ích trong các tình huống yêu cầu truyền dẫn đáng tin cậy và an toàn, như truyền thông không dây hoặc các hệ thống dễ bị nghe trộm. Sơ đồ khối của các hệ thống truyền thông áp dụng các kỹ thuật mã hóa mật mã được hiển thị trong Hình 2.2 Trong hình này, dữ liệu M có thể được mã hóa và mã hóa đồng thời ở lớp vật lý. Do đó, phương pháp PLS này có thể áp dụng các lược đồ mã hóa vốn dĩ cung cấp tính bảo mật bằng cách khai thác các thuộc tính vật lý của kênh.
+Hình 2.2. Các hệ thống truyền thông áp dụng kỹ thuật mã hóa mật mã
+Phương pháp mã hóa này được coi là mã hóa khóa đối xứng. Khóa bí mật có thể là các thành phần được giữ bí mật giữa những người dùng hợp pháp, bao gồm chuỗi nhị phân, nhiễu nhân tạo và chuỗi hỗn loạn,… Khóa bí mật được sử dụng để thao tác cấu trúc mã hóa, đảm bảo rằng chỉ những người dùng hợp pháp sở hữu khóa chính xác mới có thể giải mã được bản mã. Mô hình kênh có hai người dùng hợp pháp là Alice và Bob, trong khi Eve là kẻ nghe trộm. Kênh Alice-Bob sẽ được coi là kênh chính và kênh Alice-Eve là kênh nghe trộm, như thể hiện trong Hình 2.3
+Hình 2.3. Đảm bảo liên lạc an toàn giữa Alice và Bob
+Trong mô hình này, Alice sẽ mã hóa dữ liệu  bằng khóa bí mật KA. Từ mã/văn bản mã hóa X sẽ được điều chế và truyền qua kênh. Bob sẽ nhận và giải điều chế tín hiệu Y. Sau đó, sẽ giải mã tín hiệu nhận được Y  bằng khóa bí mật KB của mình để thu được dữ liệu đã giải mã Đồng thời, Eve chặn được từ mã/văn bản mã hóa X và nhận được Z. Tín hiệu Z có thể khác với Y vì nó chịu tác động từ các loại nhiễu khác nhau. Eve sẽ giải mã tín hiệu Z bằng khóa KE  do anh ta tạo ra để thu được dữ liệu đã giải mã 
+Một số mã có thể được áp dụng trong các kỹ thuật mã hóa mật mã, tuy nhiên, đối với các hệ thống thông tin vô tuyến tiên tiến , mã Turbo và mã Polar là phổ biến nhất. 
+2.3 Kiến trúc mã hóa đề xuất
+Hình 2.4 minh họa mô hình tổng quát của hệ thống bảo mật đề xuất, tập trung vào sự phối hợp giữa phía phát (TX) và phía thu (RX) thông qua Kênh truyền không dây. Quy trình bắt đầu bằng việc trích xuất Khóa bí mật trực tiếp từ đặc tính kênh, sau đó đưa qua Hàm dẫn xuất khóa (AES-CTR) để tạo ra các Khóa con động cho từng khối dữ liệu. Tại khối Mã Polar, dữ liệu được hòa trộn với các khóa con này để thực hiện mã hóa bảo mật trước khi truyền đi. Ở phía đối diện, người nhận hợp lệ thực hiện quy trình ngược lại để tái tạo đúng chuỗi khóa, từ đó giải mã và khôi phục lại dữ liệu gốc một cách chính xác và an toàn.
+Hình 2.4. Mô hình tổng quát của phương pháp đề xuất
+2.3.1 Cơ chế dẫn xuất khóa con và cấu trúc phân cấp (AES-CTR)
+Trong kiến trúc bảo mật đề xuất, việc thiết lập một hàng rào phòng thủ vững chắc cho từng khối dữ liệu đầu vào là yếu tố tiên quyết nhằm đối phó với các kịch bản tấn công tích cực như nghe lén hoặc tấn công lặp lại (replay attacks). Điểm yếu cốt lõi của các hệ thống truyền thống thường nằm ở việc sử dụng tái sử dụng khóa bí mật được lưu sẵn trong bộ nhớ. Trong một số nghiên cứu về bảo mật dựa trên mã phân cực, các tác giả còn sử dụng khóa bí mật tĩnh (Static key) toàn bộ phiên truyền dẫn. Phương pháp này tiềm ẩn rủi ro rất lớn: nếu một khối dữ liệu vô tình bị bẻ khóa thông qua phân tích tần suất hoặc tấn công vét cạn, toàn bộ luồng thông tin còn lại sẽ bị rò rỉ hoàn toàn.
+Để khắc phục triệt để lỗ hổng này, hệ thống triển khai một cơ chế bảo mật động dựa trên thuật toán AES (Advanced Encryption Standard) vận hành trong chế độ Counter (CTR). Tại đây, AES-CTR không chỉ đóng vai trò là bộ mã hóa khối mà còn được sử dụng như một hàm dẫn xuất khóa hiệu quả:
+- Tính biến đổi theo thời gian: Bằng cách kết hợp khóa gốc (Master Key) với một giá trị đếm (Counter) thay đổi liên tục cho mỗi khối dữ liệu, hệ thống tạo ra các khóa con độc nhất. Điều này đảm bảo rằng ngay cả khi hai khối dữ liệu có nội dung giống hệt nhau, bản mã sinh ra vẫn hoàn toàn khác biệt.
+- Ngăn chặn rò rỉ thông tin lan truyền: Nhờ tính chất độc lập của chế độ CTR, việc lộ khóa của một khối dữ liệu cụ thể không gây ảnh hưởng đến tính an toàn của các khối trước đó hoặc kế tiếp. Kẻ tấn công không thể dựa vào thông tin của khối hiện tại để suy luận ra khóa của khối tiếp theo.
+- Tối ưu hóa cho truyền dẫn dữ liệu thời gian thực: Chế độ CTR cho phép thực hiện quá trình mã hóa và giải mã song song, giúp giảm thiểu độ trễ – một chỉ số cực kỳ quan trọng trong các ứng dụng đàm thoại hoặc truyền phát âm thanh/video trực tuyến qua mạng 5G.
+2.3.2 Cơ chế tạo khóa và hệ thống phân cấp khóa
+Quy trình khởi tạo khóa là giai đoạn then chốt nhằm thiết lập một hệ thống bảo mật đa tầng, nơi tính bảo mật không chỉ phụ thuộc vào thuật toán mà còn dựa trên sự biến đổi liên tục của các thực thể mã hóa. Quy trình này được mô tả chi tiết qua các bước sau:
+Khóa bí mật , được trích xuất từ các đặc tính động của kênh truyền không dây, đóng vai trò là khóa gốc (root key) cho thực thể mã hóa AES. Đối với mỗi khối dữ liệu thứ i (), hệ thống tạo ra một khóa con  duy nhất thông qua cơ chế sau:
+Vector khởi tạo (IV): Một giá trị ngẫu nhiên được chia sẻ giữa máy phát và máy thu để đảm bảo tính duy nhất của chuỗi đầu ra ngay cả khi khóa gốc không đổi.
+Giá trị bộ đếm (): Mỗi khối dữ liệu i đi kèm với một giá trị bộ đếm tăng dần, đảm bảo rằng không có hai khối nào sử dụng cùng một chuỗi khóa.
+Cơ chế tạo khóa: Khóa con  được tính toán bằng cách mã hóa giá trị bộ đếm thông qua thuật toán AES dưới sự điều khiển của khóa bí mật.
+Chuỗi khóa  được tạo ra có độ dài chính xác bằng độ dài N của mã phân cực, cho phép thực hiện ánh xạ trực tiếp một-một vào cấu trúc của vector đầu vào trước khi thực hiện biến đổi Polar.
+Phân tách và ánh xạ khóa (và)
+Sự chuyên sâu của thuật toán nằm ở việc phân tách khóa con  thành hai thành
+phần chức năng riêng biệt dựa trên sơ đồ phân cực kênh.
+Khóa con cho bit thông tin :
+- Có độ dài K, tương ứng với số lượng bit payload được ánh xạ vào tập hợp các kênh tin cậy A.
+- Được sử dụng để thực hiện phép toán XOR trực tiếp với dữ liệu nhằm đảm bảo tính bảo mật của nội dung bản rõ.
+Khóa con cho bit đóng băng :
+Có độ dài N-K, tương ứng với số lượng kênh nhiễu trong tập hợp 
+Thay vì cố định bằng giá trị 0 như mã phân cực truyền thống, các vị trí này được lấp đầy bởi chuỗi ngẫu nhiên . Việc chèn khóa ngẫu nhiên vào các bit đóng băng tạo ra hiệu ứng lan truyền sai số nghiêm trọng (error propagation) đối với kẻ nghe lén sử dụng thuật toán giải mã SC (Successive Cancellation), khiến tín hiệu khôi phục hoàn toàn bị biến dạng với tỷ lệ lỗi bit (BER) xấp xỉ 0.5. Sự kết hợp này thiết lập một cơ chế bảo vệ kép: lớp thứ nhất bảo vệ nội dung (thông qua ) và lớp thứ hai phá hủy khả năng giải mã của kẻ tấn công bằng cách ngẫu nhiên hóa cấu trúc kênh truyền (thông qua  ).
+2.3.3 Quy trình mã hóa và xử lý dữ liệu
+Để hiện thực hóa quy trình bảo mật lớp vật lý, hệ thống thực hiện xử lý dữ liệu  thông qua sự phối hợp chặt chẽ giữa cơ chế sinh khóa động và cấu trúc mã phân cực. Từ một khóa bí mật ban đầu, bộ tạo khóa AES-CTR sẽ sản sinh ra các luồng khóa thay đổi theo từng khối dữ liệu. Các luồng khóa này một mặt được dùng để trộn mã hóa trực tiếp dữ liệu gốc, mặt khác được dùng để thay thế hoàn toàn các vị trí bit đóng băng truyền thống.
+Việc xây dựng cấu trúc vector đầu vào kết hợp giữa dữ liệu đã bảo mật và khóa ngẫu nhiên trước khi đưa vào bộ mã hóa Polar giúp hệ thống đạt được khả năng bảo mật kép, vừa chống nghe lén hiệu quả, vừa đảm bảo tính toàn vẹn của dữ liệu trong môi trường truyền dẫn 5G. Quá trình này tích hợp việc bảo mật dữ liệu trực tiếp vào giai đoạn mã hóa kênh.
+Quy trình mã hóa được mô tả như Hình 2.5 với các bước thực hiện như sau:
+Bước 1: Bảo mật bit thông tin (Securing Information Bits)
+Dữ liệu () được chia thành các khối độ dài K. Sau đó, thực hiện phép toán XOR giữa khối dữ liệu và phần khóa  để tạo ra vector bit đã được che giấu 
+                                               (2.1)                                               
+Bước 2: Ngẫu nhiên hóa bit đóng băng (Randomization of Frozen Bits)
+Trong mã Polar truyền thống, các bit đóng băng thường được cố định bằng 0. Tuy nhiên, kiến trúc này lấp đầy tập hợp các vị trí kênh nhiễu () bằng chuỗi khóa ngẫu nhiên :
+                                              (2.2)
+Việc này giúp tăng cường tính khuếch tán và gây ra hiện tượng lan truyền lỗi nghiêm trọng nếu kẻ tấn công không có khóa chính xác khi sử dụng bộ giải mã SC.
+Bước 3: Mã hóa Polar (Polar Encoding)
+Vector tổng hợp u (bao gồm cả  và ) được nhân với ma trận sinh  để tạo ra từ mã truyền đi (x):
+          (2.3)
+                                                             (2.4)
+Trong đó là ma trận sinh Kronecker bậc N đặc trưng của mã phân cực. Từ mã hoàn chỉnh sau đó sẽ được đưa vào bộ điều chế tín hiệu để phát qua kênh truyền không dây, mang theo lớp bảo mật đa tầng đã được nhúng chặt chẽ nhằm vô hiệu hóa mọi nỗ lực giải mã trái phép từ kẻ nghe lén.
+Hình 2.5. Sơ đồ khối của kiến trúc mã hóa chung được đề xuất.
+2.3.4 Quy trình giải mã tại phía thu
+Quy trình khôi phục tín hiệu tại phía thu được thực hiện ngược lại với quá trình mã hóa nhằm đảm bảo tính toàn vẹn của dữ liệu  gốc. Dựa trên khóa bí mật được trích xuất từ kênh truyền, bộ tạo khóa AES-CTR sẽ tái tạo lại chính xác các thành phần khóa con động tương ứng với từng khối dữ liệu thu được. Tại bộ giải mã Polar, phần khóa dành cho các bit đóng băng sẽ làm cho quá trình khử nhiễu chủ động và sửa lỗi kênh truyền, cho phép trích xuất chính xác vector thông tin đã bị xáo trộn. Cuối cùng, dữ liệu  sẽ được khôi phục hoàn toàn sau khi thực hiện phép toán XOR giữa vector thông tin vừa trích xuất với luồng khóa tương ứng, giúp người dùng hợp lệ nhận được tín hiệu  chất lượng cao và không bị méo dạng. 
+Quy trình mã hóa được mô tả như Hình 2.6 với các bước thực hiện như sau:
+Bước 1: Đồng bộ hóa và Tái tạo hệ thống khóa con động
+Để bắt đầu quá trình, phía thu (người dùng hợp lệ) phải sở hữu khóa gốc  được trích xuất từ các đặc tính của kênh truyền không dây.
+Tạo luồng khóa AES-CTR: Người nhận sử dụng thuật toán AES ở chế độ Counter (CTR) để tạo lại chính xác chuỗi khóa đã dùng tại phía phát.
+Sử dụng IV và Counter: Mỗi khối dữ liệu thứ i sẽ tương ứng với một giá trị bộ đếm () và Vector khởi tạo (IV) cụ thể để đảm bảo tính duy nhất của khóa con.
+Phân tách khóa (Key Splitting): Chuỗi khóa con  sau khi tạo ra sẽ được chia thành hai tập hợp chỉ số tương ứng với cấu trúc của mã Polar:
+: Khóa dùng cho các kênh tin cậy (tập hợp A) để giải mã dữ liệu.
+: Khóa dùng cho các kênh nhiễu (tập hợp ) để hỗ trợ quá trình giải mã Polar.
+Bước 2: Giải mã kênh Polar tích hợp Khử nhiễu chủ động
+Đây là giai đoạn phức tạp nhất trong quy trình phục hồi tín hiệu, nơi hệ thống thực hiện đồng thời hai nhiệm vụ: sửa lỗi kênh truyền và giải xáo trộn cấu trúc bảo mật. Khác với các hệ thống Polar truyền thống (vốn mặc định các bit đóng băng là 0), kiến trúc đề xuất yêu cầu bộ giải mã phải tương tác trực tiếp với luồng khóa động để khôi phục dữ liệu.
+Khác với các hệ thống thông thường, bộ giải mã Polar tại phía thu không chỉ xử lý lỗi kênh truyền mà còn phải xử lý các bit đóng băng đã được ngẫu nhiên hóa.
+Thuật toán giải mã: Hệ thống sử dụng thuật toán giải mã loại bỏ liên tiếp (Successive Cancellation - SC) hoặc danh sách loại bỏ liên tiếp (Successive Cancellation List - SCL).
+Vai trò của : Trong quá trình giải mã, bộ giải mã sử dụng phần khóa  để xác định các bit tại các vị trí kênh nhiễu. Điều này cho phép bộ giải mã loại bỏ lớp bảo mật tại các bit đóng băng, đưa chúng về giá trị 0 cố định để hỗ trợ việc ra quyết định chính xác cho các bit thông tin tiếp theo.
+Lan truyền lỗi chủ động: Nếu một kẻ tấn công không có khóa đúng, các bit đóng băng sẽ bị coi là nhiễu ngẫu nhiên. Điều này dẫn đến hiện tượng lan truyền lỗi (error propagation) trong thuật toán SC, khiến toàn bộ tín hiệu đầu ra bị biến dạng hoàn toàn với tỷ lệ lỗi bit (BER) xấp xỉ 0.5.
+Bước 3: Giải mật mã và Khôi phục dữ liệu
+Sau khi bộ giải mã Polar hoàn tất việc ước lượng vector bit đầu vào , bước cuối cùng là tách biệt và giải mã lớp thông tin.
+Trích xuất : Hệ thống trích xuất các bit nằm trong tập hợp các kênh tin cậy A, nơi chứa dữ liệu  đã được mã hóa XOR.
+Phép toán XOR giải mã: Dữ liệu  gốc  được khôi phục bằng cách thực hiện phép XOR giữa vector bit vừa trích xuất và khóa con  :
+                                         (2.5)
+Khôi phục khối dữ liệu: Các khối dữ liệu  sau khi giải mã sẽ được ghép lại để tạo thành tín hiệu hoàn chỉnh ban đầu.
+Hình 2.6. Sơ đồ quán trình xử lý giải mã dữ liệu
+2.4 Hiệu quả vận hành và tính thực tế
+Một trong những rào cản lớn nhất của các hệ thống bảo mật truyền thống là gánh nặng tính toán phát sinh khi thực hiện mã hóa đa tầng. Tuy nhiên, kiến trúc này duy trì tổng chi phí tính toán của toàn bộ quy trình giải mã ở mức O (N log N), tương đương với độ phức tạp của thuật toán biến đổi Fourier nhanh (FFT).
+Tiết kiệm tài nguyên: Điều này cho phép hệ thống triển khai mượt mà trên các thiết bị đầu cuối có tài nguyên phần cứng hạn chế như điện thoại thông minh, cảm biến IoT hoặc thiết bị đeo thông minh.
+Xử lý thời gian thực: Tốc độ xử lý nhanh giúp loại bỏ hiện tượng trễ tín hiệu (latency), một yếu tố sống còn đối với các ứng dụng đa phương tiện thời gian thực trong mạng 5G/6G, đảm bảo luồng dữ liệu luôn được tái tạo liên tục và không bị ngắt quãng.
+Sự hiệp đồng giữa chế độ AES-CTR và Polar Codes tạo ra một cơ chế tự phục hồi mạnh mẽ trước các biến động của môi trường:
+Tính độc lập của khối: Trong chế độ CTR, việc giải mã một khối dữ liệu không phụ thuộc vào kết quả của khối trước đó. Do đó, nếu xảy ra hiện tượng mất gói hoặc sai lệch đồng bộ cục bộ, hệ thống có thể tái đồng bộ ngay lập tức ở khối kế tiếp mà không gây ra hiệu ứng lỗi dây chuyền.
+Khôi phục dữ liệu trong điều kiện khắc nghiệt: Mã phân cực đóng vai trò là "lớp bảo vệ vật lý", sửa các lỗi bit phát sinh do nhiễu trắng (AWGN) hoặc nhiễu đa đường. Ngay cả khi kênh truyền bị suy hao nặng, sự kết hợp này vẫn đảm bảo dữ liệu được khôi phục với độ chính xác cao, duy trì chất lượng trải nghiệm (QoE) cho người dùng cuối.
+Khác với các mã Turbo dựa trên vòng lặp phản hồi, cấu trúc của Mã phân cực và chế độ AES-CTR cho phép thực hiện tính toán song song (parallel processing) cực kỳ hiệu quả:
+Tối ưu hóa FPGA/ASIC: Các kiến trúc phần cứng chuyên dụng có thể xử lý đồng thời nhiều nhánh của cây phân cực và nhiều khối đếm AES cùng lúc, giúp đẩy tốc độ thông lượng.
+Giảm tiêu thụ năng lượng: Nhờ giảm thiểu số lượng vòng lặp và các phép toán dư thừa, hệ thống tiêu tốn ít điện năng hơn, từ đó kéo dài thời gian sử dụng pin cho các thiết bị di động – yếu tố quan trọng trong tính thực tế của sản phẩm.
+2.4.1 Ưu điểm về hiệu năng phần cứng
+Khả năng song song hóa: Thuật toán AES-CTR và mã Polar cho phép xử lý nhiều luồng dữ liệu cùng lúc, giúp giảm độ trễ – điều cực kỳ quan trọng cho các cuộc gọi VoIP hoặc livestream chất lượng cao.
+Tiết kiệm năng lượng: So với các mã hóa truyền thống (như Turbo hay LDPC), mã Polar có độ phức tạp tính toán thấp hơn O(N log N), giúp tiết kiệm pin cho các thiết bị di động và cảm biến IoT.
+2.5 Kết luận
+Chương 2 đã chi tiết hóa kiến trúc chống tấn công nghe lén dựa trên kỹ thuật Crypto-coding – trọng tâm của đề tài nghiên cứu. Những đóng góp chính của chương bao gồm:
+- Cơ chế tạo khóa động khai thác đặc tính kênh vật lý: đề xuất sử dụng thuật toán AES-CTR kết hợp với khóa gốc được trích xuất trực tiếp từ đáp ứng xung kênh truyền vô tuyến (CIR) để tạo ra các khóa con linh hoạt cho từng khối dữ liệu. Kỹ thuật này tận dụng sự độc lập về không gian của kênh truyền, đảm bảo kẻ nghe lén (Eve) không thể tái tạo khóa, qua đó khắc phục triệt để lỗ hổng của việc phân phối và sử dụng khóa cố định trong các hệ thống truyền thông truyền thống.
+- Chiến lược tối ưu hóa bit đóng băng: Thay đổi cách tiếp cận truyền thống bằng cách kết hợp trực tiếp dòng khóa ngẫu nhiên vào các vị trí bit đóng băng (frozen bits). Kỹ thuật này không chỉ tăng cường độ hỗn loạn cho bản mã mà còn tạo ra hiện tượng lan truyền cực lớn đối với mọi nỗ lực nghe lén không hợp lệ.
+- Hiệu năng thực thi: Chứng minh kiến trúc đề xuất duy trì độ phức tạp tính toán thấp ở mức O(Nlog N), đảm bảo khả năng xử lý song song và tiết kiệm năng lượng cho các thiết bị di động 5G hoặc IoT có tài nguyên hạn chế.
+Những đề xuất kỹ thuật này đã thiết lập một hàng rào phòng thủ đa tầng toàn diện chống lại các cuộc tấn công nghe lén trên môi trường vô tuyến, tạo tiền đề vững chắc cho việc kiểm chứng thực nghiệm thông qua các kịch bản mô phỏng và chỉ số định lượng trong Chương 3.
+CHƯƠNG 3: KẾT QỦA THỰC NGHIỆM VÀ ĐÁNH GIÁ 
+3.1 Giới thiệu phần mềm MATLAB
+MATLAB  là một môi trường tính toán số và lập trình bậc cao được sử dụng rộng rãi trong các lĩnh vực kỹ thuật, đặc biệt là viễn thông và xử lý tín hiệu số. Trong nghiên cứu này, MATLAB được lựa chọn làm công cụ mô phỏng chính nhờ những ưu điểm vượt trội sau:
+Thư viện xử lý tín hiệu mạnh mẽ: MATLAB cung cấp các Toolbox chuyên dụng như Signal Processing Toolbox và Communications Toolbox, cho phép thực hiện nhanh chóng các phép biến đổi phổ, phân tích dạng sóng và mô phỏng các mô hình kênh truyền (AWGN, Rice, Rayleigh).
+Hỗ trợ tính toán ma trận tối ưu: Bản chất của mã hóa Polar là các phép nhân ma trận Kronecker quy mô lớn. MATLAB tối ưu hóa các phép toán này trên mảng, giúp giảm thời gian mô phỏng đáng kể so với các ngôn ngữ lập trình truyền thống.
+Môi trường mô phỏng linh hoạt: Cho phép dễ dàng thay đổi các tham số hệ thống như độ dài khối N, tốc độ mã R, và tỷ số tín hiệu trên nhiễu SNR để đánh giá hiệu năng thuật toán trong nhiều kịch bản khác nhau.
+Hình 3.1. Các tính năng của MATLAB
+3.2 Thiết lập môi trường mô phỏng và đánh giá tính ngẫu nhiên của khóa
+Để kiểm chứng tính đúng đắn và đánh giá hiệu năng của thuật toán mã hóa  chống tấn công nghe lén dựa trên sự kết hợp giữa mã Polar và hệ mật AES-CTR, chúng tôi tiến hành thiết lập một môi trường mô phỏng thực tế trên nền tảng MATLAB. Phần này trình bày hiệu suất của phương pháp mã hóa mật mã được đề xuất về khả năng sửa lỗi, mức độ bảo mật và độ phức tạp tính toán. Để đạt được mục tiêu này, chúng tôi trích xuất các khóa bí mật từ CIR của hệ thống truyền thông không dây thông qua kênh AWGN được mô tả trong Phần 2 ở trên. 
+Tính ngẫu nhiên của các khóa bí mật này được đánh giá bằng NIST 800-22REV1A. Chuỗi khóa bí mật sẽ vượt qua bài kiểm tra NIST nếu giá trị được kiểm tra lớn hơn giới hạn 0,01 [31]. Trong các mô phỏng của chúng tôi, chúng tôi sử dụng các khóa bí mật có độ dài 128 bit, 256 bit, 512 bit, 1024 bit và 2048 bit, vì các độ dài khóa này lớn hơn 100 bit, có thể cung cấp khả năng bảo vệ mạnh mẽ chống lại các cuộc tấn công vét cạn [32]. Các khóa này được đánh giá thông qua 8 bài kiểm tra NIST [33] với một số tham số thử nghiệm được hiển thị trong Bảng 1. Chúng tôi cần đặt thêm các tham số về độ dài khối cho các bài kiểm tra NIST bao gồm Tần suất khối, Entropy xấp xỉ và Số thứ tự. Đối với năm bài kiểm tra NIST còn lại, chúng tôi chỉ cần đặt độ dài khóa tương ứng khi chạy kết quả. Kết quả đánh giá được hiển thị trong Bảng 2. Nó cho thấy tất cả các giá trị được kiểm tra theo NIST đều lớn hơn 0,01. Do đó, các khóa bí mật được đề xuất đảm bảo tính ngẫu nhiên.
+Bảng 1. Các thông số cho một số bài kiểm tra của NIST
+Kiểm tra NIST 
+Độ dài khối
+Tần số khối
+128
+Entropy xấp xỉ
+10
+Số nối tiếp
+4
+Bảng 2. Các giá trị đã kiểm tra của các bài kiểm tra NIST bắt buộc
+Kiểm tra
+128 bits
+256 bits
+512 bits
+1024 bits
+2048 bits
+Bit đơn
+1
+1
+1
+1
+1
+Tần số khối
+0.85
+0.71
+0.25
+0.88
+0.63
+Chạy
+0.42
+0.55
+0.48
+0.62
+0.70
+Chuỗi số 1 dài nhất
+0.49
+0.92
+0.63
+0.78
+0.38
+Biến đổi Fourier rời rạc
+0.76
+0.20
+0.36
+0.41
+0.28
+Số nối tiếp
+Số nối tiếp 1
+0.56
+0.61
+0.45
+0.77
+0.33
+Số nối tiếp 2
+0.23
+0.78
+0.43
+0.52
+0.82
+Entropy xấp xỉ
+1
+1
+1
+1
+1
+Tổng tích lũy
+0.98
+0.83
+0.72
+0.95
+0.85
+Trong nghiên cứu này, các hệ thống áp dụng phương pháp đề xuất của chúng tôi được mô phỏng bằng MATLAB 2020A, được cài đặt trên máy tính cá nhân với CPU Intel(R) Core(TM) i7-7500U @ 2.9 GHz, RAM 16.0 GB. Các thông số mô phỏng được trình bày trong Bảng 3.
+Bảng 3. Các thông số mô phỏng
+Mục
+Thông số kỹ thuật 
+Độ dài mã (N)
+128, 256, 512, 1024, 2048 bits
+Độ dài khóa
+128, 256, 512, 1024, 2048 bits
+Tốc độ mã (R)
+1/2, 1/4, 1/8
+Kênh
+AWGN
+Thuật toán giải mã
+SC
+Sơ đồ điều chế
+BPSK
+Khi chạy mô phỏng, độ dài khóa được chọn phải tương ứng với độ dài mã. Ví dụ, chúng ta chọn độ dài khóa là 128, 256, 512, 1024 và 2048 bit cho độ dài mã tương ứng là 128, 256, 512, 1024 và 2048 bit. Ngoài ra, để dễ biểu diễn trong các hình minh họa, trong các đánh giá hiệu năng khác nhau, chúng ta chọn các độ dài khóa/độ dài mã và tỷ lệ mã khác nhau như sau:
+• Để đánh giá khả năng sửa lỗi của phương pháp đề xuất, chúng tôi đưa ra 2 kịch bản:
+Kịch bản 1: độ dài mã và độ dài khóa là 1024 bit và 2048 bit không thay đổi trong mỗi trường hợp. Sau đó, chúng ta sửa đổi tỷ lệ mã là 1/2 và 1/4.
+Kịch bản 2: Tỷ lệ mã là 1/4 và 1/8 không thay đổi trong mỗi trường hợp. Sau đó, chúng ta sửa đổi độ dài mã và độ dài khóa là 128 bit và 512 bit.
+- Để đánh giá hiệu suất bảo mật, chúng tôi mô phỏng với độ dài mã/độ dài khóa là 128 bit và tốc độ mã hóa là 1/2, và độ dài mã/độ dài khóa là 256 bit và tốc độ mã hóa là 1/4.
+- Để đánh giá độ phức tạp tính toán, chúng tôi thực hiện với tất cả các độ dài mã/độ dài khóa là 128, 256, 512, 1024, 2048 bit với tốc độ mã hóa là 1/2.
+Kênh truyền sử dụng trong mô phỏng là AWGN (Additive White Gaussian Noise), một mô hình phổ biến để mô phỏng nhiễu ngẫu nhiên trắng Gaussian.
+SNR (Signal-to-Noise Ratio) được thiết lập ở mức: Eb/N0 = 10 dB 
+Dựa vào tỷ lệ mã và SNR, nhóm tính được phương sai nhiễu (noise variance) như sau:
+Ngoài mức Eb/N0 cố định 10 dB, mô phỏng còn được thực hiện với nhiều giá trị SNR khác nhau: 2 dB, 4 dB, 6 dB, 8 dB, 10 dB...
+Việc thay đổi Eb/N0 giúp:
+Xác định ngưỡng Eb/N0 tối thiểu để đảm bảo truyền dữ liệu thành công.
+Đánh giá khả năng khôi phục ảnh trong điều kiện kênh nhiễu khác nhau.
+So sánh hiệu suất mã hóa giữa các mức độ nhiễu
+3.3 Đánh giá khả năng sửa lỗi của phương pháp đề xuất
+ Để đánh giá hiệu suất của mã cực an toàn được đề xuất, các hệ thống được mô phỏng thông qua kênh AWGN trong hai trường hợp nghiên cứu, bao gồm thay đổi tốc độ mã và độ dài mã. Hiệu suất tỷ lệ lỗi bit (BER) của hệ thống sử dụng phương pháp được đề xuất sẽ được so sánh với hiệu suất sử dụng mã cực thông thường trong mỗi kịch bản.
+Kịch bản 1: Chúng ta giữ độ dài mã và độ dài khóa là 1024 bit và 2048 bit, sau đó sửa đổi tốc độ mã thành 1/2 và 1/4. Hiệu suất BER của độ dài mã 1024 và 2048 được hiển 

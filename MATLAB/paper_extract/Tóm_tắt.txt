@@ -1,0 +1,1324 @@
+Tóm tắt—Một phương pháp được đề xuất, gọi là phân cực kênh,
+để xây dựng các chuỗi mã đạt được dung lượng đối xứng
+của bất kỳ kênh không nhớ rời rạc đầu vào nhị phân nào
+(B-DMC). Dung lượng đối xứng là chiến lược cao nhất có thể đạt được
+với điều kiện sử dụng các chữ cái đầu vào của kênh với xác suất bằng nhau. Phân cực kênh đề cập đến thực tế là có thể tổng hợp, từ các bản sao độc lập của một B-DMC nhất định,
+một tập hợp thứ hai các kênh đầu vào nhị phân
+sao cho, khi trở nên lớn, tỷ lệ các chỉ số mà
+gần tiến đến và tỷ lệ mà
+gần tiến đến. Các kênh phân cực
+được điều kiện tốt cho mã hóa kênh: người ta chỉ cần
+gửi dữ liệu ở tốc độ thông qua những kênh có dung lượng gần và tốc độ
+thông qua phần còn lại. Các mã được xây dựng dựa trên ý tưởng này
+được gọi là mã cực. Bài báo chứng minh rằng, cho bất kỳ B-DMC nào
+với và bất kỳ tốc độ mục tiêu nào, tồn tại một
+chuỗi mã cực sao cho có độ dài khối
+, tốc độ và xác suất lỗi khối trong quá trình giải mã triệt tiêu liên tiếp được giới hạn bởi
+độc lập với tốc độ mã. Hiệu suất này có thể đạt được bằng
+bộ mã hóa và bộ giải mã với độ phức tạp cho mỗi bộ.
+Từ khóa—Mã đạt dung lượng, dung lượng kênh,
+phân cực kênh, cấu trúc Plotkin, mã cực, mã Reed
+Muller (RM), giải mã triệt tiêu liên tiếp.
+I. GIỚI THIỆU VÀ TỔNG QUAN
+Một khía cạnh hấp dẫn trong bằng chứng của Shannon về định lý mã hóa kênh OISy là phương pháp mã hóa ngẫu nhiên được sử dụng để chứng minh sự tồn tại của các chuỗi mã đạt được dung lượng mà không cần hiển thị bất kỳ chuỗi cụ thể nào như vậy[1].
+Việc xây dựng rõ ràng các chuỗi mã đạt được dung lượng có thể chứng minh được với độ phức tạp mã hóa và giải mã thấp hơn đã là một mục tiêu khó đạt được kể từ đó. Bài báo này là một nỗ lực để đáp ứng mục tiêu này cho lớp kênh không nhớ rời rạc đầu vào nhị phân (B-DMC).
+Chúng tôi sẽ mô tả các ý tưởng và kết quả chính của bài báo trong phần này. Đầu tiên, chúng tôi đưa ra một số định nghĩa và nêu một số sự kiện cơ bản được sử dụng xuyên suốt bài báo. Bản thảo nhận được ngày 14 tháng 10 năm 2007; sửa đổi ngày 13 tháng 8 năm 2008. Phiên bản hiện tại được xuất bản ngày 24 tháng 6 năm 2009. Công trình này được hỗ trợ một phần bởi Hội đồng Nghiên cứu Khoa học và Công nghệ Thổ Nhĩ Kỳ (TÜB˙ITAK) theo Dự án 107E216 và một phần bởi Mạng lưới Xuất sắc FP7 của Ủy ban Châu Âu NEWCOM++ theo Hợp đồng 216715. Một phần nội dung trong bài báo này đã được trình bày tại Hội nghị chuyên đề quốc tế IEEE về Lý thuyết Thông tin (ISIT), Toronto, ON, Canada, tháng 7 năm 2008.
+Tác giả thuộc Khoa Kỹ thuật Điện-Điện tử, Đại học Bilkent, Ankara, 06800, Thổ Nhĩ Kỳ (email: arikan@ee.bilkent.edu.tr). Được gửi bởi Y. Steinberg, Biên tập viên liên kết của Shannon Theory.
+Phiên bản màu của Hình 4 và 7 trong bài báo này có sẵn trực tuyến tại http://ieeexplore.ieee.org.
+Mã định danh đối tượng kỹ thuật số 10.1109/TIT.2009.2021379
+A. Phần mở đầu
+Chúng tôi viết để biểu thị B-DMC chung với
+bảng chữ cái đầu vào, bảng chữ cái đầu ra và xác suất chuyển đổi
+. Bảng chữ cái đầu vào sẽ luôn là
+, bảng chữ cái đầu ra và xác suất chuyển đổi có thể
+tùy ý. Chúng tôi viết để biểu thị kênh tương ứng
+với các lần sử dụng của ; do đó, với
+. Cho một B-DMC, có hai tham số kênh quan trọng trong bài báo này: dung lượng đối xứng và tham số Bhattacharyya. Các tham số này được sử dụng làm thước đo tốc độ và độ tin cậy, tương ứng. là tốc độ cao nhất mà tại đó giao tiếp đáng tin cậy có thể thực hiện được bằng cách sử dụng đầu vào với tần số bằng nhau. là giới hạn trên của xác suất lỗi quyết định tối đa (ML) khi chỉ được sử dụng một lần để truyền hoặc . Dễ dàng nhận thấy rằng nhận giá trị trong . Trong suốt bài viết, chúng ta sẽ sử dụng logarit cơ số; do đó, cũng sẽ nhận giá trị trong . Đơn vị cho tốc độ và dung lượng kênh sẽ là bit.
+Theo trực giác, người ta sẽ mong đợi rằng khi và chỉ khi ,
+và khi và chỉ khi . Các giới hạn sau, được chứng minh trong Phụ lục, làm cho điều này chính xác hơn. Mệnh đề 1: Đối với bất kỳ B-DMC nào, chúng ta có
+(1)
+(2)
+Dung lượng đối xứng bằng dung lượng Shannon
+khi là một kênh đối xứng, tức là một kênh mà tồn tại một hoán vị của bảng chữ cái đầu ra sao cho i)
+và ii) với mọi . Kênh đối xứng nhị phân (BSC) và kênh xóa nhị phân (BEC) là ví dụ về các kênh đối xứng. ABSC là một B-DMC
+với và
+. AB-DMC được gọi là BEC nếu với , hoặc
+hoặc . Trong trường hợp sau,
+0018-9448/$25.00©2009IEEE
+3052 IEEETRANSACTIONSONINFORMATIONTHEORY,VOL.55,NO.7,JULY2009
+Hình 1. Kênh .
+được gọi là ký hiệu xóa. Tổng của tất cả các ký hiệu xóa được gọi là xác suất xóa của BEC.
+Chúng ta ký hiệu các biến ngẫu nhiên (RV) bằng các chữ cái viết hoa, chẳng hạn như , và các giá trị thực hiện của chúng (giá trị mẫu) bằng các chữ cái viết thường tương ứng, chẳng hạn như . Đối với một RV, ký hiệu gán xác suất cho . Đối với một tập hợp chung của các RV, ký hiệu gán xác suất chung.
+Chúng ta sử dụng ký hiệu chuẩn để biểu thị thông tin tương hỗ và dạng có điều kiện của nó, tương ứng. Chúng ta sử dụng ký hiệu viết tắt để biểu thị một vectơ hàng.
+Cho một vectơ như vậy, chúng ta viết ,
+, để biểu thị vectơ con; nếu được coi là
+tránh. Cho và , chúng ta viết để biểu thị
+vectơ con . Chúng ta viết để biểu thị vectơ con
+với các chỉ số lẻ là odd . Chúng ta viết để biểu thị
+vectơ con với các chỉ số chẵn là even .
+Ví dụ, đối với , chúng ta có
+. Ký hiệu được sử dụng để biểu thị
+vectơ toàn số 0.
+Các cấu trúc mã trong bài báo này sẽ được thực hiện trong không gian vectơ
+trên trường nhị phân GF . Trừ khi được chỉ định khác,
+tất cả các vectơ, ma trận và các phép toán trên chúng sẽ nằm trên
+GF . Đặc biệt, đối với các vectơ trên GF, chúng ta viết
+để biểu thị các thành phần modulo của chúng
+m. Tích Kronecker của một ma trận x và một ma trận x được định nghĩa là
+. . . . . . . . .
+là một ma trận x. Lũy thừa Kronecker được định nghĩa là cho tất cả . Chúng ta sẽ tuân theo
+quy ước rằng .
+Chúng ta viết để biểu thị số phần tử trong một tập hợp . Chúng ta
+viết để biểu thị hàm chỉ thị của một tập hợp ; do đó,
+bằng nếu và ngược lại.
+Chúng ta sử dụng ký hiệu Landau tiêu chuẩn để
+biểu thị hành vi mptotic của các hàm.
+B. Phân cực kênh
+Phân cực kênh là một thao tác mà qua đó người ta tạo ra
+từ các bản sao độc lập của một B-DMC nhất định một
+tập hợp kênh thứ hai thể hiện
+hiệu ứng phân cực theo nghĩa là, khi trở nên lớn,
+các số hạng dung lượng đối xứng có xu hướng tiến tới hoặc đối với tất cả
+nhưng là một phần bằng không của các chỉ số. Thao tác này bao gồm
+một pha kết hợp kênh và một pha tách kênh.
+1) Kết hợp kênh: Pha này kết hợp các bản sao của một
+B-DMC nhất định theo cách đệ quy để tạo ra một vectơ
+Hình 2. Kênh và mối quan hệ của nó với và . kênh, trong đó có thể là bất kỳ lũy thừa nào của hai,
+.Đệ quy bắt đầu ở cấp thứ
+chỉ với một bản sao của và chúng ta đặt .Cấp đầu tiên
+của đệ quy kết hợp hai bản sao độc lập của
+như được hiển thị trong Hình 1 và thu được kênh
+với xác suất chuyển đổi
+(3)
+Cấp tiếp theo của đệ quy được hiển thị trong Hình 2, trong đó hai
+bản sao độc lập của được kết hợp để tạo ra kênh
+với xác suất chuyển đổi
+.
+Trong Hình 2, là phép hoán vị ánh xạ một đầu vào
+đến . Ánh xạ
+từ đầu vào của đến đầu vào của có thể được viết là
+với
+Do đó, chúng ta có mối quan hệ là
+giữa xác suất chuyển đổi của và xác suất chuyển đổi của .
+Dạng tổng quát của phép đệ quy được thể hiện trong Hình 3, trong đó
+hai bản sao độc lập của được kết hợp để tạo ra
+kênh. Vectơ đầu vào cho được biến đổi đầu tiên
+thành sao cho và cho
+. Toán tử trong hình là một phép hoán vị, được gọi là
+phép toán xáo trộn ngược, và tác động lên đầu vào của nó để tạo ra
+, trở thành
+đầu vào cho hai bản sao của như được hiển thị trong hình.
+Chúng ta nhận thấy rằng ánh xạ là tuyến tính trên GF.
+Theo quy nạp, ánh xạ tổng thể,
+từ đầu vào của kênh tổng hợp đến đầu vào của
+các kênh thô cơ bản, cũng là tuyến tính và có thể được
+biểu diễn bằng ma trận sao cho. Chúng ta gọi lại
+ma trận sinh có kích thước. Xác suất chuyển đổi của
+hai kênh và có liên quan bởi
+(4)
+cho tất cả. Chúng ta sẽ chỉ ra trong Phần VII rằng
+bằng với bất kỳ , trong đó là một
+ma trận hoán vị được gọi là đảo ngược bit và .
+ARIKAN: PHƯƠNG PHÁP XÂY DỰNG MÃ ĐẠT ĐƯỢC DUNG LƯỢNG
+với
+3053
+. Công thức đệ quy này chỉ hợp lệ cho BEC
+và nó được chứng minh trong Phần III. Không có thuật toán hiệu quả nào được biết đến
+để tính toán
+cho B-DMC tổng quát.
+Hình 4 cho thấy rằng
+có xu hướng gần với giá trị nhỏ
+và gần với giá trị lớn. Tuy nhiên,
+thể hiện hành vi thất thường
+trong một phạm vi trung gian của . Đối với B-DMC tổng quát, việc xác định
+tập hợp con các chỉ số mà
+vượt quá một
+ngưỡng nhất định là một vấn đề tính toán quan trọng sẽ được giải quyết trong Phần IX.
+4) Tốc độ phân cực: Để chứng minh các định lý mã hóa,
+tốc độ mà hiệu ứng phân cực diễn ra như một hàm của
+là rất quan trọng. Kết quả chính của chúng tôi về vấn đề này được đưa ra theo
+các tham số
+Hình 3. Cấu trúc đệ quy của từ hai bản sao của
+.
+Lưu ý rằng hoạt động kết hợp kênh được xác định đầy đủ bởi
+ma trận . Cũng lưu ý rằng
+và
+có cùng một tập hợp các
+hàng, nhưng theo thứ tự khác nhau (đảo ngược bit); chúng ta sẽ thảo luận chi tiết hơn về chủ đề này trong Phần VII.
+với
+Định lý 2: Đối với bất kỳ B-DMC nào
+bất kỳ cố định nào
+(7)
+, và
+, tồn tại một chuỗi các tập hợp
+, sao cho
+và
+2) Phân tách kênh: Sau khi tổng hợp kênh vectơ
+từ
+cho tất cả
+Định lý này được chứng minh trong Phần IV-B.
+phân tách
+, bước tiếp theo của phân cực kênh là
+trở lại thành một tập hợp các kênh tọa độ đầu vào nhị phân
+,
+.
+Chúng tôi đã trình bày kết quả phân cực trong Định lý 2 dưới dạng
+thay vì
+vì dạng này tốt hơn
+, được định nghĩa bởi các chuyển đổi
+xác suất
+trong đó
+biểu thị đầu ra của
+Để có được sự hiểu biết trực quan về các kênh
+(5)
+và đầu vào của nó.
+, hãy xem xét bộ giải mã hủy liên tiếp được hỗ trợ bởi genie trong đó
+phần tử quyết định thứ ước tính
+sau khi quan sát
+các đầu vào kênh trong quá khứ
+và
+(được genie cung cấp chính xác
+bất kể bất kỳ lỗi quyết định nào ở các giai đoạn trước đó). Nếu
+đồng nhất trước trên
+, thì
+là một
+là kênh hiệu quả được nhìn thấy
+bởi phần tử quyết định thứ trong kịch bản này.
+3) Phân cực kênh:
+Định lý 1: Đối với bất kỳ B-DMC nào, các kênh
+phân cực theo nghĩa là, đối với bất kỳ cố định nào
+đến vô cùng thông qua lũy thừa của hai, phần trăm các chỉ số
+mà phần trăm mà
+tiến tới
+Định lý này được chứng minh trong Phần IV.
+po
+, khi tiến tới
+tiến tới
+và
+.
+Hiệu ứng phân cực được minh họa trong Hình 4 cho trường hợp
+là BEC với xác suất xóa
+. Các số
+đã được tính toán bằng cách sử dụng các mối quan hệ đệ quy
+(6)
+phù hợp với các kết quả mã hóa mà chúng ta sẽ phát triển. Tốc độ
+kết quả phân cực theo
+có thể thu được từ
+Định lý 2 với sự trợ giúp của Mệnh đề 1.
+C. Mã hóa phân cực
+Chúng tôi tận dụng hiệu ứng phân cực để xây dựng
+các mã đạt được dung lượng kênh đối xứng
+bằng một
+phương pháp mà chúng tôi gọi là mã hóa phân cực. Ý tưởng cơ bản của mã hóa cực là
+tạo ra một hệ thống mã hóa trong đó người ta có thể truy cập từng kênh tọa độ
+kênh
+mà
+1)
+riêng lẻ và chỉ gửi dữ liệu thông qua những kênh
+gần đó.-Mã Coset: Trước tiên, chúng ta mô tả một lớp mã khối c
+các mã
+chứa mã cực—các mã quan tâm chính—như một trường hợp đặc biệt. Độ dài khối
+lũy thừa của hai,
+đối với lớp này bị giới hạn ở
+đối với một số
+. Đối với một giá trị đã cho, mỗi
+mã trong lớp được mã hóa theo cùng một cách, cụ thể là
+trong đó
+(8)
+là ma trận sinh có bậc , được định nghĩa ở trên.
+Đối với một tập con tùy ý của
+, chúng ta có thể viết (8) thành
+(9)
+trong đó
+ký hiệu ma trận con của
+với các chỉ số trong .
+được hình thành bởi các hàng
+Nếu bây giờ chúng ta cố định và , nhưng để là một biến tự do, chúng ta
+thu được một ánh xạ từ các khối nguồn
+đến các khối từ mã
+. Ánh xạ này là mã coset: nó là một coset của khối tuyến tính
+3054
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL.55, NO.7, JULY 2009
+Hình 4. Đồ thị của
+so với
+mã với ma trận sinh
+bởi vectơ cố định
+của các mã được gọi chung là
+cho BEC với
+, với coset được xác định
+. Chúng ta sẽ gọi đây là mã coset lớp. Các mã riêng lẻ
+sẽ được xác định bằng vectơ coset tham số
+,
+trong đó là kích thước mã hóa và chỉ định kích thước của .1Tỷ lệ
+được gọi là tốc độ mã. Chúng ta sẽ gọi là tập hợp thông tin và là
+Ví dụ, ánh xạ
+như các bit hoặc vectơ đóng băng.
+mã có bộ mã hóa
+.
+theo thứ tự từ đến , trong đó
+là các hàm quyết định được định nghĩa là
+nếu
+ngược lại
+cho tất cả
+,
+(12)
+. Chúng ta sẽ nói rằng lỗi khối giải mã
+xảy ra nếu
+Các hàm quyết định
+hoặc tương đương nếu
+.
+được định nghĩa ở trên giống với các hàm quyết định ML
+nhưng không hoàn toàn giống nhau, bởi vì chúng xử lý các bit đóng băng trong tương lai
+(10)
+Đối với một khối nguồn
+.
+, khối được mã hóa là
+Mã Polar sẽ được chỉ định trong thời gian ngắn bằng cách đưa ra một quy tắc cụ thể
+cho việc lựa chọn tập thông tin.
+2) Bộ giải mã hủy liên tiếp: Xét mã a-coset với tham số
+. Cho
+được mã hóa thành một từ mã
+, và cho đầu ra kênh
+, cho
+được
+gửi qua kênh
+được nhận. Nhiệm vụ của bộ giải mã
+là tạo ra ước tính
+của
+và
+của
+, với kiến ​​thức
+. Vì bộ giải mã có thể tránh lỗi trong
+phần đóng băng bằng cách thiết lập
+, nên nhiệm vụ giải mã thực sự là
+tạo ra ước tính
+của
+.
+Các kết quả mã hóa trong bài báo này sẽ được đưa ra liên quan đến
+một bộ giải mã hủy liên tiếp (SC) cụ thể, trừ khi
+một bộ giải mã khác được đề cập. Với bất kỳ mã coset nào, chúng ta sẽ sử dụng bộ giải mã SC tạo ra
+quyết định của nó bằng cách tính toán
+1Chúng ta bao gồm tham số dư thừa
+nếu
+nếu
+(11)
+trong tập tham số vì thường
+chúng ta xem xét một tập hợp các mã với cố định và tự do.
+như RV, thay vì
+như các bit đã biết. Để đổi lấy sự không tối ưu này,
+có thể được
+tính toán hiệu quả bằng cách sử dụng các công thức đệ quy, như chúng ta sẽ trình bày
+trong Phần II. Ngoài hiệu quả thuật toán, cấu trúc đệ quy
+của các hàm quyết định rất quan trọng vì nó làm cho việc phân tích hiệu suất của bộ giải mã trở nên khả thi. May mắn thay, tổn thất về hiệu suất do không sử dụng các hàm quyết định ML thực sự là không đáng kể:
+vẫn có thể đạt được.
+3) Hiệu suất mã: Ký hiệu
+biểu thị xác suất lỗi khối cho một
+mã, giả sử rằng mỗi vectơ dữ liệu
+xác suất
+sẽ
+được gửi với
+và việc giải mã được thực hiện bởi bộ giải mã SC ở trên. Chính xác hơn
+Giá trị trung bình của
+được ký hiệu là
+trên tất cả các lựa chọn cho
+, tức là,
+sẽ
+Một giới hạn quan trọng về xác suất lỗi khối trong quá trình giải mã SC là
+như sau.
+ARIKAN: PHƯƠNG PHÁP XÂY DỰNG MÃ ĐẠT ĐƯỢC NĂNG LỰC
+3055
+Mệnh đề 2: Đối với bất kỳ B-DMC nào
+tham số
+Do đó, đối với mỗi
+và bất kỳ lựa chọn nào của
+(13)
+, tồn tại một vectơ cố định
+sao cho
+như vậy
+(14)
+Điều này được chứng minh trong Phần V-B. Kết quả này gợi ý chọn
+từ tất cả các tập con của
+để giảm thiểu
+vế phải (RHS) của (13). Ý tưởng này dẫn đến định nghĩa
+mã cực.
+4) Mã cực: Cho một B-DMC, một mã tập hợp con với
+tham số
+sẽ được gọi là mã cực cho
+nếu tập thông tin
+sao cho
+được chọn là một tập con phần tử của
+cho tất cả
+. Mã cực là các thiết kế dành riêng cho từng kênh: mã cực cho một kênh có thể không phải là mã cực cho kênh khác. Kết quả chính của bài báo này là chứng minh rằng mã hóa cực đạt được dung lượng đối xứng của bất kỳ B-DMC nào.
+Kết quả mã hóa chính của
+Định lý 3: Đối với bất kỳ B-DMC nào đã cho và cố định
+,
+xác suất lỗi khối cho mã hóa cực dưới giải mã hủy liên tiếp thỏa mãn
+(15)
+Định lý này suy ra như một hệ quả dễ dàng của Định lý 2 và
+giới hạn (13), như chúng tôi đã chỉ ra trong Phần V-B. Đối với các kênh đối xứng
+các kênh, chúng tôi có phiên bản mạnh hơn sau đây của Định lý 3.
+Định lý 4: Đối với bất kỳ B-DMC đối xứng nào
+, hãy xem xét bất kỳ chuỗi nào của
+với
+và bất kỳ mã tập hợp con cố định nào
+được chọn theo quy tắc mã hóa cực cho , và
+cố định tùy ý. Xác suất lỗi khối dưới giải mã hủy liên tiếp
+thỏa mãn
+(16)
+Điều này được chứng minh trong Phần VI-B. Lưu ý rằng đối với các kênh đối xứng
+các kênh
+bằng dung lượng Shannon của .
+6) Độ phức tạp: Một vấn đề quan trọng về mã hóa cực là
+độ phức tạp của mã hóa, giải mã và xây dựng mã. Cấu trúc đệ quy của việc xây dựng phân cực kênh
+dẫn đến các thuật toán mã hóa và giải mã có độ phức tạp thấp cho
+lớp mã coset, và đặc biệt là cho mã phân cực.
+Định lý 5: Đối với lớp mã coset, độ phức tạp
+của mã hóa và độ phức tạp của việc giải mã triệt tiêu liên tiếp
+đều là
+các hàm của độ dài khối mã
+.
+Định lý này được chứng minh trong Phần VII và VIII. Lưu ý rằng
+các giới hạn độ phức tạp trong Định lý 5 không phụ thuộc vào
+tốc độ mã và cách chọn vectơ đóng băng. Các giới hạn
+vẫn đúng ngay cả ở tốc độ trên
+, nhưng rõ ràng điều này không có ý nghĩa thực tiễn
+.
+Về việc xây dựng mã, chúng tôi chưa tìm thấy thuật toán có độ phức tạp thấp nào để xây dựng mã phân cực. Một ngoại lệ là
+trường hợp BEC, đối với trường hợp này chúng tôi có thuật toán xây dựng mã phân cực với độ phức tạp
+. Chúng tôi thảo luận thêm về vấn đề xây dựng mã trong Phần IX và đề xuất một thuật toán thống kê có độ phức tạp thấp để xấp xỉ việc xây dựng mã cực chính xác.
+D. Mối liên hệ với các công trình trước đây
+Bài báo này là phần mở rộng của công trình đã bắt đầu trong [2], trong đó việc kết hợp và phân tách kênh được sử dụng để chỉ ra rằng có thể đạt được những cải tiến về tốc độ cắt tổng cho một số DMC cụ thể. Tuy nhiên, không có phương pháp đệ quy nào được đề xuất ở đó để đạt đến giới hạn cuối cùng của những cải tiến đó.
+Khi công trình hiện tại tiến triển, rõ ràng là mã hóa cực có nhiều điểm chung với mã hóa Reed–Muller (RM) [3], [4]. Thật vậy, việc xây dựng mã đệ quy và giải mã SC, hai thành phần thiết yếu của mã hóa cực, dường như đã được đưa vào lý thuyết mã hóa bởi các mã RM. Theo một cách xây dựng mã RM, với bất kỳ
+và
+, một mã RM có độ dài khối và
+kích thước , được ký hiệu là
+ma trận sinh của nó
+các hàng của
+, được định nghĩa là một mã tuyến tính
+được thu được bằng cách xóa
+sao cho không có hàng nào bị xóa
+có trọng số Hamming lớn hơn (số lượng trong hàng đó) so với
+bất kỳ hàng nào còn lại. Ví dụ:
+và
+Cách xây dựng này làm nổi bật sự tương đồng giữa mã RM
+và mã cực. Vì
+và
+tập hợp các hàng (chỉ khác thứ tự) đối với bất kỳ
+có cùng
+, nên nó là mã-coset.
+tăng đến vô cùng,
+rõ ràng là mã RM thuộc lớp
+3056
+là mã-coset với tham số
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 55, NO. 7, JULY 2009
+Ví dụ,
+. Vì vậy, mã hóa RM và mã hóa cực có thể
+được coi là hai quy tắc thay thế để chọn tập thông tin
+của mã-coset có kích thước nhất định
+. Không giống như mã hóa cực, mã hóa RM chọn tập thông tin
+một cách độc lập với kênh; nó không được tinh chỉnh tốt cho
+hiện tượng phân cực kênh như mã hóa cực. Chúng tôi
+sẽ chỉ ra trong Phần X rằng, ít nhất đối với lớp BEC,
+quy tắc RM để chọn tập thông tin dẫn đến các mã không đáng tin cậy về mặt tiệm cận
+dưới quá trình giải mã SC. Vì vậy, mã hóa cực vượt trội hơn mã hóa RM một cách đáng kể bằng cách chú ý hơn đến
+sự phân cực kênh.
+Một mối liên hệ khác với các công trình hiện có có thể được thiết lập bằng cách
+lưu ý rằng mã cực là mã đa cấp
+là một lớp mã bắt nguồn từ phương pháp kết hợp mã của Plotkin [5]. Mối liên hệ này không đáng ngạc nhiên khi xét đến thực tế rằng mã RM cũng là mã đa cấp [6, tr. 114–125]. Tuy nhiên, không giống như các cấu trúc mã đa cấp điển hình,
+trong đó người ta bắt đầu với các mã nhỏ cụ thể để xây dựng các mã lớn hơn,
+trong mã hóa cực, mã đa cấp được thu được bằng cách loại bỏ các hàng của ma trận sinh bậc đầy đủ,
+liên quan đến một tiêu chí cụ thể của kênh. Cấu trúc đặc biệt của đảm bảo rằng, bất kể việc loại bỏ được thực hiện như thế nào, mã kết quả là một mã đa cấp. Về bản chất, mã hóa cực có quyền tự do chọn một mã đa cấp từ một tập hợp các mã như vậy để phù hợp với kênh hiện tại, trong khi các phương pháp mã hóa đa cấp thông thường không có mức độ linh hoạt này.
+Cuối cùng, chúng tôi muốn đề cập đến một cách giải thích “phổ” của mã cực tương tự như cách xử lý của Blahut đối với mã Bose–Chaudhuri–Hocquenghem (BCH) [7, Chương 9]; loại tương đồng này đã được Forney chỉ ra
+[8, Chương 11] liên quan đến mã RM. Từ quan điểm quang phổ,
+hoạt động mã hóa (8) được coi là sự biến đổi
+của một vectơ thông tin miền “tần số”
+sang miền “thời gian”
+vectơ mã từ
+. Phép biến đổi có thể đảo ngược với
+. Thao tác giải mã được coi là một bài toán ước lượng phổ, trong đó người ta được cho một quan sát miền thời gian
+, là một phiên bản nhiễu của
+ước lượng
+, và được yêu cầu
+. Để hỗ trợ nhiệm vụ ước lượng, người ta được phép đóng băng
+một số thành phần phổ nhất định của
+. Sự diễn giải phổ này của mã hóa cực cho thấy rằng có thể
+xử lý mã cực và mã BCH trong một khuôn khổ thống nhất.
+Sự diễn giải phổ cũng mở ra cánh cửa cho việc sử dụng
+các kỹ thuật xử lý tín hiệu khác nhau trong mã hóa cực; thực tế,
+trong Phần VII, chúng tôi khai thác một số kỹ thuật biến đổi nhanh trong
+thiết kế bộ mã hóa cho mã cực.
+E. Đề cương bài báo
+Phần còn lại của bài báo được tổ chức như sau. Phần II khám phá các thuộc tính đệ quy của thao tác tách kênh.
+Trong Phần III, chúng tôi tập trung vào cách
+và
+được biến đổi
+thông qua một bước kết hợp và tách kênh duy nhất. Chúng tôi mở rộng điều này thành phân tích tiệm cận trong Phần IV
+và hoàn thành chứng minh của Định lý 1 và 2. Điều này hoàn thành
+phần của bài báo về phân cực kênh; phần còn lại của bài báo chủ yếu nói về mã hóa phân cực. Phần V phát triển một giới hạn trên về xác suất lỗi khối của mã hóa phân cực dưới giải mã SC
+và chứng minh Định lý 3. Phần VI xem xét mã hóa phân cực
+cho B-DMC đối xứng và chứng minh Định lý 4. Phần
+VII đưa ra phân tích về ánh xạ bộ mã hóa
+, dẫn đến việc triển khai bộ mã hóa hiệu quả. Trong Phần VIII,
+chúng tôi đưa ra một cách triển khai giải mã SC với độ phức tạp
+. Trong Phần IX, chúng tôi thảo luận về độ phức tạp xây dựng mã
+và đề xuất một thuật toán thống kê cho việc xây dựng mã gần đúng. Trong Phần X, chúng tôi giải thích lý do tại sao
+mã RM có hiệu suất tiệm cận kém dưới giải mã SC. Trong Phần XI, chúng tôi chỉ ra một số khái quát hóa của
+công trình hiện tại, đưa ra một số nhận xét bổ sung và nêu ra
+một số vấn đề mở.
+II. BIẾN ĐỔI KÊNH ĐỆ QUY
+Chúng tôi đã định nghĩa một phép toán kết hợp và tách kênh theo khối
+bằng (4) và (5) biến đổi các bản sao độc lập của
+thành
+. Mục tiêu trong phần này là
+chứng minh rằng phép biến đổi kênh theo khối này có thể được phân tích đệ quy thành các phép biến đổi kênh một bước.
+Chúng tôi nói rằng một cặp kênh đầu vào nhị phân
+và
+được thu được bằng một phép biến đổi một bước
+của hai bản sao độc lập của một kênh đầu vào nhị phân
+và viết
+nếu và chỉ nếu tồn tại một ánh xạ một-một
+cho tất cả
+.
+Theo đó, chúng ta có thể viết
+bất kỳ B-DMC nào được cho bởi vì
+sao cho
+(17)
+(18)
+cho
+(19)
+(20)
+có dạng (17) và (18) bằng cách lấy làm ánh xạ đồng nhất
+ánh xạ.
+Hóa ra chúng ta có thể viết tổng quát hơn
+Điều này là hệ quả của điều sau đây.
+Mệnh đề 3: Đối với bất kỳ
+(21)
+(22)
+ARIKAN: PHƯƠNG PHÁP XÂY DỰNG MÃ ĐẠT ĐƯỢC NĂNG LỰC
+3057
+biến đổi (21). Bằng cách hiểu hành vi cục bộ, chúng ta
+sẽ có thể đi đến kết luận về biến đổi tổng thể
+từ
+đến
+. Bằng chứng của các kết quả trong
+phần này được đưa ra trong Phụ lục.
+A. Biến đổi cục bộ về Tốc độ và Độ tin cậy
+Mệnh đề 4: Giả sử
+các kênh đầu vào nhị phân. Khi đó
+với đẳng thức khi và chỉ khi
+bằng hoặc .
+với một số tập hợp
+(24)
+(25)
+Đẳng thức (24) cho thấy rằng biến đổi kênh một bước
+bảo toàn năng lực đối xứng. Bất đẳng thức (25) đến
+cùng với (24) ngụ ý rằng năng lực đối xứng vẫn
+không thay đổi dưới biến đổi một bước,
+Hình 5. Quá trình biến đổi kênh với
+và
+kênh.
+Mệnh đề này được chứng minh trong Phụ lục. Mối quan hệ biến đổi
+(21) giờ đây có thể được chứng minh bằng cách lưu ý rằng (22) và
+(23) có hình thức giống hệt với (17) và (18) tương ứng, sau các phép thế sau:
+Do đó, chúng ta đã chứng minh rằng phép biến đổi kênh theo khối
+từ
+đến
+bị phá vỡ ở cấp độ cục bộ thành
+các phép biến đổi kênh một bước có dạng (21). Toàn bộ
+các phép biến đổi như vậy tạo thành một cấu trúc như được hiển thị trong Hình 5 cho
+. Đọc từ phải sang trái, hình bắt đầu với bốn
+bản sao của phép biến đổi
+và tiếp tục theo mẫu hình bướm, mỗi mẫu đại diện cho một phép biến đổi kênh có dạng
+. Hai kênh ở điểm cuối bên phải của những con bướm luôn luôn
+giống hệt nhau và độc lập. Ở cấp độ ngoài cùng bên phải có tám
+bản sao độc lập của ; ở cấp độ tiếp theo bên trái, có bốn bản sao độc lập của
+và
+mỗi; và cứ thế tiếp tục.
+Mỗi bước sang trái làm tăng gấp đôi số lượng loại kênh, nhưng giảm một nửa số lượng bản sao độc lập.
+III. BIẾN ĐỔI TỐC ĐỘ VÀ ĐỘ TIN CẬY
+Bây giờ chúng ta sẽ nghiên cứu cách các tham số tốc độ và độ tin cậy,
+và
+, thay đổi thông qua một biến đổi cục bộ (một bước)
+, nếu và chỉ nếu
+một. Nếu
+là một kênh hoàn hảo hoặc một kênh hoàn toàn nhiễu
+không hoàn hảo cũng không hoàn toàn nhiễu, thì biến đổi một bước
+di chuyển dung lượng đối xứng ra khỏi tâm
+theo nghĩa là
+biến đổi.
+Mệnh đề 5: Giả sử
+các kênh đầu vào nhị phân. Khi đó
+(23)
+Dấu bằng xảy ra trong (27) nếu và chỉ nếu
+nếu và chỉ nếu
+, do đó giúp phân cực
+cho một số tập hợp
+(26)
+(27)
+(28)
+là một BEC. Chúng ta có
+bằng hoặc , hoặc tương đương, nếu và chỉ nếu
+hoặc .
+bằng
+Kết quả này cho thấy độ tin cậy chỉ có thể được cải thiện dưới một kênh một bước
+l biến đổi theo nghĩa là
+(29)
+với dấu bằng khi và chỉ khi
+là BEC.
+Vì BEC đóng vai trò đặc biệt liên quan đến (về)
+hành vi cực đoan của độ tin cậy, nên nó xứng đáng được chú ý đặc biệt.
+Mệnh đề 6: Xem xét phép biến đổi kênh
+. Nếu là BEC với một số xác suất xóa
+, thì các kênh
+và
+là BEC với
+và tương ứng. Ngược lại,
+xác suất xóa
+nếu
+hoặc
+là BEC, thì
+B. Tốc độ và Độ tin cậy cho
+là BEC.
+Bây giờ chúng ta quay lại bối cảnh ở cuối Phần II.
+Mệnh đề 7: Đối với bất kỳ B-DMC nào,
+sự biến đổi
+bảo toàn tốc độ và cải thiện độ tin cậy theo nghĩa là
+(30)
+(31)
+3058 IEEETRANSACTIONSONINFORMATIONTHEORY,VOL.55,NO.7,JULY2009
+với dấu bằng trong (31) nếu và chỉ nếu là BEC. Việc chia kênh di chuyển
+tốc độ và độ tin cậy ra khỏi trung tâm theo nghĩa là
+(32)
+(33)
+với dấu bằng trong (32) và (33) nếu và chỉ nếu bằng hoặc . Các điều khoản độ tin cậy
+tiếp tục thỏa mãn
+(34)
+(35)
+với dấu bằng trong (34) nếu và chỉ nếu là BEC. Tốc độ và độ tin cậy tích lũy
+thỏa mãn
+(36)
+(37)
+với dấu bằng trong (37) nếu và chỉ nếu là BEC.
+Kết quả này xuất phát từ Mệnh đề 4 và 5 như một trường hợp đặc biệt
+và không cần chứng minh riêng. Các mối quan hệ tích lũy
+(36) và (37) xuất phát bằng cách áp dụng lặp lại (30) và (31),
+tương ứng. Các điều kiện cho đẳng thức trong Mệnh đề 4 được nêu theo thay vì ; điều này có thể xảy ra vì
+i) theo Mệnh đề 4, khi và chỉ khi ; và ii)
+là BEC khi và chỉ khi là BEC, điều này xuất phát từ Mệnh đề 6
+bằng quy nạp.
+Đối với trường hợp đặc biệt là BEC với xác suất xóa, từ Mệnh đề 4 và 6 suy ra rằng các tham số
+có thể được tính toán thông qua đệ quy
+(38)
+với . Tham số bằng xác suất xóa của kênh. Các mối quan hệ đệ quy (6)
+xuất phát từ (38) bởi thực tế là đối với
+một BEC.
+IV. PHÂN CỰC KÊNH
+Chúng tôi chứng minh các kết quả chính về phân cực kênh trong phần này.
+Phân tích dựa trên các mối quan hệ đệ quy được mô tả trong Hình 5; tuy nhiên, sẽ thuận tiện hơn nếu vẽ lại Hình 5 dưới dạng cây nhị phân như trong Hình 6. Nút gốc của cây được liên kết với kênh. Gốc sinh ra một kênh trên và một kênh dưới, các khu vực này được liên kết với hai nút ở cấp độ. Kênh này lần lượt sinh ra các kênh và , và cứ thế tiếp diễn. Kênh
+Hình 6. Quá trình cây để xây dựng kênh đệ quy.
+nằm ở cấp độ của cây tại số nút được đếm từ trên xuống.
+Có một chỉ mục tự nhiên của các nút của cây trong Hình 6 bằng các chuỗi bit. Nút gốc được lập chỉ mục bằng chuỗi rỗng. Nút trên ở cấp độ được đánh số bằng và nút dưới được đánh số bằng . Cho một nút ở cấp độ với chỉ số , nút trên
+phát ra từ nó có nhãn và nút dưới. Theo cách đánh nhãn này, kênh
+nằm ở nút có . Chúng ta
+ký hiệu kênh nằm ở nút một cách khác là . Chúng ta định nghĩa một quá trình cây ngẫu nhiên, được ký hiệu là , liên quan đến Hình 6. Quá trình bắt đầu tại gốc của cây
+với . Với bất kỳ , cho rằng
+bằng hoặc với xác suất mỗi . Do đó,
+đường đi của thông qua cây kênh có thể được coi là
+được điều khiển bởi một chuỗi các biến ngẫu nhiên Bernoulli độc lập và đồng nhất
+(i.i.d.) trong đó
+bằng hoặc với xác suất bằng nhau. Cho rằng đã
+lấy giá trị mẫu , quá trình kênh ngẫu nhiên
+lấy giá trị . Để theo dõi tỷ lệ
+và các tham số độ tin cậy của chuỗi kênh ngẫu nhiên của nó
+, chúng ta định nghĩa các quá trình ngẫu nhiên của nó và
+. Để diễn đạt vấn đề chính xác hơn, chúng ta xem xét
+không gian xác suất trong đó là không gian của tất cả các chuỗi nhị phân
+là trường Borel (BF)
+được tạo ra bởi các tập hình trụ
+và là
+độ đo xác suất được định nghĩa trên sao cho
+.Đối với mỗi , chúng ta định nghĩa là BF được tạo ra bởi các
+tập hình trụ .Chúng ta
+định nghĩa là BF tầm thường bao gồm tập rỗng và mà thôi.
+Rõ ràng, .
+Các quá trình ngẫu nhiên được mô tả ở trên giờ đây có thể được định nghĩa chính thức
+như sau.Đối với và , định nghĩa
+và
+.Đối với , định nghĩa
+ARIKAN:PHƯƠNG PHÁP XÂY DỰNG MÃ ĐẠT NĂNG LỰC 3059
+.Rõ ràng là, đối với bất kỳ giá trị cố định nào, các biến ngẫu nhiên
+và có thể đo được đối với BF .
+A. Chứng minh Định lý 1
+Chúng ta sẽ chứng minh Định lý 1 bằng cách xem xét các tính chất hội tụ ngẫu nhiên của các dãy ngẫu nhiên và .
+Mệnh đề 8: Dãy các biến ngẫu nhiên và trường Borel là một martingale, tức là,
+và có thể đo được (39)
+(40)
+(41)
+Hơn nữa, dãy này hội tụ hầu như mọi nơi (a.e.) đến một biến ngẫu nhiên sao cho .
+Chứng minh: Điều kiện (39) đúng theo cấu trúc và (40) đúng theo
+thực tế là . Để chứng minh (41), hãy xem xét một tập hợp hình trụ
+và sử dụng Mệnh đề 7 để viết
+(42)
+Vì là giá trị của trên , (41) theo sau. Điều này hoàn thành chứng minh rằng là một martingale. Vì là một martingale tích phân đều, theo các kết quả hội tụ tổng quát về các martingale như vậy (xem, ví dụ, [9, Định lý 9.4.6]), khẳng định về được suy ra.
+Không có gì đáng ngạc nhiên khi RV giới hạn nhận các giá trị hầu khắp nơi trong , đó là các điểm cố định của dưới phép biến đổi , được xác định bởi điều kiện về đẳng thức trong (25). Để chứng minh rõ ràng hơn về tuyên bố này, chúng ta sử dụng phương pháp gián tiếp và đưa quá trình này vào bức tranh.
+Mệnh đề 9: Chuỗi các biến ngẫu nhiên và trường Borel là một siêu martingale, tức là,
+và có thể đo được (43)
+(44)
+(45)
+Hơn nữa, chuỗi này hội tụ hầu khắp nơi đến một biến ngẫu nhiên nhận các giá trị hầu khắp nơi trong . Chứng minh: Các điều kiện (43) và (44) rõ ràng được thỏa mãn. Để
+kiểm chứng (45), hãy xem xét một tập hợp hình trụ và sử dụng
+Mệnh đề 7 để viết
+Vì là giá trị của trên , (45)
+theo sau. Điều này hoàn thành chứng minh rằng là một siêu
+martingale. Đối với khẳng định thứ hai, hãy lưu ý rằng siêu martingale có thể tích phân đều; do đó, nó hội tụ hầu khắp nơi
+và trong đến một biến ngẫu nhiên như vậy
+tại (xem,
+ví dụ, [9, Định lý 9.4.5]). Từ đó suy ra
+.Nhưng, theo Mệnh đề 7, với xác suất ;
+do đó, .Như vậy,
+,điều này ngụ ý .
+Điều này, đến lượt nó, có nghĩa là bằng hoặc hầu khắp nơi.
+Mệnh đề 10: Giới hạn RV nhận các giá trị hầu khắp nơi trong tập hợp
+: và .
+Chứng minh: Thực tế là bằng hoặc hầu khắp nơi, kết hợp với
+Mệnh đề 1, ngụ ý rằng hầu khắp nơi. Vì ,
+phần còn lại của khẳng định được chứng minh.
+Là hệ quả của Mệnh đề 10, chúng ta có thể kết luận rằng, khi
+tiến tới vô cùng, các số hạng dung lượng đối xứng
+tập trung xung quanh và , ngoại trừ phân số biến mất.
+Điều này hoàn thành chứng minh của Định lý 1.
+Điều thú vị là cuộc thảo luận trên đưa ra một cách giải thích mới cho xác suất mà quá trình ngẫu nhiên hội tụ về 0. Chúng ta có thể sử dụng điều này để củng cố giới hạn dưới trong (1). (Dạng mạnh hơn này được đưa ra như một kết quả bên lề và sẽ không được sử dụng trong phần tiếp theo.) Mệnh đề 11: Đối với bất kỳ B-DMC nào, chúng ta có
+với dấu bằng khi và chỉ khi là BEC.
+Kết quả này có thể được hiểu là, trong số tất cả các
+B-DMC, BEC thể hiện sự đánh đổi tốc độ-độ tin cậy thuận lợi nhất: nó giảm thiểu (tối đa hóa độ tin cậy) trong số tất cả các kênh có dung lượng đối xứng nhất định;
+tương đương, nó giảm thiểu cần thiết để đạt được mức độ tin cậy nhất định. Chứng minh Mệnh đề 11: Xét hai kênh và
+với . Giả sử là một BEC. Khi đó,
+có xác suất bảo đảm và . Xét các
+quá trình ngẫu nhiên và tương ứng với và ,
+tương ứng. Theo điều kiện về đẳng thức trong (34), quá trình
+bị chi phối ngẫu nhiên bởi theo nghĩa là
+với mọi . Do đó,
+xác suất hội tụ về 0 bị giới hạn dưới bởi
+xác suất hội tụ về 0, tức là .
+Điều này ngụ ý .
+B. Chứng minh Định lý 2
+Bây giờ chúng ta sẽ chứng minh Định lý 2, củng cố các kết quả phân cực ở trên bằng cách xác định tỷ lệ phân cực.
+Xét không gian xác suất . Đối với , theo
+Mệnh đề 7, ta có nếu và
+nếu . Đối với
+và , định nghĩa
+cho tất cả
+Đối với và , ta có
+nếu
+nếu
+điều này ngụ ý
+3060 IEEETRANSACTIONSONINFORMATIONTHEORY,VOL.55,NO.7,JULY2009
+Đối với và , định nghĩa
+Sau đó, ta có
+từ đó, bằng cách đặt và , ta thu được
+(46)
+Bây giờ, chúng ta chứng minh rằng (46) xảy ra với xác suất đủ cao.
+Đầu tiên, chúng ta sử dụng kết quả sau, được chứng minh trong
+Phụ lục. Bổ đề 1: Với bất kỳ giá trị cố định nào, tồn tại một số nguyên hữu hạn
+sao cho
+Thứ hai, chúng ta sử dụng giới hạn Chernoff [10, trang 531] để viết
+(47)
+trong đó là hàm entropy nhị phân. Định nghĩa là
+số nhỏ nhất sao cho vế phải của (47) lớn hơn hoặc bằng
+; rõ ràng là hữu hạn đối với bất kỳ
+và . Bây giờ, với
+và , chúng ta thu được giới hạn mong muốn
+Cuối cùng, chúng ta liên kết phân tích trên với khẳng định của Định lý 2.
+Định nghĩa và
+và lưu ý rằng
+Vì vậy, đối với . Mặt khác
+trong đó với
+.Chúng ta kết luận rằng đối với .
+Điều này hoàn thành chứng minh của Định lý 2.
+Dựa trên Định lý 2, việc chứng minh rằng mã hóa phân cực có thể đạt được tốc độ tiệm cận tới là một bài tập dễ dàng.
+Như chúng ta sẽ trình bày trong phần tiếp theo.
+Rõ ràng từ chứng minh trên, Định lý 2 chỉ đưa ra kết quả ngẫu nhiên về tốc độ tiệm cận dễ dàng của sự phân cực kênh; kết quả này đủ để chứng minh định lý dung lượng cho mã hóa phân cực; tuy nhiên, việc tìm ra tốc độ tiệm cận chính xác của sự phân cực vẫn là mục tiêu quan trọng cho nghiên cứu trong tương lai.2
+2Một kết quả trọng tâm theo hướng này được thảo luận trong Phần XI-A. V. HIỆU SUẤT CỦA MÃ HÓA CỰC
+Trong phần này, chúng ta sẽ chứng minh rằng mã hóa cực có thể đạt được
+dung lượng đối xứng của bất kỳ B-DMC nào. Nhiệm vụ kỹ thuật chính sẽ là chứng minh Mệnh đề 2. Chúng ta sẽ tiến hành
+phân tích trên lớp mã coset trước khi chuyên sâu
+thảo luận về mã cực. Nhớ lại rằng các mã coset riêng lẻ được xác định bởi một vectơ tham số. Trong
+phân tích, chúng ta sẽ cố định các tham số trong khi vẫn cho phép
+tự do nhận bất kỳ giá trị nào trên . Nói cách khác, phân tích sẽ được thực hiện trên tập hợp các mã coset với một cố định . Bộ giải mã trong hệ thống sẽ là bộ giải mã SC được mô tả trong Phần I-C.2.
+A. Thiết lập xác suất cho phân tích
+Cho bea không gian xác suất với xác suất
+phân công
+(48)
+cho tất cả .Trên không gian xác suất này, chúng ta
+định nghĩa một tập hợp các vectơ ngẫu nhiên
+đại diện cho đầu vào của kênh tổng hợp ,
+đầu vào của kênh dạng tích , đầu ra của
+(và cũng của ), và các quyết định của bộ giải mã. Đối với mỗi
+điểm mẫu , ba vectơ đầu tiên lấy
+các giá trị
+và , trong khi đầu ra của bộ giải mã lấy giá trị
+có tọa độ được định nghĩa đệ quy
+như
+(49)
+cho . Một hiện thực hóa cho vectơ ngẫu nhiên đầu vào
+tương ứng với việc gửi vectơ dữ liệu cùng với
+vectơ đóng băng. Là các vectơ ngẫu nhiên, phần dữ liệu và
+phần đóng băng được phân bố đồng đều trên các phạm vi tương ứng của chúng và độc lập về mặt thống kê. Bằng cách coi là một
+vectơ ngẫu nhiên trên , chúng ta có được một phương pháp thuận tiện để
+phân tích hiệu suất mã trung bình trên tất cả các mã trong tập hợp
+.
+Sự kiện chính được quan tâm trong phân tích sau đây là
+sự kiện lỗi khối trong quá trình giải mã SC, được định nghĩa là
+(50)
+Vì bộ giải mã không bao giờ mắc lỗi trên phần đóng băng của
+, tức là bằng với xác suất một, nên phần đó đã được loại trừ khỏi định nghĩa của sự kiện lỗi khối.
+Xác suất của các thuật ngữ lỗi và
+được định nghĩa trong Phần I-C.3 có thể được
+biểu thị trong không gian xác suất này như
+(51)
+trong đó biểu thị sự kiện
+. ARIKAN: PHƯƠNG PHÁP XÂY DỰNG MÃ ĐẠT ĐƯỢC NĂNG LỰC
+3061
+Hình 7. Tốc độ so với độ tin cậy cho mã hóa cực và giải mã SC ở độ dài khối
+B. Chứng minh Mệnh đề 2
+Chúng ta có thể biểu diễn sự kiện lỗi khối là
+trong đó
+(52)
+là sự kiện lỗi quyết định đầu tiên trong giải mã SC xảy ra ở
+giai đoạn . Chúng ta nhận thấy rằng
+, và
+trên BEC với xác suất xóa
+Chúng ta kết luận rằng
+.
+điều này tương đương với (13). Điều này hoàn thành chứng minh của Mệnh đề
+2
+Một quy tắc thay thế cho định nghĩa mã cực sẽ là chỉ định một tập con phần tử của cho tất cả các quy tắc cũng sẽ đạt được sao cho
+. Phương án thay thế này
+. Tuy nhiên, quy tắc dựa trên các tham số Bhattacharyya có lợi thế là được kết nối với một giới hạn rõ ràng về xác suất lỗi khối.
+Định nghĩa mã cực không chỉ rõ cách chọn vectơ đóng băng; nó có thể được chọn tùy ý. Mức độ tự do này trong việc lựa chọn đơn giản hóa việc phân tích hiệu suất của mã cực bằng cách cho phép lấy trung bình trên một tập hợp.
+Tuy nhiên, không chỉ vì sự thuận tiện trong phân tích mà chúng ta không chỉ định một quy tắc chính xác để lựa chọn, mà còn vì hiệu suất của mã dường như tương đối không nhạy cảm với lựa chọn đó. Trên thực tế, chúng tôi chứng minh trong Phần VI-B rằng, đối với các kênh đối xứng, bất kỳ lựa chọn nào cho cũng tốt như bất kỳ lựa chọn nào khác.
+5) Định lý mã hóa: Cố định một B-DMC và một số
+Cho
+được định nghĩa là
+.
+với được chọn trong
+phù hợp với quy tắc mã hóa cực cho . Do đó,
+là xác suất lỗi khối trong quá trình giải mã SC cho mã hóa cực
+trên
+với độ dài khối
+tất cả các lựa chọn cho các bit cố định
+bài báo này như sau.
+và tốc độ , được tính trung bình trên
+. Th
+Định lý mã hóa chính của bài báo giờ đây được chứng minh một cách dễ dàng.
+C. Chứng minh Định lý 3
+Theo Định lý 2, đối với bất kỳ tốc độ nào đã cho,
+chuỗi các tập thông tin
+mà
+có kích thước
+Cụ thể, giới hạn (55) đúng nếu
+trong đó
+, tồn tại một
+như vậy
+(55)
+được chọn theo
+quy tắc mã hóa cực vì theo định nghĩa, quy tắc này
+tối thiểu hóa tổng trong (55). Kết hợp thực tế này về quy tắc mã hóa cực
+với Mệnh đề 2, Định lý 3 được chứng minh.
+D. Một ví dụ số
+(53)
+Do đó, chúng ta có
+Đối với giới hạn trên của
+, lưu ý rằng
+Mặc dù chúng ta đã thiết lập rằng mã cực đạt được
+dung lượng đối xứng, nhưng các bằng chứng có tính chất tiệm cận
+và tốc độ phân cực tiệm cận chính xác vẫn chưa được
+tìm thấy. Điều đáng quan tâm là hiểu được hiệu ứng phân cực diễn ra nhanh như thế nào và hiệu suất nào có thể được mong đợi từ
+mã cực trong quá trình giải mã SC trong chế độ không tiệm cận. Để
+điều tra những điều này, chúng tôi đưa ra một nghiên cứu số ở đây.
+Giả sử
+là một BEC với xác suất xóa
+tỷ lệ giữa tốc độ và độ tin cậy cho
+độ dài khối
+. Hình 7 cho thấy
+sử dụng mã cực với
+. Hình này được thu được bằng cách
+sử dụng các mã có tập thông tin có dạng
+, trong đó
+(54)
+là một
+tham số ngưỡng biến đổi. Có hai tập hợp ba đường cong
+trong biểu đồ. Các đường liền nét là biểu đồ của
+so với
+. Các đường nét đứt là biểu đồ
+3062 IEEETRANSACTIONSONINFORMATIONTHEORY,VOL.55,NO.7,JULY2009
+của so với .Tham số
+được thay đổi trên một tập con của để có được các đường cong.
+Tham số tương ứng với tốc độ mã hóa. Ý nghĩa của cũng rõ ràng: nó là giới hạn trên của ,
+xác suất lỗi khối cho mã hóa cực ở tốc độ dưới
+giải mã SC. Tham số được dùng làm giới hạn dưới của .
+Ví dụ này cung cấp bằng chứng thực nghiệm cho thấy mã hóa phân cực
+đạt được dung lượng kênh khi độ dài khối tăng lên—một thực tế đã được thiết lập về mặt lý thuyết. Quan trọng hơn, ví dụ này cũng cho thấy tốc độ phân cực quá chậm để thực hiện mã hóa phân cực gần dung lượng dưới giải mã SC trong thực tế.
+VI. KÊNH ĐỐI XỨNG
+Mục tiêu chính của phần này là chứng minh Định lý 4, là một phiên bản được tăng cường của Định lý 3 cho các kênh đối xứng.
+A. Đối xứng dưới sự kết hợp và chia tách kênh
+Cho là một B-DMC đối xứng với
+và tùy ý. Theo định nghĩa, tồn tại một hoán vị trên
+sao cho i) và ii) với mọi . Cho là hoán vị đồng nhất trên . Rõ ràng,
+các hoán vị tạo thành một nhóm Abel dưới phép hợp thành hàm. Để có ký hiệu gọn, chúng ta sẽ viết để biểu thị , với . Quan sát rằng với mọi
+.Điều này có thể được xác minh bằng cách nghiên cứu kỹ lưỡng các trường hợp có thể
+hoặc bằng cách lưu ý rằng
+.Cũng quan sát rằng
+vì là một phép toán giao hoán trên .
+Đối với , hãy để
+(56)
+Điều này liên kết với mỗi phần tử của một hoán vị trên .
+Mệnh đề 12: Nếu một B-DMC là đối xứng, thì
+cũng đối xứng theo nghĩa là
+(57)
+cho mọi .
+Chứng minh là ngay lập tức và được bỏ qua.
+Mệnh đề 13: Nếu một B-DMC là đối xứng, thì các kênh
+và cũng đối xứng theo nghĩa là
+(58)
+(59)
+cho mọi .
+Chứng minh: Cho và quan sát rằng
+. Bây giờ, giả sử , và sử dụng cùng lý luận để thấy rằng
+. Điều này chứng minh khẳng định đầu tiên. Để chứng minh khẳng định thứ hai,
+chúng ta sử dụng kết quả đầu tiên
+trong đó chúng ta đã sử dụng thực tế rằng tổng trên có thể được
+thay thế bằng tổng trên cho bất kỳ cố định nào vì
+.
+B. Chứng minh Định lý 4
+Chúng ta quay lại phân tích trong Phần V và xem xét một tập hợp mã
+dưới giải mã SC, chỉ lần này giả sử
+rằng là một kênh bất đối xứng. Trước tiên, chúng ta chứng minh rằng các sự kiện lỗi
+được định nghĩa bởi (53) có tính chất bất đối xứng.
+Mệnh đề 14: Đối với B-DMC bất đối xứng, sự kiện
+có tính chất rằng
+khi và chỉ khi (60)
+cho mỗi .
+Chứng minh: Điều này xuất phát trực tiếp từ định nghĩa của bằng cách
+sử dụng tính chất đối xứng (59) của kênh .
+Bây giờ, hãy xem xét việc truyền một vectơ nguồn cụ thể
+và một vectơ đóng băng, cùng nhau tạo thành một vectơ đầu vào
+cho kênh. Sự kiện này được ký hiệu là .
+thay vì cách diễn đạt chính thức hơn.
+Hệ quả 1: Đối với B-DMC bất đối xứng, đối với mỗi .
+và , các sự kiện . và .
+Chứng minh: Đối với . và , ta có .
+(61)
+(62)
+Dấu bằng suy ra từ (61) từ (58) và (60) bằng cách lấy .
+và từ (62) từ thực tế là đối với .Bất kỳ . Phần còn lại của chứng minh là ngay lập tức. Bây giờ, theo (54), chúng ta có, với mọi
+(63)
+và, vì , chúng ta thu được
+(64)
+ARIKAN: PHƯƠNG PHÁP XÂY DỰNG MÃ ĐẠT NĂNG LỰC 3063
+Điều này ngụ ý rằng, với mọi B-DMC đối xứng và mọi
+mã
+(65)
+Giới hạn này trên là độc lập với vectơ đóng băng
+vectơ .Định lý 4 hiện được thu được bằng cách kết hợp Định lý 2 với Mệnh đề 2, như trong bằng chứng của Định lý 3.
+Lưu ý rằng mặc dù chúng ta đã đưa ra một giới hạn trên
+độc lập với , chúng ta đã dừng lại trước khi khẳng định
+rằng sự kiện lỗi là độc lập với vì các hàm quyết định của chúng ta luôn phá vỡ các ràng buộc có lợi cho . Nếu sự thiên vị này được loại bỏ bằng cách ngẫu nhiên hóa, thì sẽ trở nên độc lập với .
+C. Các đối xứng khác của kênh
+Chúng ta có thể sử dụng các bậc tự do trong việc lựa chọn trong
+(59) để khám phá các đối xứng vốn có trong kênh.
+Với giá trị đã cho, chúng ta có thể chọn với để có được
+(66)
+Vì vậy, nếu chúng ta chuẩn bị một bảng tra cứu cho các xác suất chuyển đổi
+, thì chỉ cần lưu trữ tập con của các xác suất
+.
+Kích thước của bảng tra cứu có thể được giảm thêm bằng cách sử dụng
+các bậc tự do còn lại trong việc lựa chọn. Cho
+.Sau đó, đối với
+bất kỳ và nào, chúng ta có
+(67)
+điều này xuất phát từ (66) bằng cách lấy ở phía bên trái
+vế.
+Để khám phá thêm tính đối xứng này, hãy cho
+.Đây là quỹ đạo của dưới
+nhóm tác động. Các quỹ đạo trên biến thiên của
+phân chia không gian thành các lớp tương đương. Cho
+là một tập hợp được hình thành bằng cách lấy một đại diện từ mỗi lớp tương đương
+lass.Bảng chữ cái đầu ra của kênh có thể được
+biểu diễn hiệu quả bằng tập hợp .
+Ví dụ, giả sử là một BSC với . Mỗi
+quỹ đạo có phần tử và có quỹ đạo. Cụ thể, kênh có hiệu quả hai đầu ra, và
+do tính đối xứng, nó phải là một BSC. Đây là một sự đơn giản hóa tuyệt vời
+vì có kích thước bảng chữ cái đầu ra rõ ràng là .
+Tương tự, trong khi có kích thước bảng chữ cái đầu ra rõ ràng là
+, do tính đối xứng, kích thước thu nhỏ lại thành .
+Việc giảm kích thước bảng chữ cái đầu ra hơn nữa có thể thực hiện được bằng cách
+khai thác các thuộc tính khác đặc thù của một số B-DMC nhất định. Ví dụ, nếu là một BEC, các kênh được biết là
+BEC, mỗi kênh có kích thước bảng chữ cái đầu ra hiệu quả là ba.
+Các thuộc tính đối xứng của giúp đơn giản hóa việc tính toán các tham số kênh.
+Mệnh đề 15: Đối với bất kỳ B-DMC đối xứng nào, các tham số
+được đưa ra bởi (7) có thể được tính bằng công thức đơn giản hóa
+Chúng tôi bỏ qua chứng minh kết quả này.
+Đối với ví dụ quan trọng về BSC, công thức này trở thành
+Tổng này cho có các số hạng, so với
+các số hạng trong (7).
+VI. MÃ HÓA
+Trong phần này, chúng ta sẽ xem xét việc mã hóa các mã cực
+và chứng minh phần Định lý 5 về độ phức tạp của mã hóa.
+Chúng ta bắt đầu bằng cách đưa ra các biểu thức đại số rõ ràng cho ,
+ma trận sinh cho mã hóa cực, cho đến nay chỉ được xác định ở dạng sơ đồ bởi Hình 3. Các dạng đại số của
+tự nhiên chỉ ra các triển khai hiệu quả của hoạt động mã hóa
+. Trong quá trình phân tích hoạt động mã hóa
+, chúng tôi khai thác mối liên hệ của nó với các phương pháp biến đổi nhanh trong xử lý tín hiệu
+; đặc biệt, chúng tôi sử dụng ý tưởng lập chỉ mục bit của [11] để
+giải thích các phép hoán vị khác nhau là một phần của .
+A. Công thức cho
+Trong phần sau, giả sử với một số . Gọi
+là ma trận đơn vị chiều cho bất kỳ . Chúng tôi
+bắt đầu bằng cách dịch định nghĩa đệ quy của như được đưa ra bởi
+Hình 3 thành dạng đại số
+với . Hoặc bằng cách xác minh đại số rằng
+hoặc bằng cách quan sát rằng phép toán kết hợp kênh
+trong Hình 3 có thể được vẽ tương đương như trong Hình 8, chúng ta
+thu được công thức đệ quy thứ hai
+(68)
+hợp lệ cho . Công thức này có vẻ phù hợp hơn để suy ra một
+mối quan hệ đệ quy. Chúng ta thay thế
+trở lại vào (68) để thu được
+(69)
+trong đó (69) được thu được bằng cách sử dụng đồng nhất
+với
+. Lặp lại điều này, chúng ta thu được
+(70)
+3064 IEEETRANSACTIONSONINFORMATIONTHEORY,VOL.55,NO.7,JULY2009
+Hình 8. Một cách thực hiện khác của cấu trúc đệ quy cho . trong đó .Nó
+có thể thấy bằng các phép toán đơn giản rằng
+(71)
+Chúng ta có thể thấy rằng là một ma trận hoán vị bằng lập luận quy nạp sau đây.
+Giả sử rằng là một ma trận hoán vị
+đối với một số ; điều này đúng với vì . Sau đó,
+là một ma trận hoán vị bởi vì nó là tích của hai
+ma trận hoán vị, và .
+Trong phần tiếp theo, chúng ta sẽ nói thêm về bản chất của như là
+một hoán vị.
+B. Phân tích bằng chỉ mục bit
+Để phân tích thêm hoạt động mã hóa, sẽ thuận tiện hơn nếu lập chỉ mục các vectơ và ma trận bằng chuỗi bit. Cho một vectơ có độ dài với một số , ta ký hiệu phần tử của nó là , một cách khác là
+trong đó là khai triển nhị phân của số nguyên
+theo nghĩa là .Tương tự, phần tử của ma trận x được ký hiệu một cách khác là
+trong đó và là biểu diễn nhị phân của và tương ứng.Sử dụng quy ước này, có thể dễ dàng kiểm chứng rằng tích của ma trận x và ma trận x có phần tử
+.
+Bây giờ chúng ta xem xét hoạt động mã hóa theo chỉ mục bit. Đầu tiên, chúng ta quan sát thấy các phần tử ở dạng chỉ số bit được cho bởi cho tất cả . Do đó,
+có các phần tử
+(72)
+Thứ hai, toán tử đảo ngược tác động lên một vectơ hàng
+để thay thế phần tử ở vị trí chỉ số bit bằng
+phần tử ở vị trí ; nghĩa là, nếu , thì
+cho tất cả . Nói cách khác,
+xoay vòng các chỉ số bit của các phần tử của một toán tử bên trái
+và sang phải một vị trí.
+Thứ ba, ma trận trong (70) có thể được hiểu là
+toán tử đảo ngược bit: nếu , thì
+cho tất cả . Phát biểu này có thể được chứng minh bằng
+quy nạp sử dụng công thức đệ quy (71). Chúng tôi đưa ra ý tưởng
+về một bằng chứng như vậy bằng một ví dụ. Giả sử là một
+toán tử đảo ngược bit và chứng minh rằng điều tương tự cũng đúng với .
+Cho là bất kỳ vectơ nào trên GF . Sử dụng chỉ số bit, nó có thể được viết là .
+Vì , trước tiên hãy xem xét tác động của
+lên .Phép xáo trộn ngược sắp xếp lại các phần tử
+của theo tính chẵn lẻ của chỉ số, do đó
+bằng .
+Điều này có hai nửa, và , tương ứng với các lớp chỉ số chẵn lẻ. Lưu ý rằng và
+với mọi . Điều này là điều được mong đợi vì phép xáo trộn ngược sắp xếp lại các chỉ số theo thứ tự tăng dần trong mỗi lớp chỉ số chẵn lẻ. Tiếp theo, hãy xem xét tác động của
+lên .Kết quả là . Theo giả thiết, là
+một phép đảo bit, do đó , mà
+lần lượt bằng . Tương tự, kết quả
+của bằng . Do đó, toàn bộ
+phép toán là một phép đảo bit.
+Với cách giải thích đảo bit của , rõ ràng là
+là một ma trận bất đối xứng, do đó . Vì là một hoán vị
+, nên từ tính đối xứng suy ra .
+Giờ đây, thật dễ dàng để thấy rằng, đối với bất kỳ ma trận nào,
+tích có các phần tử
+. Từ đó suy ra rằng nếu bất biến dưới phép đảo bit,
+tức là, nếu với mọi
+, thì . Vì
+, điều này tương đương với . Do đó,
+ma trận bất biến đảo bit giao hoán với toán tử đảo bit.
+Mệnh đề 16: Đối với bất kỳ ma trận sinh nào,
+ma trận được cho bởi và
+trong đó là hoán vị đảo bit. là ma trận bất biến đảo bit với
+(73)
+Chứng minh: giao hoán với vì nó bất biến dưới phép đảo bit, điều này xuất phát trực tiếp từ (72). Phát biểu
+đã được thiết lập trước đó; bằng cách chứng minh rằng
+giao hoán với , chúng ta đã thiết lập phát biểu khác:
+.Dạng chỉ số bit (73) được suy ra bằng cách áp dụng phép đảo bit cho (72).
+Cuối cùng, chúng tôi đưa ra một sự thật sẽ hữu ích trong Phần X. ARIKAN: AMETHODFORCONST
+MÃ HÓA ĐẠT CÔNG SUẤT
+3065
+Mạch mã hóa trong Hình 9 gợi ý nhiều phương án triển khai song song
+cho
+: ví dụ, với
+bộ xử lý, người ta có thể thực hiện triển khai “từng cột một” và
+giảm tổng độ trễ xuống
+. Có nhiều sự đánh đổi khác nhau giữa độ trễ và độ phức tạp phần cứng.
+Trong một triển khai thực tế của mã cực, có thể nên sử dụng
+thay vì
+làm ánh xạ bộ mã hóa để đơn giản hóa việc triển khai. Trong trường hợp đó, bộ giải mã SC nên bù lại điều này bằng cách giải mã các phần tử của
+vectơ nguồn được bao gồm
+theo thứ tự chỉ mục đảo ngược bit. Chúng tôi có trong
+như một phần của bộ mã hóa trong bài báo này để có
+một bộ giải mã SC giải mã
+theo thứ tự chỉ mục tự nhiên, điều này đã đơn giản hóa ký hiệu.
+VIII. GIẢI MÃ
+Hình 9. Mạch để thực hiện phép biến đổi
+. Tín hiệu chảy từ
+trái sang phải. Mỗi cạnh mang một tín hiệu hoặc . Mỗi nút cộng (mod-) các
+tín hiệu trên tất cả các cạnh đến từ bên trái và gửi kết quả ra trên tất cả các cạnh
+sang bên phải. (Các cạnh mang tín hiệu và
+Mệnh đề 17: Đối với bất kỳ
+, các hàng của
+và
+không được hiển thị.)
+với chỉ số
+cùng trọng lượng Hamming được cho bởi
+là trọng lượng Hamming của
+Chứng minh: Đối với cố định
+, trong đó
+có
+(74)
+.
+, tổng của các số hạng
+(dưới dạng số nguyên) trên tất cả
+Trong phần này, chúng ta xem xét độ phức tạp tính toán
+của thuật toán giải mã SC. Như trong phần trước,
+mô hình tính toán của chúng ta sẽ là một máy xử lý đơn với
+bộ nhớ truy cập ngẫu nhiên và độ phức tạp được thể hiện sẽ là độ phức tạp thời gian. Gọi
+là mã com--coset trường hợp xấu nhất với độ phức tạp đã cho của việc giải mã SC trên tất cả
+chiều dài khối . Chúng tôi sẽ trình bày rằng
+A. Thuật toán giải mã đầu tiên
+Xét giải mã SC cho một mã .-coset tùy ý
+tham số
+với
+. Nhớ lại rằng vectơ nguồn
+bao gồm một phần ngẫu nhiên
+và một phần cố định
+cho trọng số Hamming của hàng của
+. Từ công thức trước đó cho
+tổng này dễ dàng thấy là
+tương tự
+với chỉ số
+,
+. Bằng chứng cho
+C. Độ phức tạp mã hóa
+. Điều này
+và một vectơ đầu ra kênh
+được truyền qua
+được thu được với xác suất
+quan sát
+. Bộ giải mã SC
+và tạo ra một ước tính
+của
+.Chúng ta
+có thể hình dung bộ giải mã bao gồm các phần tử quyết định
+(DE), một cho mỗi phần tử nguồn; các DE được kích hoạt theo thứ tự để .Nếu
+Để ước tính độ phức tạp, mô hình tính toán của chúng ta sẽ là
+một máy xử lý đơn với bộ nhớ truy cập ngẫu nhiên. Độ phức tạp được thể hiện sẽ là độ phức tạp thời gian. Thảo luận
+sẽ được đưa ra cho một mã .-coset tùy ý với các tham số
+Cho
+tất cả
+. ký hiệu độ phức tạp mã hóa trường hợp xấu nhất trên
+mã có độ dài khối nhất định. Nếu ta
+lấy độ phức tạp của phép cộng modulo vô hướng là một đơn vị và
+độ phức tạp của phép toán xáo trộn ngược
+như ta thấy từ Hình 3 rằng
+Bắt đầu với giá trị ban đầu
+đơn vị,
+(một con số hào phóng), ta
+thu được bằng quy nạp rằng với mọi
+. Do đó, độ phức tạp mã hóa là
+.
+Một cách triển khai cụ thể của bộ mã hóa sử dụng dạng
+được hiển thị trong Hình 9 cho
+. Đầu vào của
+mạch là phiên bản đảo bit của
+Đầu ra được cho bởi
+độ phức tạp của cách triển khai này là
+cho
+và
+cho
+.
+, tức là,
+.
+. Nói chung,
+với
+Một cách triển khai khác của bộ mã hóa sẽ là
+áp dụng
+theo thứ tự chỉ số tự nhiên ở đầu vào của mạch trong
+Hình 9. Sau đó, ta sẽ thu được
+ở đầu ra.
+Mã hóa có thể được hoàn thành bằng một phép toán đảo bit sau:
+.
+, phần tử đã biết; Vì vậy, DE thứ
+khi đến lượt, chỉ cần đặt
+kết quả cho tất cả các DE kế tiếp. Nếu
+đã nhận được các quyết định trước đó
+và gửi điều này
+, DE thứ đợi cho đến khi nó
+, và khi nhận được
+chúng, tính toán tỷ lệ khả năng (LR)
+và tạo ra quyết định của nó là
+nếu
+ngược lại
+sau đó được gửi đến tất cả các DE kế tiếp. Đây là một thuật toán một lượt
+không sửa đổi ước tính. Độ phức tạp của thuật toán này
+về cơ bản được xác định bởi độ phức tạp của việc tính toán LR.
+Một phép tính đơn giản sử dụng các công thức đệ quy
+(22) và (23) cho
+(75)
+3066
+IEEE TRANSACTIONS ON INFORMATION THEORY, VOL. 55, NO. 7, JULY 2009
+và
+Do đó, việc tính toán LR ở độ dài
+tính toán hai LR ở độ dài
+(76)
+được rút gọn thành
+. Quá trình đệ quy này có thể được
+tiếp tục xuống độ dài khối, tại thời điểm đó các LR có
+dạng
+và có thể được tính toán
+trực tiếp.
+Để ước tính độ phức tạp của các phép tính LR, hãy để
+ký hiệu độ phức tạp trường hợp xấu nhất
+của việc tính toán
+trên
+và
+. Từ các công thức LR đệ quy, chúng ta có giới hạn độ phức tạp
+(77)
+trong đó là độ phức tạp trường hợp xấu nhất của việc lắp ráp hai LR ở độ dài
+thành một LR ở độ dài . Lấy
+thu được giới hạn
+như một đơn vị, chúng ta
+(78)
+Độ phức tạp tổng thể của bộ giải mã bây giờ có thể được giới hạn là
+. Độ phức tạp này
+tương ứng với một bộ giải mã mà các DE thực hiện các phép tính LR của chúng
+một cách riêng tư, mà không chia sẻ bất kỳ kết quả một phần nào với nhau.
+Hóa ra, nếu các DE gộp các kết quả tạm thời của chúng, một cách triển khai bộ giải mã hiệu quả hơn có thể thực hiện được với độ phức tạp tổng thể
+, như chúng ta sẽ trình bày tiếp theo. B. Cải tiến thuật toán giải mã
+Bây giờ chúng ta xem xét một bộ giải mã tính toán toàn bộ tập hợp các LR,
+. Bộ giải mã trước đó có thể
+bỏ quaviệc tính toán của
+cho
+không cho phép điều này. Các quyết định
+; nhưng bây giờ chúng ta
+theo cách chính xác như trước; đặc biệt, nếu
+quyết định
+được đưa ra
+,
+được đặt thành giá trị cố định đã biết, bất kể
+của
+.
+Để xem việc tiết kiệm tính toán sẽ đến từ đâu, chúng ta
+kiểm tra (75) và (76) và lưu ý rằng mỗi giá trị LR trong cặp
+được lắp ráp từ cùng một cặp LR
+Do đó, việc tính toán tất cả
+các phép tính LR ở độ dài
+độ dài
+LR ở độ dài yêu cầu chính xác
+.3 Hãy chia
+thành hai lớp, cụ thể là
+3Thực tế, một số phép tính LR ở độ dài
+LR tại
+(79)
+có thể tránh được nếu, tình cờ,
+xảy ra một số trùng lặp, nhưng chúng ta sẽ bỏ qua điều này.
+Hình 10. Một triển khai của bộ giải mã hủy liên tiếp cho mã hóa cực
+ở độ dài khối
+. Giả sử chúng ta thực hiện các phép tính trong mỗi lớp
+một cách độc lập, mà không cố gắng khai thác thêm bất kỳ khoản tiết kiệm nào
+có thể đến từ việc chia sẻ các giá trị LR giữa hai
+lớp. Khi đó, chúng ta có hai bài toán cùng loại với bài toán gốc nhưng có kích thước bằng một nửa. Mỗi lớp trong (79) tạo ra một tập hợp
+các yêu cầu tính toán LR ở độ dài
+yêu cầu. Ví dụ, nếu ta giả sử
+các yêu cầu phát sinh từ lớp đầu tiên là
+, với tổng số là
+, thì
+Sử dụng lý luận này một cách quy nạp trên toàn bộ tập hợp tất cả các độ dài
+, ta kết luận rằng tổng số LR cần được tính toán là
+.
+Cho đến nay, chúng ta chưa chú ý đến thứ tự chính xác mà
+các phép tính LR ở các độ dài khối khác nhau được thực hiện. Mặc dù điều này đã cho chúng ta một con số chính xác về tổng số phép tính LR, nhưng để mô tả đầy đủ thuật toán, chúng ta cần phải xác định thứ tự. Có nhiều khả năng cho thứ tự như vậy,
+nhưng để cụ thể, chúng ta sẽ sử dụng thuật toán tìm kiếm theo chiều sâu, thuật toán này
+có thể dễ dàng mô tả bằng một ví dụ nhỏ.
+Chúng ta xem xét một bộ giải mã cho một mã có tham số
+được chọn là
+. Quá trình tính toán cho bộ giải mã được trình bày trong một đồ thị như thể hiện trong
+Hình 10. Có
+các nút trong đồ thị, mỗi nút
+chịu trách nhiệm tính toán một yêu cầu LR phát sinh trong quá trình thực thi thuật toán. Bắt đầu từ phía bên trái, cột nút đầu tiên
+tương ứng với các yêu cầu LR ở độ dài (mức quyết định), cột nút thứ hai tương ứng với các yêu cầu ở độ dài ,
+cột thứ ba ở độ dài , và cột thứ tư ở độ dài (mức kênh).
+Mỗi nút trong đồ thị mang hai nhãn. Ví dụ, nút thứ ba từ dưới lên trong cột thứ ba có nhãn
+và ; nhãn đầu tiên cho biết giá trị LR cần được tính toán tại nút này là
+ARIKAN: PHƯƠNG PHÁP XÂY DỰNG MÃ ĐẠT NĂNG LỰC
+3067
+trong khi nhãn thứ hai cho biết nút này sẽ là nút thứ 26 được kích hoạt. Các nhãn số từ 1 đến 32 sẽ được sử dụng làm mã nhận dạng nhanh khi tham chiếu đến các nút trong đồ thị.
+Bộ giải mã được hình dung là bao gồm các DE nằm ở phía bên trái nhất của đồ thị bộ giải mã. Nút có nhãn
+được liên kết với DE thứ ,
+. Vị trí của các DE trong cột bên trái nhất tuân theo thứ tự chỉ mục đảo ngược bit, như trong Hình 9.
+Quá trình giải mã bắt đầu với DE 1 kích hoạt nút 1 để tính toán
+của
+. Nút 1 lần lượt kích hoạt nút 2 để
+. Tại thời điểm này, quyền điều khiển chương trình chuyển sang nút 2, và nút 1 sẽ
+chờ cho đến khi nút 2 cung cấp LR được yêu cầu. Quá trình tiếp tục. Nút 2 kích hoạt nút 3, nút 3 kích hoạt nút 4. Nút 4 là một nút ở cấp độ kênh; vì vậy nó tính toán
+và
+chuyển kết quả đến các nút 3 và 23, các nút lân cận bên trái của nó. Nói chung, một nút sẽ gửi kết quả tính toán của nó đến tất cả các nút lân cận bên trái của nó (mặc dù điều này sẽ không được nêu rõ ràng bên dưới). Quyền điều khiển chương trình sẽ được chuyển trở lại nút lân cận bên trái mà nó được nhận.
+Nút 3 vẫn cần dữ liệu từ phía bên phải và kích hoạt nút 5, nút này sẽ cung cấp
+. Nút 3 tổng hợp
+từ các
+thông điệp mà nó nhận được từ các nút 4 và 5 và gửi đến nút
+2. Tiếp theo, nút 2 kích hoạt nút 6, nút này kích hoạt các nút 7 và 8,
+và trả về kết quả cho nút 2. Nút 2 biên dịch phản hồi của nó
+và gửi đến nút 1. Nút 1 kích hoạt nút 9, nút này tính toán
+theo cùng một cách như nút 2 đã tính toán
+và trả về kết quả cho nút 1. Nút 1 bây giờ tổng hợp
+và gửi đến DE 1. Vì
+bỏ qua LR đã nhận, nên khai báo
+DE 2, nằm cạnh nút 16.
+DE 2 kích hoạt nút 16 cho
+bles
+là một nút bị đóng băng, DE 1
+và chuyển quyền điều khiển cho
+. Nút 16 tổng hợp
+từ các LR đã nhận được
+và
+và trả về phản hồi mà không kích hoạt bất kỳ nút nào. DE 2 bỏ qua LR được trả về vì
+đã bị đóng băng, thông báo
+và chuyển quyền điều khiển cho DE 3.
+DE 3 kích hoạt nút 17 cho
+. Điều này kích hoạt các yêu cầu LR
+tại các nút 18 và 19, nhưng không xa hơn nữa. Bit
+không bị đóng băng; do đó, quyết định
+là
+được đưa ra theo
+và quyền điều khiển được chuyển cho DE 4. DE 4 kích hoạt
+nút 20 cho
+, được lắp ráp sẵn và
+được trả về. Thuật toán tiếp tục theo cách này cho đến khi cuối cùng
+DE 8 nhận được
+và quyết định.
+Có một số quan sát có thể được thực hiện bằng cách
+xem xét ví dụ này, điều này sẽ cung cấp thêm hiểu biết về
+thuật toán giải mã tổng quát. Đầu tiên, hãy lưu ý rằng việc tính toán
+của
+được thực hiện trong một cây con có gốc tại nút 1, bao gồm
+các đường dẫn đi từ trái sang phải và sp
+tô sáng tất cả các nút
+ở cấp độ kênh. Cây con này chia thành hai cây con rời rạc, cụ thể là cây con có gốc tại nút 2 để tính toán
+và cây con có gốc tại nút 9 để tính toán
+. Vì hai cây con này rời rạc, nên các phép tính tương ứng có thể được thực hiện độc lập (thậm chí song song nếu có nhiều bộ xử lý). Việc chia các cây con tính toán thành các cây con rời rạc này áp dụng cho tất cả các nút trong đồ thị
+(ngoại trừ các nút ở cấp độ kênh), giúp có thể triển khai bộ giải mã với mức độ song song cao.
+Thứ hai, chúng ta nhận thấy rằng đồ thị bộ giải mã bao gồm các hình bướm (đồ thị hai phía hoàn chỉnh -by-) liên kết các cấp độ liền kề của đồ thị. Ví dụ, các nút 9, 19, 10 và 13 tạo thành một hình bướm. Các cây con tính toán có gốc tại các nút 9 và
+19 tách thành một cặp cây con tính toán duy nhất, một cây có gốc tại nút 10, cây kia tại nút 13. Cũng lưu ý rằng trong số bốn nút của một con bướm, nút trên bên trái luôn là nút đầu tiên được kích hoạt bởi thuật toán tìm kiếm theo chiều sâu ở trên và nút dưới bên trái luôn là nút cuối cùng. Các nút trên bên phải và dưới bên phải được kích hoạt bởi nút trên bên trái và chúng có thể được kích hoạt theo bất kỳ thứ tự nào hoặc thậm chí song song. Thuật toán mà chúng tôi đã chỉ định luôn kích hoạt nút trên bên phải trước, nhưng lựa chọn này là tùy ý.
+Khi nút dưới bên trái được kích hoạt, nó tìm thấy các LR từ các nút lân cận bên phải của nó sẵn sàng để lắp ráp. Nút trên bên trái lắp ráp các LR mà nó nhận được từ phía bên phải như trong công thức (75), nút dưới bên trái như trong (76). Các công thức này cho thấy rằng các mô hình hình bướm đặt ra một ràng buộc về thời gian hoàn thành của các phép tính LR: trong bất kỳ hình bướm nào, nút dưới bên trái cần phải đợi kết quả của nút trên bên trái, nút này đến lượt nó cần phải đợi kết quả của các nút bên phải.
+Có thể có các biến thể của bộ giải mã trong đó các phép tính của nút được lên lịch khác nhau. Trong cách triển khai “từ trái sang phải” được 

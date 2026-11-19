@@ -1,0 +1,1057 @@
+
+==== Audio_Encryption doneeeeeeeeeeeeeeeeee 27-1.docx | 34830 chars ====
+Audio Encryption Method Based on Polar codess For Secure Wireless Communication Systems
+Dinh Van Linh1,2
+1 Hanoi University of Science and Technology 
+2 Academy of Cryptography Techniques 
+Hanoi, Vietnam
+vanlinh@actvn.edu.vn
+Tran Duc Thiep
+ Academy of Cryptography Techniques 
+Hanoi, Vietnam
+thiept598@gmail.com
+Pham Van Tiep
+ Academy of Cryptography Techniques 
+Hanoi, Vietnam
+ptiep94@gmail.com
+Bui Duc Trinh
+Academy of Cryptography Techniques 
+Hanoi, Vietnam
+buiductrinh@actvn.edu.vn
+Abstract—Transmitting multimedia files such as audio is a challenging task in secure wireless communication systems. Therefore, encryption methods are required to secure audio content. This work suggests an audio encryption method that gives an effective security level. To achieve this, the pre-distributed key is processed through Advanced Encryption Standard (AES) in Counter (CTR) mode to generate the corresponding subkeys for the audio data blocks. Each subkey is divided into two parts, where the first part is XORed with the information bits containing the audio data, while the remaining part is assigned to the frozen bits. The simulation results demonstrate that the proposed method performs well and is effective against various types of attacks. 
+Keywords—Audio encryption, Polar codess, Information bits, Frozen bits, Secret key, Wireless channel characteristics.
+Introduction 
+The security of audio signal plays an important role in 5G networks, as audio signals not only facilitate convenient information transmission and communication but also create potential opportunities for criminal misuse [1]. The encryption methods are employed to protect the audio signals. However, audio signal is more difficult to encrypt than other types of data since there is the association between adjacent samples. Various audio encryption methods have been proposed, such as mathematical-based approaches [2]–[4], chaos-based schemes [5]–[11], or chaotic maps combined with DNA [12]–[15]. Mathematical-based audio encryption methods typically exhibit weak security due to their deterministic structure, limited randomness, and vulnerability to statistical and cryptanalytic attacks. Chaos-based audio encryption schemes provide high sensitivity and randomness. However, they often suffer from parameter instability and limited cryptographic rigor. Many of these methods are vulnerable to known-plaintext and differential attacks if not carefully designed. Moreover, their computational complexity can be relatively high. Although DNA-based approaches introduce additional randomness, they often incur high complexity and lack strong theoretical security guarantees. In addition, their practical implementation is relatively challenging.
+In recent years, crypto-coding technique has emerged as one of the physical-layer security approaches that has attracted considerable research attention, as it enables joint data encryption and channel coding to be performed in a single step. Crypto-coding technique can be implemented on Turbo codes [16]–[19] and polar codess [20]–[27]. However, crypto-coding techniques based on polar codess offer more significant advantages, as polar codess are currently adopted in fifth generation (5G) networks. These crypto-coding based polar codess use a secret key generated from the characteristics of the wireless channel to manipulate the information bits and frozen bits. The security effectiveness of these methods is only validated through evaluating their resistance to passive eavesdropping attacks, while neglecting their capability to encrypt different types of data and their robustness against other active attacks. Moreover, using a single secret key generated from the characteristics of the wireless channel to encrypt all data blocks may compromise security if the system is subjected to active attacks.
+This study proposes an audio encryption method based on crypto-coding with polar codess. The proposed method is implemented by using a pre-distributed key to derive subkeys corresponding to the input audio blocks through the Advanced Encryption Standard (AES) key derivation function in Counter (CTR) mode. Each subkey is divided into two parts corresponding to the information bits and the frozen bits. The first part of the subkey is XORed with the audio data embedded in the information bits, while the second part is assigned to the frozen bits. The simulation results show that the proposed method encrypts/decrypts well and is highly effective in resisting attacks on encrypted audio files. Several contributions are summarized as follows:
+The AES key derivation function in CTR mode is incorporated to enhance the security of the secret key instead of relying on a single fixed key.
+The audio data contained in the information bits are protected using one part of the subkey, while the remaining part is stored in the frozen bits to enhance diffusion and confusion. This method not only improves audio encryption performance but also resists passive eavesdropping attacks and ensures the reliability of the audio data transmitted over wireless channels.
+The remainder of the paper is organized as follows. Section 2 describes the proposed method. Section 3 gives simulation results, and several conclusions will be provided in Section 4.
+The proposed PLS method based on interleaved and punctured solutions of Turbo codes
+We propose a Crypto-Coding system architecture based on polar codess for encrypting audio signals. The system uses a pre-shared secret key, extended into subkeys by applying the AES with CTR mode to simultaneously control the information Bits and frozen Bits of the polar codes.
+A. Key Generation Mechanism and Subkey Hierarchy
+Assume  is a pre-shared secret key of the symmetric key encryption system. To ensure dynamic security, the AES-CTR algorithm is used as the key derivation function. For the input audio data block (), the subkey is generated as follows:
+                 (1)
+where IV is the initialization vector and  is t
+...[MID]...
+
+-
+Other samples
+7.9371 to 7.9473 
+7.9966 to 7.9995
+Theory
+8.0000
+ Differential Attack Analysis: To assess the sensitivity of the algorithm (avalanche effect), we use two metrics: Number of Samples Change Rate (NSCR) and Unified Mean Change Intensity (UACI). The calculation formula is as follows:
+ (10)
+                 (11)
+Where c1, c2 denote two ciphertexts generated from two slightly different plaintexts, L represents the data length. As reported in Table III, the experimental results (NSCR ≈ 99.61% and UACI ≈ 33.4%) are very close to their theoretical values, demonstrating the strong resistance of the proposed scheme against differential attacks.
+For 8-bit audio signals, the theoretically optimal NSCR value is 99.61%. Experimental results show that the proposed method exhibits near-perfect convergence to this ideal value across all test samples. Looking at the Table III the NSCR indices for the proposed method are 99.60% for animal sounds, 99.59% for drum sounds, 99.60% for piano sounds, 99.63% for car sounds, and 99.62% for human sounds, respectively.
+To further validate the security performance, this paper compares the proposed method with several recent studies, including References [9], [12] and [31]. In Reference [9], the NSCR value ranges from 99.5316% to 99.6201%, while Reference [12] only reaches 98.43%, and Reference [31] has an NSCR value ranging from 99.60354% to 99.61265%. This shows that the proposed method consistently maintains a more stable NSCR value, closer to the theoretical optimal level of 99.61%. This confirms that the interleaving polar code-based encoding algorithm exhibits clear and robust advantages over previously reported methods.
+Furthermore, all audio samples in this study achieved values ​​close to the ideal NSCR threshold, demonstrating not only the ability to effectively eliminate statistical correlations between the original text and the encoded text, but also the independence of encoding performance from the characteristics of the input audio data. As a result, the proposed method provides comprehensive protection against statistical analysis attacks, surpassing conventional methods presented in References [12] and [31], which do not achieve comparable durability.
+UACI (Table IV): The theoretical UACI value for random 8-bit data is approximately 33.46%. As shown in Table IV, our scheme generates ciphertexts with differential intensities extremely close to this ideal value. The UACI values obtained for different audio categories are 33.44% for animal sounds, 33.46% for drum sounds, 33.41% for piano sounds, 33.45% for car sounds, and 33.44% for human sounds,respectively. These results are significantly closer to the theoretical ideal compared to Ref. [6] (which ranges from 32.78% to 32.86%), Ref. [13] (ranging from 33.1% to 33.4%), and Ref. [14] (ranging from 33.34% to 33.37%), respectively. This confirms that the proposed encryption scheme produces a more uniform distribution of differences, thereby offering superior resistance against differential analysis.
+Table III: NSCR Evaluation Results (in %)
+Audio Samples
+Ours
+Ref. [9]
+Ref. [12]
+Ref. [31]
+Animal
+99.60
+-
+-
+-
+Drum
+99.59
+-
+-
+-
+Piano
+99.60
+-
+-
+-
+Car
+99.63
+-
+-
+-
+Human
+99.62
+-
+-
+-
+Other samples
+99.5316 to 99.6201
+98.43
+99.60354 to 99.61265
+Theory
+≈ 99.61
+Table IV: UACI evaluation results (in %)
+Audio Samples
+Ours
+Ref. [6]
+Ref. [13]
+Ref. [14]
+Animal
+33.44
+-
+-
+33.3439
+Drum
+33.46
+-
+-
+33.3547
+Piano
+33.41
+-
+-
+33.3551
+Car
+33.45
+-
+-
+33.3782
+Human
+33.44
+-
+-
+33.3630
+Other samples
+32.7895 to 32.8661
+33.1 to 33.4
+-
+Theory
+≈ 33.46
+Peak Signal-to-Noise Ratio (PSNR)  is used to evaluate the level of distortion between the plaintext and the corresponding ciphertext. A lower PSNR value indicates a higher degree of dissimilarity and, consequently, better encryption performance [10]. The PSNR is calculated as follows:
+         (12)
+"The PSNR values reported in Table V are consistently low across all tested samples. The PSNR results obtained for different 
+...[END]...
+io Encryption Algorithm Based on DNA Coding and Chaotic System,” IEEE Access, vol. 8, pp. 9260–9270, 2020, doi: 10.1109/ACCESS.2019.2963329.
+[15]M. Nassef, “An Intelligent Audio Encryption and Compression Algorithm Inspired by the Encoding of Various Biological Sequences,” IEEE Access, vol. 13, no. July, pp. 126334–126354, 2025, doi: 10.1109/ACCESS.2025.3588764.
+[16]V. Kovtun and Y. Ivanov, “Crypto coding system based on the turbo codes with secret keys,” ICT Express, vol. 10, no. 2, pp. 330–335, 2024, doi: 10.1016/j.icte.2023.08.007.
+[17]D. Van Linh and V. Van Yem, “A Novel Scheme for Joint Error Control and Dynamic Security Coding Using Puncturing Mechanism,” J. Commun., vol. 17, no. 11, pp. 948–955, 2022, doi: 10.12720/jcm.17.11.948-955.
+[18]D. Van Linh, Y. V. Van, and T. P. T. Hoang, “A Hybrid of Encryption and Error Correction Method for Multiple-Input Multiple-Output Wireless Communication Systems,” Int. J. Commun. Networks Distrib. Syst., vol. 30, no. 1, 2024, doi: 10.1504/ijcnds.2024.10061300.
+[19]D. Van Linh and V. Van Yem, “A turbo‐based encryption and coding scheme for multiple‐input multiple‐output orthogonal,” IET Commun., no. 17, pp. 632–640, 2023, doi: 10.1049/cmu2.12568.
+[20]Y. Yang and W. Li, “Security-Oriented Polar Coding Based on Channel-Gain-Mapped Frozen Bits,” IEEE Trans. Wirel. Commun., vol. 21, no. 8, pp. 6584–6596, 2022, doi: 10.1109/TWC.2022.3151188.
+[21]Y. Zeng, Y. Tang, and L. Xiang, “Physical Layer Security Design for Polar Code Construction,” Cryptography, vol. 6, no. 3, 2022, doi: 10.3390/cryptography6030035.
+[22]Y. Xiao, B. Wang, Z. Wang, Z. Zhou, and J. He, “One-time pad scheme based on polar code and OFDM for MMW-RoF system at W-band,” Opt. Express, vol. 30, no. 3, p. 4412, 2022, doi: 10.1364/oe.450878.
+[23]T. M. S. Pinto, J. P. Vilela, M. A. C. Gomes, and W. K. Harrison, “Keyed Polar Coding for Physical-Layer Security without Channel State Information,” IEEE Int. Conf. Commun., 2021, doi: 10.1109/ICC42927.2021.9500357.
+[24]X. Lu, J. Lei, W. Li, K. Lai, and Z. Pan, “Physical layer encryption algorithm based on polar codes and chaotic sequences,” IEEE Access, vol. 7, pp. 4380–4390, 2019, doi: 10.1109/ACCESS.2018.2888883.
+[25]D. Van Linh, V. Van Yem, and H. T. P. Thao, “Crypto-coding technique based on polar code and secret key generated from wireless channel characteristics for wireless communication systems,” PLoS One, vol. 20, no. 2 February, pp. 1–20, 2025, doi: 10.1371/journal.pone.0318110.
+[26]K. H. Moussa, S. Shaaban, and A. H. El-Sakka, “Secured polar code derived from random hopped frozen-bits,” Wirel. Networks, vol. 29, no. 1, pp. 423–435, 2023, doi: 10.1007/s11276-022-03127-1.
+[27]C. An, M. Huang, X. Lu, L. Bi, and W. Li, “Polar code-based secure transmission with higher message rate combining channel entropy and computational entropy,” Cybersecurity, vol. 7, no. 1, 2024, doi: 10.1186/s42400-024-00229-5.
+[28]F. J. Farsana, V. R. Devi, and K. Gopakumar, “An audio encryption scheme based on Fast Walsh Hadamard Transform and mixed chaotic keystreams,” Appl. Comput. Informatics, vol. 19, no. 3–4, pp. 239–264, 2023, doi: 10.1016/j.aci.2019.10.001.
+[29]A. Belmeguenai, Z. Ahmida, S. Ouchtati, and R. Djemii, “A novel approach based on stream cipher for selective speech encryption,” Int. J. Speech Technol., vol. 20, no. 3, pp. 685–698, 2017, doi: 10.1007/s10772-017-9439-8.
+[30]D. Shah, T. Shah, and S. S. Jamal, “Digital audio signals encryption by Mobius transformation and Hénon map,” Multimed. Syst., vol. 26, no. 2, pp. 235–245, 2020, doi: 10.1007/s00530-019-00640-w.
+[31]M. Y. Mohamed Parvees, J. Abdul Samath, and B. Parameswaran Bose, “Audio encryption - a chaos-based data byte scrambling technique,” Int. J. Appl. Syst. Stud., vol. 8, no. 1, pp. 51–75, 2018, doi: 10.1504/IJASS.2018.091847.
+[32]         M. El Hanouti, A. El Emami, and E. H. El Kinani, "Security analysis of an audio data encryption scheme based on key chaining and DNA encoding," Signal Processing, vol. 164, pp. 235-241, 2019.
+==== Audio_Encryption_24-1 done1111.docx | 24849 chars ====
+Audio Encryption Method Based on Polar Codes For Secure Wireless Communication Systems
+Dinh Van Linh1,2
+1 Hanoi University of Science and Technology 
+2 Academy of Cryptography Techniques 
+Hanoi, Vietnam
+vanlinh@actvn.edu.vn
+Tran Duc Thiep
+ Academy of Cryptography Techniques 
+Hanoi, Vietnam
+DT060251@actvn.edu.vn
+Pham Van Tiep
+ Academy of Cryptography Techniques 
+Hanoi, Vietnam
+DT070145@actvn.edu.vn
+Abstract—Transmitting multimedia files such as audio is a challenging task in secure wireless communication systems. Therefore, encryption methods are required to secure audio content. This work suggests an audio encryption method that gives an effective security level. To achieve this, the secret key is extracted from the wireless channel characteristics and then processed through Advanced Encryption Standard (AES) in Counter (CTR) mode to generate the corresponding subkeys for the audio data blocks. Each subkey is divided into two parts, where the first part is XORed with the information bits containing the audio data, while the remaining part is assigned to the frozen bits. The simulation results demonstrate that the proposed method performs well and is effective against various types of attacks. 
+Keywords—Audio encryption, Polar codes, Information bits, Frozen bits, Secret key, Wireless channel characteristics.
+Introduction 
+The security of audio signal plays an important role in 5G networks, as audio signals not only facilitate convenient information transmission and communication but also create potential opportunities for criminal misuse [1]. The encryption methods are employed to protect the audio signals. However, audio signal is more difficult to encrypt than other types of data since there is the association between adjacent samples. Various audio encryption methods have been proposed, such as mathematical-based approaches [2], [3], chaos-based schemes [4]–[9], or chaotic maps combined with DNA [10], [11]. Mathematical-based audio encryption methods typically exhibit weak security due to their deterministic structure, limited randomness, and vulnerability to statistical and cryptanalytic attacks. Chaos-based audio encryption schemes provide high sensitivity and randomness. However, they often suffer from parameter instability and limited cryptographic rigor. Many of these methods are vulnerable to known-plaintext and differential attacks if not carefully designed. Moreover, their computational complexity can be relatively high. Although DNA-based approaches introduce additional randomness, they often incur high complexity and lack strong theoretical security guarantees. In addition, their practical implementation is relatively challenging.
+In recent years, crypto-coding technique has emerged as one of the physical-layer security approaches that has attracted considerable research attention, as it enables joint data encryption and channel coding to be performed in a single step. Crypto-coding technique can be implemented on Turbo codes [12]–[15] and polar codes [16]–[19]. However, crypto-coding techniques based on polar codes offer more significant advantages, as polar codes are currently adopted in fifth generation (5G) networks. These crypto-coding based polar codes use a secret key generated from the characteristics of the wireless channel to manipulate the information bits and frozen bits. The security effectiveness of these methods is only validated through evaluating their resistance to passive eavesdropping attacks, while neglecting their capability to encrypt different types of data and their robustness against other active attacks. Moreover, using a single secret key generated from the characteristics of the wireless channel to encrypt all data blocks may compromise security if the system is subjected to active attacks.
+This study proposes an audio encryption method based on crypto-coding with polar codes. The proposed method is implemented by using a secret key generated from the characteristics of the wireless channel to derive subkeys corresponding to the input audio blocks through the Advanced Encryption Standard (AES) key derivation function in Counter (CTR) mode. Each subkey is divided into two parts corresponding to the information bits and the frozen bits. The first part of the subkey is XORed with the audio data embedded in the information bits, while the second part is assigned to the frozen bits. This research is developed from our study in [19]. The simulation results show that the proposed method encrypts/decrypts well and is highly effective in resisting attacks on encrypted audio files. Several contributions are summarized as follows:
+The AES key derivation function in CTR mode is incorporated to enhance the security of the secret key generated from the characteristics of the wireless channel.
+The audio data contained in the information bits are protected using one part of the subkey, while the remaining part is stored in the frozen bits to enhance diffusion and confusion. This method not only improves audio encryption performance but also resists passive eavesdropping attacks and ensures the reliability of the audio data transmitted over wireless channels.
+The remainder of the paper is organized as follows. Section 2 describes the proposed method. Section 3 gives simulation results, and several conclusions will be provided in Section 4.
+The proposed PLS method based on interleaved and punctured solutions of Turbo codes
+We propose a Joint Crypto-Coding system architecture for audio signals, leveraging the error correction capabilities of Polar codes and the security of the Counter Mode AES (CTR) algorithm. The system uses a secret key generated from the radio channel characteristics, extended into subkeys to simultaneously affect the Information Bits and Frozen Bits of the Polar code.
+A. Key Generation Mechanism and Subkey Hierarchy
+Assume  is a secret key extracted from the random characteristics of the transmission channel (such as the CIR impulse response). 
+...[MID]...
+.
+ Spectrogram Analysis: Fig. 2 compares the energy spectrograms of the original and encrypted audio signals. The original signal exhibits energy concentration mainly in the low- and mid-frequency bands. After the encryption process, the spectral energy is uniformly distributed over the entire bandwidth (from 0 to 22 kHz). This spectral “flattening” effectively prevents frequency-domain analysis attacks.
+ Histogram Analysis: Fig. 3 shows the probability distribution of the signal amplitude. The histogram of the original signal follows a Gaussian distribution (centered around 0). After applying the proposed algorithm, the probability distribution becomes a uniform distribution. This result demonstrates the algorithm's excellent resistance to statistical attacks.
+B. Quantitative Analysis
+To confirm safety, we used the following indicators: Correlation Coefficient, Entropy, NPCR/UACI, and PSNR.
+ Correlation Coefficient: he correlation coefficient measures the degree of linear dependency between adjacent samples. It is calculated as follows [13]:
+                    
+where  is the variance and  is the covarience.
+ The results reported in Table I show that the original audio signals exhibit a high correlation coefficient (≈ 1), whereas the encrypted signals yield correlation values close to zero (e.g., −0.00098 for the Animal sample). This indicates that the encrypted signal samples are statistically independent, confirming effective decorrelation.
+(a) Mono: Original and Encrypted Signals
+(b) Dual: Original and Encrypted Signals
+Fig. 1. Waveform analysis. The encrypted signal exhibits noise-like, structureless characteristics
+ Information Entropy Analysis: Information entropy quantifies the unpredictability and randomness of a signal. The entropy   is defined as:
+                        
+    or 8-bit audio samples, the theoretical maximum entropy is 8 [3]. Table II shows that the entropy of the samples after encoding all reached approximately 7.9989, very close to the theoretical value, confirming the high degree of randomness achieved by the proposed scheme.
+ Differential Attack Analysis: To assess the sensitivity of the algorithm (avalanche effect), we used two metrics: Number of Pixel Change Rate (NPCR) and Unified Mean Change Intensity (UACI). The calculation formula is as follows:
+(a) Mono: Original and Encrypted Spectrograms
+(b) Dual: Original and Encrypted Spectrograms
+Fig. 2: Spectrogram analysis. The spectral energy is evenly distributed across the entire frequency band after encoding
+Table II: Information Entropy Analysis Results
+Audio Sample
+Entropy Value
+Animal
+7.9989
+Drum
+7.9988
+Piano
+7.9988
+Car
+7.9989
+Human
+7.9989
+Lý thuyết
+8.0000
+(a) Mono: Original and Encrypted Histograms
+(b) Dual: Original and Encrypted Histograms
+Fig. 3: Histogram analysis. Probability distribution changes from Gaussian to uniform distribution
+    (3)
+                 (4)
+Where c1, c2 denote two ciphertexts generated from two slightly different plaintexts, L represents the data length. As reported in Table III, the experimental results (NPCR ≈ 99.61% and UACI ≈ 33.4%) are very close to their theoretical values, demonstrating the strong resistance of the proposed scheme against differential attacks.
+ Peak Signal-to-Noise Ratio (PSNR): PSNR is used to evaluate the level of distortion between the plaintext and the corresponding ciphertext. A lower PSNR value indicates a higher degree of dissimilarity and, consequently, better encryption performance [14]. The PSNR is calculated as follows:
+         (5)
+Table III: NPCR and UACI Evaluation Results
+Audio Sample
+NPCR (%)
+UACI (%)
+Animal
+99.62
+33.48
+Drum
+99.59
+33.45
+Piano
+99.61
+33.36
+Car
+99.60
+33.41
+Human
+99.61
+33.40
+Theory
+≈ 99.61
+≈ 33.46
+The PSNR values reported in Table IV are consistently low (ranging from 6 to 10 dB), indicating that the encrypted signals are significantly different from the original audio signals and exhibit noise-like characteristics.
+Table IV: PSNR Results for Encrypted Audio Signa
+...[END]...
+eme,” IEEE Access, vol. 12, no. August, pp. 103565–103582, 2024, doi: 10.1109/ACCESS.2024.3434576.
+[2]J. B. Lima and E. F. Da Silva Neto, “Audio encryption based on the cosine number transform,” Multimed. Tools Appl., vol. 75, no. 14, pp. 8403–8418, 2016, doi: 10.1007/s11042-015-2755-6.
+[3]A. Maity and B. C. Dhara, “An Audio Encryption Scheme Based on Empirical Mode Decomposition and 2D Cosine Logistic Map,” IEEE Lat. Am. Trans., vol. 22, no. 4, pp. 267–275, 2024, doi: 10.1109/TLA.2024.10472959.
+[4]H. Aziz, S. M. M. Gilani, I. Hussain, A. K. Janjua, and S. Khurram, “A Noise-Tolerant Audio Encryption Framework Designed by the Application of S8Symmetric Group and Chaotic Systems,” Math. Probl. Eng., vol. 2021, 2021, doi: 10.1155/2021/5554707.
+[5]E. A. Albahrani, T. K. Alshekly, and S. H. Lafta, “A Review on Audio Encryption Algorithms Using Chaos Maps-Based Techniques,” J. Cyber Secur. Mobil., vol. 11, no. 1, pp. 53–82, 2022, doi: 10.13052/jcsm2245-1439.1113.
+[6]T. Haridas, S. D. Upasana, G. Vyshnavi, M. S. Krishnan, and S. S. Muni, “Chaos-based audio encryption: Efficacy of 2D and 3D hyperchaotic systems,” Franklin Open, vol. 8, no. June, p. 100158, 2024, doi: 10.1016/j.fraope.2024.100158.
+[7]S. Adhikari and S. Karforma, “A novel audio encryption method using Henon–Tent chaotic pseudo random number sequence,” Int. J. Inf. Technol., vol. 13, no. 4, pp. 1463–1471, 2021, doi: 10.1007/s41870-021-00714-x.
+[8]H. Djamel, A. Herbadji, I. haddad, H. Kahia, A. Belmeguenai, and N. Derouiche, “An enhanced logistic chaotic map based tweakable speech encryption algorithm,” Integration, vol. 97, no. March, p. 102192, 2024, doi: 10.1016/j.vlsi.2024.102192.
+[9]W. Dai, X. Xu, X. Song, and G. Li, “Audio encryption algorithm based on chen memristor chaotic system,” Symmetry (Basel)., vol. 14, no. 1, pp. 1–19, 2022, doi: 10.3390/sym14010017.
+[10]X. Wang and Y. Su, “An Audio Encryption Algorithm Based on DNA Coding and Chaotic System,” IEEE Access, vol. 8, pp. 9260–9270, 2020, doi: 10.1109/ACCESS.2019.2963329.
+[11]M. Nassef, “An Intelligent Audio Encryption and Compression Algorithm Inspired by the Encoding of Various Biological Sequences,” IEEE Access, vol. 13, no. July, pp. 126334–126354, 2025, doi: 10.1109/ACCESS.2025.3588764.
+[12]V. Kovtun and Y. Ivanov, “Crypto coding system based on the turbo codes with secret keys,” ICT Express, vol. 10, no. 2, pp. 330–335, 2024, doi: 10.1016/j.icte.2023.08.007.
+[13]D. Van Linh and V. Van Yem, “A Novel Scheme for Joint Error Control and Dynamic Security Coding Using Puncturing Mechanism,” J. Commun., vol. 17, no. 11, pp. 948–955, 2022, doi: 10.12720/jcm.17.11.948-955.
+[14]D. Van Linh, Y. V. Van, and T. P. T. Hoang, “A Hybrid of Encryption and Error Correction Method for Multiple-Input Multiple-Output Wireless Communication Systems,” Int. J. Commun. Networks Distrib. Syst., vol. 30, no. 1, 2024, doi: 10.1504/ijcnds.2024.10061300.
+[15]D. Van Linh and V. Van Yem, “A turbo‐based encryption and coding scheme for multiple‐input multiple‐output orthogonal.pdf,” IET Commun., no. 17, pp. 632–640, 2023, doi: 10.1049/cmu2.12568.
+[16]X. Lu, J. Lei, W. Li, K. Lai, and Z. Pan, “Physical layer encryption algorithm based on polar codes and chaotic sequences,” IEEE Access, vol. 7, pp. 4380–4390, 2019, doi: 10.1109/ACCESS.2018.2888883.
+[17]Y. Yang and W. Li, “Security-Oriented Polar Coding Based on Channel-Gain-Mapped Frozen Bits,” IEEE Trans. Wirel. Commun., vol. 21, no. 8, pp. 6584–6596, 2022, doi: 10.1109/TWC.2022.3151188.
+[18]C. An, M. Huang, X. Lu, L. Bi, and W. Li, “Polar code-based secure transmission with higher message rate combining channel entropy and computational entropy,” Cybersecurity, vol. 7, no. 1, 2024, doi: 10.1186/s42400-024-00229-5.
+[19]D. Van Linh, V. Van Yem, and H. T. P. Thao, “Crypto-coding technique based on polar code and secret key generated from wireless channel characteristics for wireless communication systems,” PLoS One, vol. 20, no. 2 February, pp. 1–20, 2025, doi: 10.1371/journal.pone.0318110.
+==== BaocaoNCKH Final 104.docx | 60000 chars ====
+BAN CƠ YẾU CHÍNH PHỦ
+HỌC VIỆN KỸ THUẬT MẬT MÃ
+BÁO CÁO NGHIÊN CỨU KHOA HỌC
+ĐỀ TÀI: Nghiên cứu kỹ thuật mã hóa âm thanh bằng mã phân cực cho các thiết bị di động 5G
+Học viên thực hiện :      1. Trần Đức Thiệp-DT6B
+2. Phạm Văn Tiệp-DT7A
+Giảng viên hướng dẫn :   1. TS. Đinh Văn Linh
+                                            2. ThS. Phạm Thúy An
+Hà Nội, Tháng 03/2026
+LỜI CẢM ƠN
+Nhóm xin gửi lời cảm ơn đến các thầy, cô giáo Học viện Kỹ thuật mật mã nói chung cũng như các thầy, cô trong Khoa Điện tử -vi mạch nói riêng đã dạy dỗ, truyền đạt cho nhóm các kiến thức cần thiết trong thời gian học tập cũng như nghiên cứu khóa học tại trường.
+Đặc biệt, nhóm xin gửi lời cảm ơn chân thành tới TS. Đinh Văn Linh đã tận tình hướng dẫn trong quá trình nghiên cứu khoa học.
+Trong quá trình nghiên cứu khoa học không tránh khỏi những thiếu sót. Nhóm mong nhận được đóng góp ý kiến của các thầy, cô giáo và các bạn quan tâm để nội dung nghiên cứu do nhóm thực hiện hoàn thiện hơn.
+Nhóm xin chân thành cảm ơn!
+MỤC LỤC
+LỜI CẢM ƠN1
+MỤC LỤC2
+DANH MỤC CÁC KÝ HIỆU , CÁC CHỮ VIẾT TẮT5
+DANH MỤC HÌNH VẼ7
+DANH MỤC BẢNG BIỂU9
+LỜI MỞ ĐẦU10
+CHƯƠNG 1: CƠ SỞ LÝ THUYẾT VỀ MÃ HÓA DỮ LIỆU ÂM THANH VÀ MÃ PHÂN CỰC12
+1.1 Khái quát về mã hóa dữ liệu âm thanh12
+1.1.1 Đặc trưng của dữ liệu âm thanh12
+1.1.2 Các yêu cầu trong mã hóa âm thanh13
+1.1.3 Các phương pháp mã hóa âm thanh truyền thống14
+1.2 Lý thuyết mã kênh và mã hóa bảo mật15
+1.2.1 Khái niệm mã kênh và ứng dụng trong truyền thông15
+1.2.2 Mối liên hệ giữa mã hóa bảo mật và mã kênh16
+1.2.3 Xu hướng tích hợp mã hóa và mã sửa lỗi (Crypto-coding)16
+1.3 Giới thiệu chung về mã phân cực18
+1.4 Nguyên lí phân cực kênh18
+1.4.1 Kênh B-DMC được mô tả bởi:18
+1.4.2 Qúa trình kết hợp và tách kênh19
+1.4.3 Hiện tương phân cực19
+1.5 Cấu trúc mã phân cực19
+1.6 Giải mã phân cực22
+1.7 Đánh giá ưu, nhược điểm của mã phân cực23
+1.8 Cấu trục mã phân cực trong thực tế24
+1.8.1 Vai trò của mã phân cực trong 5G NR24
+1.8.2 Quy trình mã hóa phân cực trong 5G NR24
+1.8.3 Lựa chọn tập bit đóng băng25
+1.8.4 Độ dài mã và tốc độ mã trong 5G NR25
+1.8.5 Ưu điểm triển khai trong 5G NR26
+1.9 Ứng dụng của mã phân cực26
+1.9.1 Hệ thống thông tin di động 5G26
+1.9.2 Hệ thống truyền thông vệ tinh và không gian27
+1.9.3 Mạng cảm biến không dây (wireless sensor networks - WSN)28
+1.9.4 Hệ thống truyền thông tốc độ cao29
+1.9.5 Truyền thông trong môi trường IoT29
+1.9.6 Liên lạc âm học dưới nước30
+1.10 Kết luận31
+CHƯƠNG 2: ĐỀ XUẤT THUẬT TOÁN MÃ HÓA ÂM THANH DỰA TRÊN MÃ PHÂN CỰC33
+2.1 Cơ chế dẫn xuất khóa con và cấu trúc phân cấp (AES-CTR)33
+2.2 Kiến trúc mã hóa đề xuất35
+2.2.1 Cơ chế tạo khóa và hệ thống phân cấp khóa35
+2.2.2 Quy trình mã hóa và xử lý dữ liệu36
+2.2.3 Quy trình giải mã tại phía thu39
+2.2.4 Hiệu quả vận hành và tính thực tế41
+2.2.5 Ưu điểm về hiệu năng phần cứng42
+2.3 Kết luận43
+CHƯƠNG 3: KẾT QỦA THỰC NGHIỆM VÀ PHẦN MỀM44
+3.1 Giới thiệu phần mềm MATLAB44
+3.2 Tham số mô phỏng45
+3.2.1 Tham số của hệ thống Mã phân cực (N,K,R)45
+3.2.2 Đặc trưng tín hiệu đầu vào và Lượng tử hóa46
+3.2.3 Lõi mã hóa và Cơ chế sinh Khóa (AES-CTR & SHA-256)46
+3.2.4 Kênh truyền AWGN và tham số SNR46
+3.3 Quy trình thực hiện48
+3.4 Phân tích trực quan50
+3.5 Phân tích định lượng55
+3.6 Phân tích văn bản gốc đã chọn/đã biết62
+3.7 Xây dựng chương trình phần mềm mã hóa âm thanh bằng mã phân cực65
+3.7.1 Công cụ và ngôn ngữ sử dụng66
+3.7.2  Cách sử dụng phần mềm66
+3.8 Kết luận74
+KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN75
+DANH SÁCH CÔNG BỐ KHOA HỌC77
+TÀI LIỆU THAM KHẢO78
+DANH MỤC CÁC KÝ HIỆU , CÁC CHỮ VIẾT TẮT
+Viết tắt
+Tiếng Anh
+Tiếng Việt
+   5G NR
+5G New Radio
+Tiêu chuẩn vô tuyến mới cho mạng 5G
+AES
+Advanced Encryption Standard
+Chuẩn mã hóa tiên tiến
+AWGN
+Additive White Gaussian Noise
+Nhiễu trắng cộng tính Gaussian
+B-DMC
+Binary-Input Discrete Memoryless Channel
+Kênh nhị phân đầu vào rời rạc không nhớ
+BER
+Bit Error Rate
+Tỷ lệ lỗi bit
+CPA
+Chosen-Plaintext Attack
+Tấn công bản rõ được chọn
+CRC
+Cyclic Redundancy Check
+Kiểm tra dư thừa vòng
+CTR
+Counter Mode
+Chế độ bộ đếm
+GM
+Generator Matrix
+Ma trận sinh
+IV
+Initialization Vector
+Vector khởi tạo
+KDF
+Key Derivation Function
+Hàm dẫn xuất khóa
+KPA
+Known-Plaintext Attack
+Tấn công bản rõ đã biết
+LDPC
+Low-Density Parity-Check
+Mã kiểm tra chẵn lẻ mật độ thấp
+NSCR
+Number of Samples Change Rate
+Tỷ lệ thay đổi mẫu
+PBCH
+Physical Broadcast Channel
+Kênh quảng bá vật lý
+PDCCH
+Physical Downlink Control Channel
+Kênh điều khiển đường xuống vật lý
+PSNR
+Peak Signal-to-Noise Ratio
+Tỷ lệ tín hiệu cực đại trên nhiễu
+PUCCH
+Physical Uplink Control Channel
+Kênh điều khiển đường lên vật lý
+SC
+Successive Cancellation
+Giải mã hủy liên tiếp
+SCL
+Successive Cancellation List
+Giải mã danh sách hủy liên tiếp
+SNR
+Signal-to-Noise Ratio
+Tỷ lệ tín hiệu trên nhiễu
+      UACI
+Unified Average Changed Intensity
+Cường độ thay đổi trung bình thống nhất
+     URLLC
+Ultra-Reliable and Low Latency Communications
+Truyền thông siêu tin cậy và độ trễ thấp
+    WSN
+Wireless Sensor Networks
+Mạng cảm biến không dây
+DANH MỤC HÌNH VẼ
+Hình 1.1. Cấu hình kênh  22
+Hình 1.2. Cấu hình chung của kênh 23
+Hình 1.3. Ứng dụng của mã cực trong mạng 5G29
+Hình 1.4. Truyền thông vệ tinh và không gian30
+Hình 1.5. Mạng cảm biến không dây31
+Hình 1.6. Mạng liên lạc IoT32
+Hình 1.7. Minh họa liên lạc dưới nước của AUV34
+Hình 2.1. Mô hình tổng quát của phương pháp đềxuất…………………..……….…….36
+Hình 2.2. Sơ đồ khối của kiến trúc mã hóa chung được đề xuất.38
+Hình 2.3. Sơ đồ quán trình xử lý giải mã âm thanh41
+Hình 3.1. Các tính năng của MATLAB………..……………………………………..…44
+Hình 3.2. Phân tích dạng sóng của cả tín hiệu gốc và tín hiệu đã mã hóa.50
+Hình 3.3. Phân tích phổ đồ của cả tín hiệu gốc và tín hiệu đã mã hóa.51
+Hình 3.4. Biểu diễn phổ đồ của tín hiệu âm thanh gốc và tín hiệu âm thanh đã mã hóa: (a) Âm thanh ô tô, (b) Âm thanh động vật, (c) Âm thanh con người, (d) Âm thanh trống, (e) Âm thanh đàn piano52
+Hình 3.5. Phân bố xác suất của biên độ tín hiệu53
+Hình 3.6. Biểu đồ tần suất trước và sau khi mã hóa âm thanh: (a) Âm thanh động vật, (b) Âm thanh ô tô, (c) Âm thanh đàn piano, (d) Âm thanh trống, (e) Âm th
+...[MID]...
+ệu. Vì vậy, phương pháp này hoàn toàn có thể tăng cường độ mật và độ tin cậy cho dữ liệu truyền trên hệ thống thông tin di động 5G.
+1.7 Đánh giá ưu, nhược điểm của mã phân cực
+Trong số các loại mã kênh hiện đại, mã phân cực nổi lên như một ứng viên lý tưởng cho kỹ thuật Crypto-coding nhờ vào những đặc tính kỹ thuật độc đáo.
+Ưu điểm của mã phân cực :
+- Đạt dung lượng kênh ở 
+- Cấu trúc mã hóa/giải mã đơn giản, phù hợp phần cứng.
+- Hiệu năng cao khi kết hợp CRC-SCL.
+- Đã được chuẩn hóa trong 5G NR cho kênh điều khiển.
+        Nhược điểm của mã phân cực:
+          - Hiệu năng kém ở độ dài ngắn nếu dùng SC thuần túy.
+- Phải thiết kế tập bit đóng băng phù hợp với từng điều kiện kênh.
+- Độ phức tạp tăng với SCL lớn.
+1.8 Cấu trục mã phân cực trong thực tế
+1.8.1 Vai trò của mã phân cực trong 5G NR
+Trong tiêu chuẩn 3GPP 5G New Radio (NR), mã Polar được lựa chọn cho mã hóa kênh điều khiển (Control Channel Coding) thay thế cho mã Turbo vốn được sử dụng trong LTE. Cụ thể, Polar codes được áp dụng cho các kênh:
+-  PDCCH (Physical Downlink Control Channel): kênh điều khiển đường xuống
+-  PUCCH (Physical Uplink Control Channel): kênh điều khiển đường lên
+-  PBCH (Physical Broadcast Channel): kênh quảng bá thông tin hệ thống
+Việc lựa chọn mã Polar cho các kênh điều khiển xuất phát từ các yếu tố:
+- Độ dài khối (block length) của dữ liệu điều khiển thường ngắn hoặc vừa (khoảng 20–1024 bit).
+- Yêu cầu độ trễ thấp và khả năng giải mã hiệu quả ở kích thước khối ngắn.
+- Mã Polar với giải mã CRC-Aided SCL (CA-SCL) cho hiệu năng gần tiệm cận dung lượng kênh trong điều kiện này.
+        1.8.2 Quy trình mã hóa phân cực trong 5G NR
+Quy trình mã hóa Polar trong 5G NR gồm các bước chính như sau:
+1. Chèn CRC (CRC Attachment)
+- Một chuỗi kiểm tra CRC được nối vào cuối chuỗi bit thông tin để hỗ trợ phát hiện lỗi và tăng hiệu quả của giải mã SCL.
+- 5G NR sử dụng CRC 11-bit hoặc 24-bit tùy kênh và độ dài thông tin.
+2. Rate Matching Preparation
+- Chuỗi sau khi gắn CRC được ánh xạ vào tập bit thông tin của mã Polar, phần còn lại là bit đóng băng (frozen bits).
+- Các bit đóng băng được gán giá trị ‘0’ cố định
+3. Mã hóa phân cực
+- Sử dụng ma trận tạo với N là lũy thừa của 2.
+- Giá trị N được chọn từ tập {32, 64, 128, 256, 512, 1024} trong 5G NR.
+4. Rate matching
+-  Thực hiện puncturing (loại bỏ bit) hoặc shortening (rút ngắn) để điều chỉnh độ dài khối mã đầu ra cho phù hợp với kích thước yêu cầu.
+Trong 5G NR, ba kỹ thuật được dùng:
+- Sub-block interleaving: tráo thứ tự bit để tăng khả năng chống lỗi theo burst.
+- Bit selection: chọn ra tập bit cần truyền.
+- Circular buffer: quản lý và trích xuất bit từ bộ đệm vòng.
+1.8.3 Lựa chọn tập bit đóng băng
+Việc phân định chính xác vị trí của các bit thông tin và bit đóng băng là yếu tố sống còn quyết định đến hiệu năng của mã Polar. Trong tiêu chuẩn 5G NR, quy trình này được tối ưu hóa thông qua các cơ chế sau:
+-  Sử dụng chuỗi độ tin cậy chuẩn hóa: Thay vì tính toán động trong quá trình truyền tin, các tập bit tốt được xác định dựa trên một thứ tự độ tin cậy (reliability sequence) đã được chuẩn hóa sẵn trong các tài liệu kỹ thuật của 3GPP.
+-  Khả năng thích ứng linh hoạt: Điểm ưu việt của phương pháp này nằm ở tính tùy biến cao; khi có sự thay đổi về tốc độ mã (code rate) hoặc độ dài khối (block length), bộ chọn bit chỉ cần căn cứ vào chuỗi độ tin cậy sẵn có để trích xuất ra các vị trí tối ưu nhất cho việc truyền tải thông tin hữu ích.
+-  Chuỗi này được tính toán từ trước thông qua mô phỏng trên kênh AWGN ở nhiều mức SNR và lưu cố định trong tiêu chuẩn.
+1.8.4 Độ dài mã và tốc độ mã trong 5G NR
+Trong 5G NR, độ dài mã Polar N và tốc độ mã R được thiết kế linh hoạt:
+-  Độ dài mã N: được chọn là lũy thừa của 2, từ 32 đến 1024.
+- Tốc độ mã R:
+với  K  là số bit thông tin ( bao gồm cả CRC) tốc độ mã có thể điều chỉnh thông qua puncturing hoặc shortening.
+1.8.5 Ưu điểm triển khai trong 5G NR
+Việc lựa chọn mã phân cực (Polar Codes) làm tiêu chuẩn cho các kênh điều khiển trong 5G New Radio không phải là ngẫu nhiên, mà xuất phát từ 
+...[END]...
+. Các tính năng của MATLAB
+       3.2 Tham số mô phỏng
+Để kiểm chứng tính đúng đắn và đánh giá hiệu năng của thuật toán mã hóa âm thanh dựa trên sự kết hợp giữa mã Polar và hệ mật AES-CTR, chúng tôi tiến hành thiết lập một môi trường mô phỏng thực tế trên nền tảng MATLAB. Mục tiêu của quá trình mô phỏng này là phân tích khả năng bảo mật, độ nhạy tin nhắn và chất lượng tín hiệu sau khi đi qua kênh truyền bảo mật. Các tham số được lựa chọn dựa trên các tiêu chuẩn truyền tin kỹ thuật số hiện đại, đảm bảo tính cân bằng giữa độ phức tạp tính toán và khả năng kháng lại các hình thức tấn công phổ biến như tấn công vi sai hay tấn công dựa trên bản tin rõ.
+3.2.1 Tham số của hệ thống Mã phân cực (N,K,R)
+Độ dài mã (N = 1024) và Chiều dài khối thông tin (K = 512): Việc chọn độ dài mã N = 1024 là một mức cân bằng lý tưởng trong các hệ thống truyền thông thực tế. Độ dài này đủ lớn để hiệu ứng phân cực kênh (Channel Polarization) diễn ra rõ rệt, tạo ra sự phân hóa sắc nét giữa các kênh tin cậy (dùng để truyền dữ liệu) và các kênh nhiễu (dùng làm bit đóng băng).
+Tỷ lệ mã (R = 0.5): Tỷ lệ này cho phép hệ thống sử dụng 50% số bit làm bit đóng băng. Trong cơ chế Crypto-coding, toàn bộ các bit đóng băng này được lấp đầy bởi dòng khóa giả ngẫu nhiên thay vì các bit 0 truyền thống, qua đó tối đa hóa độ hỗn loạn (Entropy) của bản mã đầu ra mà không làm suy giảm quá nhiều băng thông truyền dẫn.
+3.2.2 Đặc trưng tín hiệu đầu vào và Lượng tử hóa
+Tần số lấy mẫu ( = 44100 Hz): Đây là tần số lấy mẫu chuẩn của âm thanh chất lượng cao (chuẩn CD). Việc hệ thống xử lý mượt mà ở tần số này chứng minh thuật toán có khả năng đáp ứng được khối lượng dữ liệu lớn trong thời gian thực.
+Độ sâu lượng tử hóa 16-bit: So với hệ thống 8-bit truyền thống (chỉ có 256 mức giá trị), việc nâng cấp lên 16-bit cung cấp một không gian mẫu (sample space) khổng lồ lên tới 65.536 mức biên độ. Điều này giúp tín hiệu âm thanh khôi phục có độ trung thực tuyệt đối (Lossless), đồng thời làm tăng tính phức tạp của bản rõ, khiến các kỹ thuật phân tích biểu đồ (Histogram Analysis) của kẻ tấn công trở nên vô hiệu.
+3.2.3 Lõi mã hóa và Cơ chế sinh Khóa (AES-CTR & SHA-256)
+Thuật toán AES/CTR/NoPadding: Chế độ Bộ đếm (Counter - CTR) được lựa chọn vì nó biến mã khối AES thành mã dòng (Stream Cipher). Đặc tính NoPadding (không đệm lấp) cho phép bản mã đầu ra giữ nguyên vẹn kích thước so với bản rõ đầu vào, cực kỳ tối ưu cho việc truyền tín hiệu âm thanh liên tục mà không gây ra độ trễ (delay) chờ đóng gói.
+Khóa toàn cục từ SHA-256: Thay vì yêu cầu người dùng nhập đúng 16 ký tự, hệ thống sử dụng hàm băm SHA-256 để biến một chuỗi mật khẩu có độ dài bất kỳ thành một mốc khóa 128-bit chuẩn hóa, phân bố ngẫu nhiên và duy nhất để cấp cho lõi AES.
+3.2.4 Kênh truyền AWGN và tham số SNR
+Kênh truyền sử dụng trong mô phỏng là AWGN (Additive White Gaussian Noise), một mô hình phổ biến để mô phỏng nhiễu ngẫu nhiên trắng Gaussian.
+SNR (Signal-to-Noise Ratio) được thiết lập ở mức: Eb/N0 = 10 dB 
+Dựa vào tỷ lệ mã và SNR, nhóm tính được phương sai nhiễu (noise variance) như sau:
+Ngoài mức Eb/N0 cố định 10 dB, mô phỏng còn được thực hiện với nhiều giá trị SNR khác nhau: 2 dB, 4 dB, 6 dB, 8 dB, 10 dB...
+Việc thay đổi Eb/N0 giúp:
+Xác định ngưỡng Eb/N0 tối thiểu để đảm bảo truyền dữ liệu thành công.
+Đánh giá khả năng khôi phục ảnh trong điều kiện kênh nhiễu khác nhau.
+So sánh hiệu suất mã hóa giữa các mức độ nhiễu.
+Bảng 3.1. Tham số mô phỏng
+Tên tham số
+Giá trị cấu hình
+Ý nghĩa / Mô tả
+Độ dài mã phân cực (N)
+1024 bit
+Số lượng bit của một khối mã ở đầu ra.
+Chiều dài khối thông tin (K)
+512 bit
+Số bit dữ liệu thực tế mang trong một khối mã.
+Tỷ lệ mã (Code Rate - R)
+0.5
+Tỷ số K/N, cân bằng giữa dữ liệu và bit đóng băng.
+Bộ tín hiệu thử nghiệm
+Animal, Drum, Piano, Car, Human
+Tín hiệu sinh toán học với các tính chất âm thanh khác nhau.
+Tần số lấy mẫu
+44100 Hz
+Tần số lấy mẫu chuẩn của tín hiệu âm thanh kỹ thuật số.
+Định dạng dữ liệu lượng tử
+8-bit (uint8)
+Độ phân giải biên độ của bản rõ, có giá trị từ 0 đến 255.
+Cấu trúc thuậ
+==== Tóm tắt.docx | 60000 chars ====
+Tóm tắt—Một phương pháp được đề xuất, gọi là phân cực kênh,
+để xây dựng các chuỗi mã đạt được dung lượng đối xứng
+của bất kỳ kênh không nhớ rời rạc đầu vào nhị phân nào
+(B-DMC). Dung lượng đối xứng là chiến lược cao nhất có thể đạt được
+với điều kiện sử dụng các chữ cái đầu vào của kênh với xác suất bằng nhau. Phân cực kênh đề cập đến thực tế là có thể tổng hợp, từ các bản sao độc lập của một B-DMC nhất định,
+một tập hợp thứ hai các kênh đầu vào nhị phân
+sao cho, khi trở nên lớn, tỷ lệ các chỉ số mà
+gần tiến đến và tỷ lệ mà
+gần tiến đến. Các kênh phân cực
+được điều kiện tốt cho mã hóa kênh: người ta chỉ cần
+gửi dữ liệu ở tốc độ thông qua những kênh có dung lượng gần và tốc độ
+thông qua phần còn lại. Các mã được xây dựng dựa trên ý tưởng này
+được gọi là mã cực. Bài báo chứng minh rằng, cho bất kỳ B-DMC nào
+với và bất kỳ tốc độ mục tiêu nào, tồn tại một
+chuỗi mã cực sao cho có độ dài khối
+, tốc độ và xác suất lỗi khối trong quá trình giải mã triệt tiêu liên tiếp được giới hạn bởi
+độc lập với tốc độ mã. Hiệu suất này có thể đạt được bằng
+bộ mã hóa và bộ giải mã với độ phức tạp cho mỗi bộ.
+Từ khóa—Mã đạt dung lượng, dung lượng kênh,
+phân cực kênh, cấu trúc Plotkin, mã cực, mã Reed
+Muller (RM), giải mã triệt tiêu liên tiếp.
+I. GIỚI THIỆU VÀ TỔNG QUAN
+Một khía cạnh hấp dẫn trong bằng chứng của Shannon về định lý mã hóa kênh OISy là phương pháp mã hóa ngẫu nhiên được sử dụng để chứng minh sự tồn tại của các chuỗi mã đạt được dung lượng mà không cần hiển thị bất kỳ chuỗi cụ thể nào như vậy[1].
+Việc xây dựng rõ ràng các chuỗi mã đạt được dung lượng có thể chứng minh được với độ phức tạp mã hóa và giải mã thấp hơn đã là một mục tiêu khó đạt được kể từ đó. Bài báo này là một nỗ lực để đáp ứng mục tiêu này cho lớp kênh không nhớ rời rạc đầu vào nhị phân (B-DMC).
+Chúng tôi sẽ mô tả các ý tưởng và kết quả chính của bài báo trong phần này. Đầu tiên, chúng tôi đưa ra một số định nghĩa và nêu một số sự kiện cơ bản được sử dụng xuyên suốt bài báo. Bản thảo nhận được ngày 14 tháng 10 năm 2007; sửa đổi ngày 13 tháng 8 năm 2008. Phiên bản hiện tại được xuất bản ngày 24 tháng 6 năm 2009. Công trình này được hỗ trợ một phần bởi Hội đồng Nghiên cứu Khoa học và Công nghệ Thổ Nhĩ Kỳ (TÜB˙ITAK) theo Dự án 107E216 và một phần bởi Mạng lưới Xuất sắc FP7 của Ủy ban Châu Âu NEWCOM++ theo Hợp đồng 216715. Một phần nội dung trong bài báo này đã được trình bày tại Hội nghị chuyên đề quốc tế IEEE về Lý thuyết Thông tin (ISIT), Toronto, ON, Canada, tháng 7 năm 2008.
+Tác giả thuộc Khoa Kỹ thuật Điện-Điện tử, Đại học Bilkent, Ankara, 06800, Thổ Nhĩ Kỳ (email: arikan@ee.bilkent.edu.tr). Được gửi bởi Y. Steinberg, Biên tập viên liên kết của Shannon Theory.
+Phiên bản màu của Hình 4 và 7 trong bài báo này có sẵn trực tuyến tại http://ieeexplore.ieee.org.
+Mã định danh đối tượng kỹ thuật số 10.1109/TIT.2009.2021379
+A. Phần mở đầu
+Chúng tôi viết để biểu thị B-DMC chung với
+bảng chữ cái đầu vào, bảng chữ cái đầu ra và xác suất chuyển đổi
+. Bảng chữ cái đầu vào sẽ luôn là
+, bảng chữ cái đầu ra và xác suất chuyển đổi có thể
+tùy ý. Chúng tôi viết để biểu thị kênh tương ứng
+với các lần sử dụng của ; do đó, với
+. Cho một B-DMC, có hai tham số kênh quan trọng trong bài báo này: dung lượng đối xứng và tham số Bhattacharyya. Các tham số này được sử dụng làm thước đo tốc độ và độ tin cậy, tương ứng. là tốc độ cao nhất mà tại đó giao tiếp đáng tin cậy có thể thực hiện được bằng cách sử dụng đầu vào với tần số bằng nhau. là giới hạn trên của xác suất lỗi quyết định tối đa (ML) khi chỉ được sử dụng một lần để truyền hoặc . Dễ dàng nhận thấy rằng nhận giá trị trong . Trong suốt bài viết, chúng ta sẽ sử dụng logarit cơ số; do đó, cũng sẽ nhận giá trị trong . Đơn vị cho tốc độ và dung lượng kênh sẽ là bit.
+Theo trực giác, người ta sẽ mong đợi rằng khi và chỉ khi ,
+và khi và chỉ khi . Các giới hạn sau, được chứng minh trong Phụ lục, làm cho điều này chính xác hơn. Mệnh đề 1: Đối với bất kỳ B-DMC nào, chúng ta có
+(1)
+(2)
+Dung lượng đối xứng bằng dung lượng Shannon
+khi là một kênh đối xứng, tức là một kênh mà tồn tại một hoán vị của bảng chữ cái đầu ra sao cho i)
+và ii) với mọi . Kênh đối xứng nhị phân (BSC) và kênh xóa nhị phân (BEC) là ví dụ về các kênh đối xứng. ABSC là một B-DMC
+với và
+. AB-DMC được gọi là BEC nếu với , hoặc
+hoặc . Trong trường hợp sau,
+0018-9448/$25.00©2009IEEE
+3052 IEEETRANSACTIONSONINFORMATIONTHEORY,VOL.55,NO.7,JULY2009
+Hình 1. Kênh .
+được gọi là ký hiệu xóa. Tổng của tất cả các ký hiệu xóa được gọi là xác suất xóa của BEC.
+Chúng ta ký hiệu các biến ngẫu nhiên (RV) bằng các chữ cái viết hoa, chẳng hạn như , và các giá trị thực hiện của chúng (giá trị mẫu) bằng các chữ cái viết thường tương ứng, chẳng hạn như . Đối với một RV, ký hiệu gán xác suất cho . Đối với một tập hợp chung của các RV, ký hiệu gán xác suất chung.
+Chúng ta sử dụng ký hiệu chuẩn để biểu thị thông tin tương hỗ và dạng có điều kiện của nó, tương ứng. Chúng ta sử dụng ký hiệu viết tắt để biểu thị một vectơ hàng.
+Cho một vectơ như vậy, chúng ta viết ,
+, để biểu thị vectơ con; nếu được coi là
+tránh. Cho và , chúng ta viết để biểu thị
+vectơ con . Chúng ta viết để biểu thị vectơ con
+với các chỉ số lẻ là odd . Chúng ta viết để biểu thị
+vectơ con với các chỉ số chẵn là even .
+Ví dụ, đối với , chúng ta có
+. Ký hiệu được sử dụng để biểu thị
+vectơ toàn số 0.
+Các cấu trúc mã trong bài báo này sẽ được thực hiện trong không gian vectơ
+trên trường nhị phân GF . Trừ khi được chỉ định khác,
+tất cả các vectơ, ma trận và các phép toán trên chúng sẽ nằm trên
+GF . Đặc biệt, đối với các vectơ trên GF, chúng ta viết
+để biểu thị các thành phần modulo của chúng
+m. Tích Kronecker của một ma trận x và một ma trận x được định nghĩa là
+. . . . . . . . .
+là một ma trận x. Lũy thừa Kronecker được định nghĩa là cho tất cả . Chúng ta sẽ tuân theo
+quy ước rằng .
+Chúng ta viết để biểu thị số phần tử trong một tập hợp . Chúng ta
+viết để biểu thị hàm chỉ thị của một tập hợp ; do đó,
+bằng nếu và ngược lại.
+Chúng ta sử dụng ký hiệu Landau tiêu chuẩn để
+biểu thị hành vi mptotic của các hàm.
+B. Phân
+...[MID]...
+ởi các
+tập hình trụ .Chúng ta
+định nghĩa là BF tầm thường bao gồm tập rỗng và mà thôi.
+Rõ ràng, .
+Các quá trình ngẫu nhiên được mô tả ở trên giờ đây có thể được định nghĩa chính thức
+như sau.Đối với và , định nghĩa
+và
+.Đối với , định nghĩa
+ARIKAN:PHƯƠNG PHÁP XÂY DỰNG MÃ ĐẠT NĂNG LỰC 3059
+.Rõ ràng là, đối với bất kỳ giá trị cố định nào, các biến ngẫu nhiên
+và có thể đo được đối với BF .
+A. Chứng minh Định lý 1
+Chúng ta sẽ chứng minh Định lý 1 bằng cách xem xét các tính chất hội tụ ngẫu nhiên của các dãy ngẫu nhiên và .
+Mệnh đề 8: Dãy các biến ngẫu nhiên và trường Borel là một martingale, tức là,
+và có thể đo được (39)
+(40)
+(41)
+Hơn nữa, dãy này hội tụ hầu như mọi nơi (a.e.) đến một biến ngẫu nhiên sao cho .
+Chứng minh: Điều kiện (39) đúng theo cấu trúc và (40) đúng theo
+thực tế là . Để chứng minh (41), hãy xem xét một tập hợp hình trụ
+và sử dụng Mệnh đề 7 để viết
+(42)
+Vì là giá trị của trên , (41) theo sau. Điều này hoàn thành chứng minh rằng là một martingale. Vì là một martingale tích phân đều, theo các kết quả hội tụ tổng quát về các martingale như vậy (xem, ví dụ, [9, Định lý 9.4.6]), khẳng định về được suy ra.
+Không có gì đáng ngạc nhiên khi RV giới hạn nhận các giá trị hầu khắp nơi trong , đó là các điểm cố định của dưới phép biến đổi , được xác định bởi điều kiện về đẳng thức trong (25). Để chứng minh rõ ràng hơn về tuyên bố này, chúng ta sử dụng phương pháp gián tiếp và đưa quá trình này vào bức tranh.
+Mệnh đề 9: Chuỗi các biến ngẫu nhiên và trường Borel là một siêu martingale, tức là,
+và có thể đo được (43)
+(44)
+(45)
+Hơn nữa, chuỗi này hội tụ hầu khắp nơi đến một biến ngẫu nhiên nhận các giá trị hầu khắp nơi trong . Chứng minh: Các điều kiện (43) và (44) rõ ràng được thỏa mãn. Để
+kiểm chứng (45), hãy xem xét một tập hợp hình trụ và sử dụng
+Mệnh đề 7 để viết
+Vì là giá trị của trên , (45)
+theo sau. Điều này hoàn thành chứng minh rằng là một siêu
+martingale. Đối với khẳng định thứ hai, hãy lưu ý rằng siêu martingale có thể tích phân đều; do đó, nó hội tụ hầu khắp nơi
+và trong đến một biến ngẫu nhiên như vậy
+tại (xem,
+ví dụ, [9, Định lý 9.4.5]). Từ đó suy ra
+.Nhưng, theo Mệnh đề 7, với xác suất ;
+do đó, .Như vậy,
+,điều này ngụ ý .
+Điều này, đến lượt nó, có nghĩa là bằng hoặc hầu khắp nơi.
+Mệnh đề 10: Giới hạn RV nhận các giá trị hầu khắp nơi trong tập hợp
+: và .
+Chứng minh: Thực tế là bằng hoặc hầu khắp nơi, kết hợp với
+Mệnh đề 1, ngụ ý rằng hầu khắp nơi. Vì ,
+phần còn lại của khẳng định được chứng minh.
+Là hệ quả của Mệnh đề 10, chúng ta có thể kết luận rằng, khi
+tiến tới vô cùng, các số hạng dung lượng đối xứng
+tập trung xung quanh và , ngoại trừ phân số biến mất.
+Điều này hoàn thành chứng minh của Định lý 1.
+Điều thú vị là cuộc thảo luận trên đưa ra một cách giải thích mới cho xác suất mà quá trình ngẫu nhiên hội tụ về 0. Chúng ta có thể sử dụng điều này để củng cố giới hạn dưới trong (1). (Dạng mạnh hơn này được đưa ra như một kết quả bên lề và sẽ không được sử dụng trong phần tiếp theo.) Mệnh đề 11: Đối với bất kỳ B-DMC nào, chúng ta có
+với dấu bằng khi và chỉ khi là BEC.
+Kết quả này có thể được hiểu là, trong số tất cả các
+B-DMC, BEC thể hiện sự đánh đổi tốc độ-độ tin cậy thuận lợi nhất: nó giảm thiểu (tối đa hóa độ tin cậy) trong số tất cả các kênh có dung lượng đối xứng nhất định;
+tương đương, nó giảm thiểu cần thiết để đạt được mức độ tin cậy nhất định. Chứng minh Mệnh đề 11: Xét hai kênh và
+với . Giả sử là một BEC. Khi đó,
+có xác suất bảo đảm và . Xét các
+quá trình ngẫu nhiên và tương ứng với và ,
+tương ứng. Theo điều kiện về đẳng thức trong (34), quá trình
+bị chi phối ngẫu nhiên bởi theo nghĩa là
+với mọi . Do đó,
+xác suất hội tụ về 0 bị giới hạn dưới bởi
+xác suất hội tụ về 0, tức là .
+Điều này ngụ ý .
+B. Chứng minh Định lý 2
+Bây giờ chúng ta sẽ chứng minh Định lý 2, củng cố các kết quả phân cực ở trên bằng cách xác định tỷ lệ phân cực.
+Xét không gian xác suất . Đối với , theo
+Mệnh đề 7, ta có nếu và
+nếu . Đối với
+và , định nghĩa
+cho tất cả
+Đối với và , ta có
+nếu
+nếu
+điều này ngụ ý
+3060 IEEETRANSACTIONSONINFORMAT
+...[END]...
+
+. Nút 1 lần lượt kích hoạt nút 2 để
+. Tại thời điểm này, quyền điều khiển chương trình chuyển sang nút 2, và nút 1 sẽ
+chờ cho đến khi nút 2 cung cấp LR được yêu cầu. Quá trình tiếp tục. Nút 2 kích hoạt nút 3, nút 3 kích hoạt nút 4. Nút 4 là một nút ở cấp độ kênh; vì vậy nó tính toán
+và
+chuyển kết quả đến các nút 3 và 23, các nút lân cận bên trái của nó. Nói chung, một nút sẽ gửi kết quả tính toán của nó đến tất cả các nút lân cận bên trái của nó (mặc dù điều này sẽ không được nêu rõ ràng bên dưới). Quyền điều khiển chương trình sẽ được chuyển trở lại nút lân cận bên trái mà nó được nhận.
+Nút 3 vẫn cần dữ liệu từ phía bên phải và kích hoạt nút 5, nút này sẽ cung cấp
+. Nút 3 tổng hợp
+từ các
+thông điệp mà nó nhận được từ các nút 4 và 5 và gửi đến nút
+2. Tiếp theo, nút 2 kích hoạt nút 6, nút này kích hoạt các nút 7 và 8,
+và trả về kết quả cho nút 2. Nút 2 biên dịch phản hồi của nó
+và gửi đến nút 1. Nút 1 kích hoạt nút 9, nút này tính toán
+theo cùng một cách như nút 2 đã tính toán
+và trả về kết quả cho nút 1. Nút 1 bây giờ tổng hợp
+và gửi đến DE 1. Vì
+bỏ qua LR đã nhận, nên khai báo
+DE 2, nằm cạnh nút 16.
+DE 2 kích hoạt nút 16 cho
+bles
+là một nút bị đóng băng, DE 1
+và chuyển quyền điều khiển cho
+. Nút 16 tổng hợp
+từ các LR đã nhận được
+và
+và trả về phản hồi mà không kích hoạt bất kỳ nút nào. DE 2 bỏ qua LR được trả về vì
+đã bị đóng băng, thông báo
+và chuyển quyền điều khiển cho DE 3.
+DE 3 kích hoạt nút 17 cho
+. Điều này kích hoạt các yêu cầu LR
+tại các nút 18 và 19, nhưng không xa hơn nữa. Bit
+không bị đóng băng; do đó, quyết định
+là
+được đưa ra theo
+và quyền điều khiển được chuyển cho DE 4. DE 4 kích hoạt
+nút 20 cho
+, được lắp ráp sẵn và
+được trả về. Thuật toán tiếp tục theo cách này cho đến khi cuối cùng
+DE 8 nhận được
+và quyết định.
+Có một số quan sát có thể được thực hiện bằng cách
+xem xét ví dụ này, điều này sẽ cung cấp thêm hiểu biết về
+thuật toán giải mã tổng quát. Đầu tiên, hãy lưu ý rằng việc tính toán
+của
+được thực hiện trong một cây con có gốc tại nút 1, bao gồm
+các đường dẫn đi từ trái sang phải và sp
+tô sáng tất cả các nút
+ở cấp độ kênh. Cây con này chia thành hai cây con rời rạc, cụ thể là cây con có gốc tại nút 2 để tính toán
+và cây con có gốc tại nút 9 để tính toán
+. Vì hai cây con này rời rạc, nên các phép tính tương ứng có thể được thực hiện độc lập (thậm chí song song nếu có nhiều bộ xử lý). Việc chia các cây con tính toán thành các cây con rời rạc này áp dụng cho tất cả các nút trong đồ thị
+(ngoại trừ các nút ở cấp độ kênh), giúp có thể triển khai bộ giải mã với mức độ song song cao.
+Thứ hai, chúng ta nhận thấy rằng đồ thị bộ giải mã bao gồm các hình bướm (đồ thị hai phía hoàn chỉnh -by-) liên kết các cấp độ liền kề của đồ thị. Ví dụ, các nút 9, 19, 10 và 13 tạo thành một hình bướm. Các cây con tính toán có gốc tại các nút 9 và
+19 tách thành một cặp cây con tính toán duy nhất, một cây có gốc tại nút 10, cây kia tại nút 13. Cũng lưu ý rằng trong số bốn nút của một con bướm, nút trên bên trái luôn là nút đầu tiên được kích hoạt bởi thuật toán tìm kiếm theo chiều sâu ở trên và nút dưới bên trái luôn là nút cuối cùng. Các nút trên bên phải và dưới bên phải được kích hoạt bởi nút trên bên trái và chúng có thể được kích hoạt theo bất kỳ thứ tự nào hoặc thậm chí song song. Thuật toán mà chúng tôi đã chỉ định luôn kích hoạt nút trên bên phải trước, nhưng lựa chọn này là tùy ý.
+Khi nút dưới bên trái được kích hoạt, nó tìm thấy các LR từ các nút lân cận bên phải của nó sẵn sàng để lắp ráp. Nút trên bên trái lắp ráp các LR mà nó nhận được từ phía bên phải như trong công thức (75), nút dưới bên trái như trong (76). Các công thức này cho thấy rằng các mô hình hình bướm đặt ra một ràng buộc về thời gian hoàn thành của các phép tính LR: trong bất kỳ hình bướm nào, nút dưới bên trái cần phải đợi kết quả của nút trên bên trái, nút này đến lượt nó cần phải đợi kết quả của các nút bên phải.
+Có thể có các biến thể của bộ giải mã trong đó các phép tính của nút được lên lịch khác nhau. Trong cách triển khai “từ trái sang phải” được 
+==== Seminar học viện_2026.docx | 60000 chars ====
+BAN CƠ YẾU CHÍNH PHỦ
+HỌC VIỆN KỸ THUẬT MẬT MÃ
+BÁO CÁO CHUYÊN ĐỀ 
+ĐỀ TÀI: Nghiên cứu kỹ thuật mã hóa dữ liệu dựa vào mã phân cực kết hợp khóa bí mật sinh ra từ đặc tính kênh truyền vô tuyến cho hệ thống thông tin vô tuyến
+(Crypto-coding technique based on polar code and secret key generated from wireless channel characteristics for wireless communication systems)
+Báo cáo viên thực hiện:  TS. Đinh Văn Linh 
+                                           ThS. Phạm Thúy An  
+Hà Nội, Tháng 04/2026
+MỤC LỤC
+MỤC LỤC2
+DANH MỤC CÁC KÝ HIỆU, CÁC CHỮ VIẾT TẮT5
+DANH MỤC HÌNH VẼ7
+DANH MỤC BẢNG BIỂU9
+LỜI MỞ ĐẦU10
+CHƯƠNG 1: CƠ SỞ LÝ THUYẾT VỀ MÃ PHÂN CỰC VÀ KỸ THUẬT CHỐNG TẤN CÔNG NGHE LÉN12
+1.1 Tấn công nghe lén trên kênh vô tuyến12
+1.1.1 Đặc tính vật lý của kênh vô tuyến trong môi trường 5G12
+1.1.2 Mô hình kênh nghe nén12
+1.1.3 Phân loại tấn công nghe lén13
+1.2 Các kỹ thuật chống tấn công nghe lén13
+1.2.1 Bảo mật bằng mật mã truyền thống13
+1.2.2 Bảo mật lớp vật lý13
+1.3 Lý thuyết mã kênh và mã hóa bảo mật14
+1.3.1 Khái niệm mã kênh và ứng dụng trong truyền thông14
+1.3.2 Mối liên hệ giữa mã hóa bảo mật và mã kênh15
+1.3.3 Xu hướng tích hợp mã hóa và mã sửa lỗi (Crypto-coding)16
+1.4 Giới thiệu chung về mã phân cực17
+1.5 Nguyên lí phân cực kênh18
+1.5.1 Kênh B-DMC được mô tả bởi:18
+1.5.2 Qúa trình kết hợp và tách kênh18
+1.5.3 Hiện tương phân cực19
+1.6 Cấu trúc mã phân cực19
+1.7 Giải mã phân cực22
+1.8 Đánh giá ưu, nhược điểm của mã phân cực23
+1.9 Cấu trục mã phân cực trong thực tế24
+1.9.1 Vai trò của mã phân cực trong 5G NR24
+1.9.2 Quy trình mã hóa phân cực trong 5G NR24
+1.9.3 Lựa chọn tập bit đóng băng25
+1.9.4 Độ dài mã và tốc độ mã trong 5G NR25
+1.9.5 Ưu điểm triển khai trong 5G NR26
+1.10 Ứng dụng của mã phân cực26
+1.10.1 Hệ thống thông tin di động 5G27
+1.10.2 Hệ thống truyền thông vệ tinh và không gian27
+1.10.3 Mạng cảm biến không dây (wireless sensor networks - WSN)28
+1.10.4 Hệ thống truyền thông tốc độ cao29
+1.10.5 Truyền thông trong môi trường IoT30
+1.10.6 Liên lạc âm học dưới nước30
+1.11 Kết luận32
+CHƯƠNG 2: ĐỀ XUẤT THUẬT TOÁN MÃ HÓA CHỐNG NGHE LÉN DỰA TRÊN MÃ PHÂN CỰC33
+2.1 Mô hình hệ thống thông tin vô tuyến truyền thống33
+2.2 Kỹ thuật mã hóa dữ liệu và mã hóa kênh trên cùng một bước(Crypto- coding)33
+2.3 Kiến trúc mã hóa đề xuất35
+2.3.1 Cơ chế dẫn xuất khóa con và cấu trúc phân cấp (AES-CTR)36
+2.3.2 Cơ chế tạo khóa và hệ thống phân cấp khóa37
+2.3.3 Quy trình mã hóa và xử lý dữ liệu38
+2.3.4 Quy trình giải mã tại phía thu41
+2.4 Hiệu quả vận hành và tính thực tế43
+2.4.1 Ưu điểm về hiệu năng phần cứng44
+2.5 Kết luận45
+CHƯƠNG 3: KẾT QỦA THỰC NGHIỆM VÀ ĐÁNH GIÁ46
+3.1 Giới thiệu phần mềm MATLAB46
+3.2 Thiết lập môi trường mô phỏng và đánh giá tính ngẫu nhiên của khóa47
+3.3 Đánh giá khả năng sửa lỗi của phương pháp đề xuất50
+3.4 Hiệu suất bảo mật52
+3.5 Độ phức tạp tính toán54
+3.6 Kết luận và hướng phát triển56
+TÀI LIỆU THAM KHẢO58
+DANH MỤC CÁC KÝ HIỆU, CÁC CHỮ VIẾT TẮT
+Viết tắt
+Tiếng Anh
+Tiếng Việt
+5G NR
+5G New Radio
+Tiêu chuẩn vô tuyến mới cho mạng 5G
+AES
+Advanced Encryption Standard
+Chuẩn mã hóa tiên tiến
+AWGN
+Additive White Gaussian Noise
+Nhiễu trắng cộng tính Gaussian
+B-DMC
+Binary-Input Discrete Memoryless Channel
+Kênh nhị phân đầu vào rời rạc không nhớ
+BER
+Bit Error Rate
+Tỷ lệ lỗi bit
+CIR
+Channel Impulse Response
+Đáp ứng xung kênh
+CRC
+Cyclic Redundancy Check
+Kiểm tra dư thừa vòng
+CTR
+Counter Mode
+Chế độ bộ đếm
+CSI 
+Channel State Information
+Thông tin trạng thái kênh
+GM
+Generator Matrix
+Ma trận sinh
+IV
+Initialization Vector
+Vector khởi tạo
+KDF
+Key Derivation Function
+Hàm dẫn xuất khóa
+KPA
+Known-Plaintext Attack
+Tấn công bản rõ đã biết
+LDPC
+Low-Density Parity-Check
+Mã kiểm tra chẵn lẻ mật độ thấp
+NIST
+National Institute of Standards and Technology
+Viện Tiêu chuẩn và Công nghệ Quốc gia Hoa Kỳ
+NSCR
+Number of Samples Change Rate
+Tỷ lệ thay đổi mẫu
+PLS
+Physical Layer Security
+Bảo mật lớp vật lý
+PBCH
+Physical Broadcast Channel
+Kênh quảng bá vật lý
+PDCCH
+Physical Downlink Control Channel
+Kênh điều khiển đường xuống vật lý
+PSNR
+Peak Signal-to-Noise Ratio
+Tỷ lệ tín hiệu cực đại trên nhiễu
+PUCCH
+Physical Uplink Control Channel
+Kênh điều khiển đường lên vật lý
+SC
+Successive Cancellation
+Giải mã hủy liên tiếp
+SCL
+Successive Cancellation List
+Giải mã danh sách hủy liên tiếp
+SNR
+Signal-to-Noise Ratio
+Tỷ lệ tín hiệu trên nhiễu
+TDD
+Time Division Duplexing
+Song công phân chia theo thời gian
+UACI
+Unified Average Changed Intensity
+Cường độ thay đổi trung bình thống nhất
+URLLC
+Ultra-Reliable and Low Latency Communications
+Truyền thông siêu tin cậy và độ trễ thấp
+WSN
+Wireless Sensor Networks
+Mạng cảm biến không dây
+DANH MỤC HÌNH VẼ
+Hình 1.1. Mô hình hệ thống13
+Hình 1.2. Cấu hình kênh  21
+Hình 1.3. Cấu hình chung của kênh 22
+Hình 1.4. Ứng dụng của mã cực trong mạng 5G27
+Hình 1.5. Truyền thông vệ tinh và không gian28
+Hình 1.6. Mạng cảm biến không dây29
+Hình 1.7. Mạng liên lạc IoT30
+Hình 1.8. Minh họa liên lạc dưới nước của AUV31
+Hình 2.1. Các hệ thống thông tin liên lạc đa anten truyền thống33
+Hình 2.2. Các hệ thống truyền thông áp dụng kỹ thuật mã hóa mật mã34
+Hình 2.3. Đảm bảo liên lạc an toàn giữa Alice và Bob35
+Hình 2.4. Mô hình tổng quát của phương pháp đề xuất36
+Hình 2.5. Sơ đồ khối của kiến trúc mã hóa chung được đề xuất.41
+Hình 2.6. Sơ đồ quán trình xử lý giải mã44
+Hình 3.1. Các tính năng của MATLAB47
+Hình 3.2. Tỷ lệ lỗi bit (BER) của các hệ thống sử dụng mã cực thông thường và mã cực bảo mật được đề xuất trong trường hợp N = 1024 và R đã được sửa đổi.53
+Hình 3.3. Tỷ lệ lỗi bit (BER) của các hệ thống sử dụng mã cực thông thường và mã cực bảo mật được đề xuất trong trường hợp và R đã được sửa đổi53
+Hình 3.4. Tỷ lệ lỗi bit (BER) của các hệ thống sử dụng mã cực thông thường và mã cực bảo mật được đề xuất trong trường hợp R = 1/4 và N đã được sửa đổi.54
+Hình 3.5. Tỷ lệ lỗi bit (BER) của các hệ thống sử dụng mã cực thông thường và mã cực bảo mật được đề xuất trong trường hợp R = 1/8 và N đã được sửa đổi.54
+Hình 3.6. Hiệu suất bảo mật cho , .55
+Hình 3.7. Hiệu suất bảo mật cho  55
+DANH MỤC BẢNG BIỂU
+Bảng 1. Các thông số cho một 
+...[MID]...
+a trên một thứ tự độ tin cậy (reliability sequence) đã được chuẩn hóa sẵn trong các tài liệu kỹ thuật của 3GPP.
+-  Khả năng thích ứng linh hoạt: Điểm ưu việt của phương pháp này nằm ở tính tùy biến cao; khi có sự thay đổi về tốc độ mã (code rate) hoặc độ dài khối (block length), bộ chọn bit chỉ cần căn cứ vào chuỗi độ tin cậy sẵn có để trích xuất ra các vị trí tối ưu nhất cho việc truyền tải thông tin hữu ích.
+-  Chuỗi này được tính toán từ trước thông qua mô phỏng trên kênh AWGN ở nhiều mức SNR và lưu cố định trong tiêu chuẩn.
+1.9.4 Độ dài mã và tốc độ mã trong 5G NR
+Trong 5G NR, độ dài mã Polar N và tốc độ mã R được thiết kế linh hoạt:
+-  Độ dài mã N: được chọn là lũy thừa của 2, từ 32 đến 1024.
+- Tốc độ mã R:
+với  K  là số bit thông tin ( bao gồm cả CRC) tốc độ mã có thể điều chỉnh thông qua puncturing hoặc shortening.
+1.9.5 Ưu điểm triển khai trong 5G NR
+Việc lựa chọn mã phân cực (Polar Codes) làm tiêu chuẩn cho các kênh điều khiển trong 5G New Radio không phải là ngẫu nhiên, mà xuất phát từ những lợi thế công nghệ vượt trội so với các kỹ thuật truyền thống.
+Trước hết, mã Polar thể hiện khả năng tối ưu hóa đặc biệt cho độ dài khối ngắn, nơi mà hiệu suất của nó được chứng minh là cao hơn đáng kể so với mã Turbo và LDPC. Điều này rất quan trọng vì các thông tin điều khiển thường có kích thước nhỏ nhưng yêu cầu độ chính xác tuyệt đối. Bên cạnh đó, mã Polar đáp ứng hoàn hảo các tiêu chuẩn về độ trễ thấp, một yếu tố sống còn để hiện thực hóa các dịch vụ truyền thông siêu tin cậy và độ trễ thấp (URLLC) trong hệ sinh thái 5G.
+Một ưu điểm quan trọng khác là tính linh hoạt và khả năng thích ứng cao, cho phép hệ thống dễ dàng thay đổi tốc độ mã và độ dài khối mã thông qua các kỹ thuật như shortening hoặc puncturing để phù hợp với các điều kiện kênh truyền biến động. Cuối cùng, về mặt thực thi kỹ thuật, mã Polar rất phù hợp với các kiến trúc phần cứng hiện đại. Với cấu trúc mã hóa và giải mã dựa trên sơ đồ dạng cây, loại mã này cho phép triển khai các thuật toán xử lý song song, từ đó tối ưu hóa tốc độ xử lý và tiết kiệm năng lượng cho thiết bị.
+1.10 Ứng dụng của mã phân cực
+Mã phân cực (polar codes) đã được chứng minh là một trong những phương pháp mã hóa kênh   tiên tiến và hiệu quả nhất hiện nay, với khả năng đạt hiệu suất gần giới hạn Shannon trong nhiều kịch bản truyền thông khác nhau. Từ khi được Arıkan giới thiệu vào năm 2009, mã phân cực đã được triển khai trong nhiều hệ thống thông tin di động và truyền thông số, đặc biệt là trong các chuẩn thế hệ mới. Một số ứng dụng tiêu biểu bao gồm:
+1.10.1 Hệ thống thông tin di động 5G
+Trong tiêu chuẩn 5G New Radio (5G NR) của 3GPP, mã phân cực được lựa chọn cho việc mã hóa các kênh điều khiển (Control Channels) thay cho các phương pháp mã hóa truyền thống như Turbo Codes hay BCH. Cụ thể:
+-  Downlink Control Information (DCI) và Uplink Control Information (UCI) được mã hóa bằng polar codes để đảm bảo độ tin cậy cao và độ trễ thấp.
+-   Mã phân cực trong 5G NR được sử dụng kết hợp với cơ chế rate matching và CRC-aided successive cancellation list (CA-SCL) decoding để cải thiện khả năng giải mã và chống lỗi.
+-   So với các phương pháp trước đây, mã phân cực trong 5G mang lại hiệu suất tốt hơn ở dải tốc độ dữ liệu thấp đến trung bình, đồng thời giảm độ phức tạp giải mã.
+Hình 1.4. Ứng dụng của mã cực trong mạng 5G
+1.10.2 Hệ thống truyền thông vệ tinh và không gian
+Trong các hệ thống truyền thông vệ tinh và truyền thông không gian sâu, yêu cầu về độ tin cậy cực cao trong điều kiện kênh truyền nhiễu mạnh và độ trễ lớn là thách thức quan trọng. Mã phân cực được sử dụng để:
+-  Giảm tỷ lệ lỗi bit (BER) xuống mức cực thấp, phù hợp cho các nhiệm vụ điều khiển tàu vũ trụ hoặc truyền dữ liệu khoa học.
+-  Tận dụng cấu trúc mã hóa có khả năng song song hóa cao, giảm thời gian xử lý ở các bộ thu trong môi trường tài nguyên hạn chế.
+Hình 1.5. Truyền thông vệ tinh và không gian
+1.10.3 Mạng cảm biến không dây (wireless sensor networks - WSN)
+Việc ứng dụng mã phân cực trong mạng WSN không chỉ dừng lại ở việc
+...[END]...
+256 bit, 512 bit, 1024 bit và 2048 bit, vì các độ dài khóa này lớn hơn 100 bit, có thể cung cấp khả năng bảo vệ mạnh mẽ chống lại các cuộc tấn công vét cạn [32]. Các khóa này được đánh giá thông qua 8 bài kiểm tra NIST [33] với một số tham số thử nghiệm được hiển thị trong Bảng 1. Chúng tôi cần đặt thêm các tham số về độ dài khối cho các bài kiểm tra NIST bao gồm Tần suất khối, Entropy xấp xỉ và Số thứ tự. Đối với năm bài kiểm tra NIST còn lại, chúng tôi chỉ cần đặt độ dài khóa tương ứng khi chạy kết quả. Kết quả đánh giá được hiển thị trong Bảng 2. Nó cho thấy tất cả các giá trị được kiểm tra theo NIST đều lớn hơn 0,01. Do đó, các khóa bí mật được đề xuất đảm bảo tính ngẫu nhiên.
+Bảng 1. Các thông số cho một số bài kiểm tra của NIST
+Kiểm tra NIST 
+Độ dài khối
+Tần số khối
+128
+Entropy xấp xỉ
+10
+Số nối tiếp
+4
+Bảng 2. Các giá trị đã kiểm tra của các bài kiểm tra NIST bắt buộc
+Kiểm tra
+128 bits
+256 bits
+512 bits
+1024 bits
+2048 bits
+Bit đơn
+1
+1
+1
+1
+1
+Tần số khối
+0.85
+0.71
+0.25
+0.88
+0.63
+Chạy
+0.42
+0.55
+0.48
+0.62
+0.70
+Chuỗi số 1 dài nhất
+0.49
+0.92
+0.63
+0.78
+0.38
+Biến đổi Fourier rời rạc
+0.76
+0.20
+0.36
+0.41
+0.28
+Số nối tiếp
+Số nối tiếp 1
+0.56
+0.61
+0.45
+0.77
+0.33
+Số nối tiếp 2
+0.23
+0.78
+0.43
+0.52
+0.82
+Entropy xấp xỉ
+1
+1
+1
+1
+1
+Tổng tích lũy
+0.98
+0.83
+0.72
+0.95
+0.85
+Trong nghiên cứu này, các hệ thống áp dụng phương pháp đề xuất của chúng tôi được mô phỏng bằng MATLAB 2020A, được cài đặt trên máy tính cá nhân với CPU Intel(R) Core(TM) i7-7500U @ 2.9 GHz, RAM 16.0 GB. Các thông số mô phỏng được trình bày trong Bảng 3.
+Bảng 3. Các thông số mô phỏng
+Mục
+Thông số kỹ thuật 
+Độ dài mã (N)
+128, 256, 512, 1024, 2048 bits
+Độ dài khóa
+128, 256, 512, 1024, 2048 bits
+Tốc độ mã (R)
+1/2, 1/4, 1/8
+Kênh
+AWGN
+Thuật toán giải mã
+SC
+Sơ đồ điều chế
+BPSK
+Khi chạy mô phỏng, độ dài khóa được chọn phải tương ứng với độ dài mã. Ví dụ, chúng ta chọn độ dài khóa là 128, 256, 512, 1024 và 2048 bit cho độ dài mã tương ứng là 128, 256, 512, 1024 và 2048 bit. Ngoài ra, để dễ biểu diễn trong các hình minh họa, trong các đánh giá hiệu năng khác nhau, chúng ta chọn các độ dài khóa/độ dài mã và tỷ lệ mã khác nhau như sau:
+• Để đánh giá khả năng sửa lỗi của phương pháp đề xuất, chúng tôi đưa ra 2 kịch bản:
+Kịch bản 1: độ dài mã và độ dài khóa là 1024 bit và 2048 bit không thay đổi trong mỗi trường hợp. Sau đó, chúng ta sửa đổi tỷ lệ mã là 1/2 và 1/4.
+Kịch bản 2: Tỷ lệ mã là 1/4 và 1/8 không thay đổi trong mỗi trường hợp. Sau đó, chúng ta sửa đổi độ dài mã và độ dài khóa là 128 bit và 512 bit.
+- Để đánh giá hiệu suất bảo mật, chúng tôi mô phỏng với độ dài mã/độ dài khóa là 128 bit và tốc độ mã hóa là 1/2, và độ dài mã/độ dài khóa là 256 bit và tốc độ mã hóa là 1/4.
+- Để đánh giá độ phức tạp tính toán, chúng tôi thực hiện với tất cả các độ dài mã/độ dài khóa là 128, 256, 512, 1024, 2048 bit với tốc độ mã hóa là 1/2.
+Kênh truyền sử dụng trong mô phỏng là AWGN (Additive White Gaussian Noise), một mô hình phổ biến để mô phỏng nhiễu ngẫu nhiên trắng Gaussian.
+SNR (Signal-to-Noise Ratio) được thiết lập ở mức: Eb/N0 = 10 dB 
+Dựa vào tỷ lệ mã và SNR, nhóm tính được phương sai nhiễu (noise variance) như sau:
+Ngoài mức Eb/N0 cố định 10 dB, mô phỏng còn được thực hiện với nhiều giá trị SNR khác nhau: 2 dB, 4 dB, 6 dB, 8 dB, 10 dB...
+Việc thay đổi Eb/N0 giúp:
+Xác định ngưỡng Eb/N0 tối thiểu để đảm bảo truyền dữ liệu thành công.
+Đánh giá khả năng khôi phục ảnh trong điều kiện kênh nhiễu khác nhau.
+So sánh hiệu suất mã hóa giữa các mức độ nhiễu
+3.3 Đánh giá khả năng sửa lỗi của phương pháp đề xuất
+ Để đánh giá hiệu suất của mã cực an toàn được đề xuất, các hệ thống được mô phỏng thông qua kênh AWGN trong hai trường hợp nghiên cứu, bao gồm thay đổi tốc độ mã và độ dài mã. Hiệu suất tỷ lệ lỗi bit (BER) của hệ thống sử dụng phương pháp được đề xuất sẽ được so sánh với hiệu suất sử dụng mã cực thông thường trong mỗi kịch bản.
+Kịch bản 1: Chúng ta giữ độ dài mã và độ dài khóa là 1024 bit và 2048 bit, sau đó sửa đổi tốc độ mã thành 1/2 và 1/4. Hiệu suất BER của độ dài mã 1024 và 2048 được hiển 
